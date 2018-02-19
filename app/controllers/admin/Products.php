@@ -13,6 +13,7 @@ class Products extends MY_Controller
         $this->lang->admin_load('products', $this->Settings->user_language);
         $this->load->library('form_validation');
         $this->load->admin_model('products_model');
+        $this->load->admin_model('auth_model');
         $this->digital_upload_path = 'files/';
         $this->upload_path = 'assets/uploads/';
         $this->thumbs_path = 'assets/uploads/thumbs/';
@@ -24,6 +25,7 @@ class Products extends MY_Controller
 
     function index($warehouse_id = NULL)
     {
+
         $this->sma->checkPermissions();
 
         $this->data['error'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('error');
@@ -36,7 +38,6 @@ class Products extends MY_Controller
             $this->data['warehouse_id'] = $this->session->userdata('warehouse_id');
             $this->data['warehouse'] = $this->session->userdata('warehouse_id') ? $this->site->getWarehouseByID($this->session->userdata('warehouse_id')) : NULL;
         }
-
         $this->data['supplier'] = $this->input->get('supplier') ? $this->site->getCompanyByID($this->input->get('supplier')) : NULL;
         $bc = array(array('link' => base_url(), 'page' => lang('home')), array('link' => '#', 'page' => lang('products')));
         $meta = array('page_title' => lang('products'), 'bc' => $bc);
@@ -120,6 +121,100 @@ class Products extends MY_Controller
         $this->datatables->add_column("Actions", $action, "productid, image, code, name");
         echo $this->datatables->generate();
     }
+
+    function borrowed($warehouse_id = NULL)
+    {
+        $this->sma->checkPermissions();
+
+        $this->data['error'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('error');
+        if ($this->Owner || $this->Admin || !$this->session->userdata('warehouse_id')) {
+            $this->data['warehouses'] = $this->site->getAllWarehouses();
+            $this->data['warehouse_id'] = $warehouse_id;
+            $this->data['warehouse'] = $warehouse_id ? $this->site->getWarehouseByID($warehouse_id) : NULL;
+        } else {
+            $this->data['warehouses'] = NULL;
+            $this->data['warehouse_id'] = $this->session->userdata('warehouse_id');
+            $this->data['warehouse'] = $this->session->userdata('warehouse_id') ? $this->site->getWarehouseByID($this->session->userdata('warehouse_id')) : NULL;
+        }
+        $this->data['supplier'] = $this->input->get('supplier') ? $this->site->getCompanyByID($this->input->get('supplier')) : NULL;
+        $bc = array(array('link' => base_url(), 'page' => lang('home')), array('link' => admin_url('products'), 'page' => lang('products')), array('link' => '#', 'page' => lang('Borrowed_Products')));
+        $meta = array('page_title' => lang('products'), 'bc' => $bc);
+        $this->page_construct('products/borrowed', $meta, $this->data);
+    }
+
+    function getBorrowedProduts($warehouse_id = NULL)
+    {  
+        $this->load->library('datatables');
+
+        $this->datatables
+            ->select("
+                {$this->db->dbprefix('product_borrowed')}.pb_id as pb_id, 
+                {$this->db->dbprefix('product_borrowed')}.userid as userid, 
+                CONCAT({$this->db->dbprefix('users')}.first_name,  ' ', {$this->db->dbprefix('users')}.last_name) as 'User Name',
+                {$this->db->dbprefix('product_borrowed')}.product_id as product_id, 
+                {$this->db->dbprefix('products')}.name as 'Product Name',
+                {$this->db->dbprefix('product_borrowed')}.price as price,
+                {$this->db->dbprefix('product_borrowed')}.borrowed_date as 'borrowed_date',
+                {$this->db->dbprefix('product_borrowed')}.return_date as 'Returned Date',                
+                {$this->db->dbprefix('product_borrowed')}.status as Status,",
+                 FALSE
+            )
+            ->join('users', 'product_borrowed.userid=users.id', 'left')
+            ->join('products', 'product_borrowed.product_id=products.id', 'left')
+            ->from('product_borrowed');
+
+        $this->datatables->add_column(
+            "Actions", 
+            "<div class=\"text-center\">
+                <a href='" . admin_url('products/edit_borrowed/$1') . "' data-toggle='modal' data-target='#myModal' class='tip' title='" . lang("edit") . "'>
+                    <i class=\"fa fa-edit\"></i>
+                </a> 
+                <a href='#' class='tip po' title='<b>" . lang("delete") . "</b>' data-content=\"<p>" . lang('r_u_sure') . "</p>
+                    <a class='btn btn-danger po-delete' href='" . admin_url('products/delete_borrowed/$1') . "'>" 
+                    . lang('i_m_sure') . "</a> 
+                    <button class='btn po-close'>" . lang('no') . "</button>\"  rel='popover'><i class=\"fa fa-trash-o\"></i></a></div>", 
+            "pb_id");
+        echo $this->datatables->generate();
+        }
+
+    function product_borrow()
+    {
+        $this->form_validation->set_rules('product_id', lang("product"), 'required');
+        $this->form_validation->set_rules('user_id', lang("user"), 'required');
+        $this->form_validation->set_rules('return_date', lang("Return_Date"), 'required');        
+
+        if ($this->form_validation->run() == true) {
+            
+            $date = DateTime::createFromFormat('d/m/Y', $this->input->post('return_date'));
+            
+            $data = array(
+                'product_id' => $this->input->post('product_id'),
+                'userid' => $this->input->post('user_id'),
+                'borrowed_date' => date('Y-m-d'),
+                'return_date' => $date->format('Y-m-d'),
+                'status' => 'borrowed',
+            );
+        } elseif ($this->input->post('save')) {
+            
+            $this->session->set_flashdata('error', validation_errors());
+            admin_redirect("products/borrowed");
+        }
+
+        if ($this->form_validation->run() == true && $this->products_model->addBorrowed($data)) {
+            $this->session->set_flashdata('message', lang("Successfully_Added"));
+            admin_redirect("products/borrowed");
+        } else {
+
+            $this->data['error'] = validation_errors() ? validation_errors() : $this->session->flashdata('error');
+            $this->data['products'] = $this->products_model->getAllProducts();
+            $this->data['users'] = $this->auth_model->getAllUsers();
+            $this->data['modal_js'] = $this->site->modal_js();
+            $this->load->view($this->theme . 'products/product_borrow', $this->data);
+
+        }
+    }
+
+    
 
     function set_rack($product_id = NULL, $warehouse_id = NULL)
     {
@@ -1042,6 +1137,45 @@ class Products extends MY_Controller
         }
     }
 
+    function edit_borrowed($id = NULL)
+    {
+        $this->form_validation->set_rules('product_id', lang("product"), 'required');
+        $this->form_validation->set_rules('user_id', lang("user"), 'required');
+        $this->form_validation->set_rules('return_date', lang("Return_Date"), 'required');        
+
+        $borrowed_details = $this->site->getBorrowedByID($id);
+
+        if ($this->form_validation->run() == true) {
+            
+            $date = DateTime::createFromFormat('d/m/Y', $this->input->post('return_date'));
+            
+            $data = array(
+                'product_id' => $this->input->post('product_id'),
+                'userid' => $this->input->post('user_id'),
+                'borrowed_date' => date('Y-m-d'),
+                'return_date' => $date->format('Y-m-d'),
+                'status' => 'borrowed',
+            );
+        } elseif ($this->input->post('save')) {
+            
+            $this->session->set_flashdata('error', validation_errors());
+            admin_redirect("products/borrowed");
+        }
+
+        if ($this->form_validation->run() == true && $this->products_model->updateBorrowed($id, $data)) {
+            $this->session->set_flashdata('message', lang("Successfully_Updated"));
+            admin_redirect("products/borrowed");
+        } else {
+
+            $this->data['error'] = validation_errors() ? validation_errors() : $this->session->flashdata('error');
+            $this->data['products'] = $this->products_model->getAllProducts();
+            $this->data['users'] = $this->auth_model->getAllUsers();
+            $this->data['modal_js'] = $this->site->modal_js();
+            $this->data['borrowed'] = $borrowed_details;
+            $this->load->view($this->theme . 'products/product_borrow_edit', $this->data);
+        }
+    }
+
     /* ---------------------------------------------------------------- */
 
     function import_csv()
@@ -1273,6 +1407,24 @@ class Products extends MY_Controller
         }
 
     }
+
+    function delete_borrowed($id = NULL)
+    {
+        $this->sma->checkPermissions(NULL, TRUE);
+
+        if ($this->input->get('id')) {
+            $id = $this->input->get('id');
+        }
+
+        if ($this->products_model->deleteProductBorrowed($id)) {
+           
+            if($this->input->is_ajax_request()) {
+                $this->sma->send_json(array('error' => 0, 'msg' => lang("Borrowed Order Deleted")));
+            }
+            $this->session->set_flashdata('message', lang('Borrowed Order Deleted'));
+            admin_redirect('welcome');
+        }
+     }
 
     /* ----------------------------------------------------------------------------- */
 

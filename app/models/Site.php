@@ -1070,6 +1070,14 @@ class Site extends CI_Model
         return FALSE;
     }
 
+    public function getBorrowedByID($id) {
+        $q = $this->db->get_where("product_borrowed", array('pb_id' => $id), 1);
+        if ($q->num_rows() > 0) {
+            return $q->row();
+        }
+        return FALSE;
+    }
+
     public function getPriceGroupByID($id) {
         $q = $this->db->get_where('price_groups', array('id' => $id), 1);
         if ($q->num_rows() > 0) {

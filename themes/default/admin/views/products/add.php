@@ -129,10 +129,14 @@ if (!empty($variants)) {
                         <?= lang("brand", "brand") ?>
                         <?php
                         $br[''] = "";
-                        foreach ($brands as $brand) {
-                            $br[$brand->id] = $brand->name;
+                        if ($brands == false) {
+                            
+                        } else {
+                            foreach ($brands as $brand) {
+                                $br[$brand->id] = $brand->name;
+                            }
                         }
-                        echo form_dropdown('brand', $br, (isset($_POST['brand']) ? $_POST['brand'] : ($product ? $product->brand : '')), 'class="form-control select" id="brand" placeholder="' . lang("select") . " " . lang("brand") . '" style="width:100%"')
+                        echo form_dropdown('brand', $br, (isset($_POST['brand']) ? $_POST['brand'] : ($product ? $product->brand : '')), 'class="form-control select" id="brand" placeholder="' . lang("select") . " " . lang("brand") . '" style="width:100%"');
                         ?>
                     </div>
                     <div class="form-group all">
@@ -156,8 +160,12 @@ if (!empty($variants)) {
                         <?= lang('product_unit', 'unit'); ?>
                         <?php
                         $pu[''] = lang('select').' '.lang('unit');
-                        foreach ($base_units as $bu) {
-                            $pu[$bu->id] = $bu->name .' ('.$bu->code.')';
+                        if ($base_units == false) {
+                            
+                        } else {
+                            foreach ($base_units as $bu) {
+                                $pu[$bu->id] = $bu->name .' ('.$bu->code.')';
+                            }
                         }
                         ?>
                         <?= form_dropdown('unit', $pu, set_value('unit', ($product ? $product->unit : '')), 'class="form-control tip" id="unit" required="required" style="width:100%;"'); ?>

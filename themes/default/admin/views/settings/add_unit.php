@@ -22,8 +22,12 @@
                 <?= lang('base_unit', 'base_unit'); ?>
                 <?php 
                 $opts[0] = lang('select').' '.lang('unit');
-                foreach ($base_units as $bu) {
-                    $opts[$bu->id] = $bu->name .' ('.$bu->code.')';
+                if ($base_units == false) {
+                            
+                } else {
+                    foreach ($base_units as $bu) {
+                        $opts[$bu->id] = $bu->name .' ('.$bu->code.')';
+                    }
                 }
                 ?>
                 <?= form_dropdown('base_unit', $opts, set_value('base_unit'), 'class="form-control tip" id="base_unit" style="width:100%;"'); ?>

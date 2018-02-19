@@ -589,6 +589,13 @@ class Products_model extends CI_Model
         return FALSE;
     }
 
+    public function deleteProductBorrowed($id)
+    {
+        if ($this->db->delete('product_borrowed', array('pb_id' => $id))) {
+            return true;
+        }
+        return FALSE;
+    }
 
     public function totalCategoryProducts($category_id)
     {
@@ -1052,6 +1059,22 @@ class Products_model extends CI_Model
             return $variant->id;
         }
         return NULL;
+    }
+
+    public function addBorrowed($data)
+    {
+        if ($this->db->insert("product_borrowed", $data)) {
+            return true;
+        }
+        return false;
+    }
+
+    public function updateBorrowed($id, $data = array())
+    {
+        if ($this->db->update("product_borrowed", $data, array('pb_id' => $id))) {
+            return true;
+        }
+        return false;
     }
 
 }
