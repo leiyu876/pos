@@ -84,7 +84,7 @@
                             <th><?= lang("Record_ID") ?></th>
                             <th><?= lang("User ID") ?></th>
                             <th><?= lang("User Name") ?></th>
-                            <th><?= lang("Product ID") ?></th>
+                            <th><?= lang("Product Code") ?></th>
                             <th><?= lang("Product Name") ?></th>
                             <th><?= lang("Price") ?></th>
                             <th><?= lang("Borrowed Date") ?></th>
