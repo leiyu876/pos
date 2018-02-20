@@ -214,7 +214,13 @@ class Products extends MY_Controller
         }
     }
 
-    
+    public function getBorrowedStatusList() {
+        return array(
+            'borrowed' => 'Borrow',
+            'returned' => 'Returned',
+            'Overtime' => 'Overtime',
+        );
+    }
 
     function set_rack($product_id = NULL, $warehouse_id = NULL)
     {
@@ -1154,7 +1160,7 @@ class Products extends MY_Controller
                 'userid' => $this->input->post('user_id'),
                 'borrowed_date' => date('Y-m-d'),
                 'return_date' => $date->format('Y-m-d'),
-                'status' => 'borrowed',
+                'status' => $this->input->post('status'),
             );
         } elseif ($this->input->post('save')) {
             
@@ -1170,6 +1176,7 @@ class Products extends MY_Controller
             $this->data['error'] = validation_errors() ? validation_errors() : $this->session->flashdata('error');
             $this->data['products'] = $this->products_model->getAllProducts();
             $this->data['users'] = $this->auth_model->getAllUsers();
+            $this->data['status_list'] = $this->getBorrowedStatusList();
             $this->data['modal_js'] = $this->site->modal_js();
             $this->data['borrowed'] = $borrowed_details;
             $this->load->view($this->theme . 'products/product_borrow_edit', $this->data);

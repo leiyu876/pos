@@ -42,6 +42,20 @@
                 <?= lang("Expected_Return_Date", "Expected_Return_Date"). ' *'; ?>
                 <?php echo form_input('return_date', $this->sma->hrsd($borrowed->return_date), 'class="form-control date" id="return_date" required="required"'); ?>
             </div>
+            <div class="form-group">
+                <?= lang('Status', 'Status'). ' *'; ?>
+                <?php 
+                $opts = array();
+                if ($status_list == false) {
+                            
+                } else {
+                    foreach ($status_list as $key => $val) {
+                        $opts[$key] = $val;
+                    }
+                }
+                ?>
+                <?= form_dropdown('status', $opts, set_value('status', $borrowed->status), 'class="form-control tip" id="status" style="width:100%;" required="required"'); ?>
+            </div>
         </div>
         <div class="modal-footer">
             <?php echo form_submit('save', lang('Update'), 'class="btn btn-primary"'); ?>
