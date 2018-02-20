@@ -122,7 +122,7 @@
                                 </ul>
                             </li>
 
-                            <li class="mm_sales <?= strtolower($this->router->fetch_method()) == 'sales' ? 'mm_pos' : '' ?>">
+                            <li style = "display: none" class="mm_sales <?= strtolower($this->router->fetch_method()) == 'sales' ? 'mm_pos' : '' ?>">
                                 <a class="dropmenu" href="#">
                                     <i class="fa fa-heart"></i>
                                     <span class="text"> <?= lang('sales'); ?>
@@ -170,7 +170,7 @@
                                 </ul>
                             </li>
 
-                            <li class="mm_quotes">
+                            <li style = "display: none" class="mm_quotes">
                                 <a class="dropmenu" href="#">
                                     <i class="fa fa-heart-o"></i>
                                     <span class="text"> <?= lang('quotes'); ?> </span>
@@ -192,7 +192,7 @@
                                 </ul>
                             </li>
 
-                            <li class="mm_purchases">
+                            <li style = "display: none" class="mm_purchases">
                                 <a class="dropmenu" href="#">
                                     <i class="fa fa-star"></i>
                                     <span class="text"> <?= lang('purchases'); ?>
@@ -232,7 +232,7 @@
                                 </ul>
                             </li>
 
-                            <li class="mm_transfers">
+                            <li style = "display: none" class="mm_transfers">
                                 <a class="dropmenu" href="#">
                                     <i class="fa fa-star-o"></i>
                                     <span class="text"> <?= lang('transfers'); ?> </span>
@@ -257,7 +257,7 @@
                                 </ul>
                             </li>
 
-                            <li class="mm_returns">
+                            <li style = "display: none" class="mm_returns">
                                 <a class="dropmenu" href="#">
                                     <i class="fa fa-random"></i>
                                     <span class="text"> <?= lang('returns'); ?> </span>

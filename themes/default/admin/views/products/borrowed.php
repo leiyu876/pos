@@ -4,6 +4,14 @@
     function capitalizeFirstLetter(string) {
         return string.charAt(0).toUpperCase() + string.slice(1);
     }
+
+    function asteriskToRed(string) {
+        laststr =  string.slice(-1);
+        if(laststr == '*') {
+            return string.substring(0, string.length-1) + '<span style="color:red"> *</span>';
+        }
+        return string;
+    }
     var oTable;
     $(document).ready(function () {
         oTable = $('#PRData').dataTable({
@@ -28,7 +36,7 @@
             "aoColumns": [
                 {"bSortable": true},
                  {"bSortable": true},
-                 {"bSortable": true}, 
+                 {"bSortable": true, "mRender": asteriskToRed},
                  {"bSortable": true},
                  {"bSortable": true}, 
                  {"bSortable": true},
