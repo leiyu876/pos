@@ -160,8 +160,14 @@ class Products extends MY_Controller
                 {$this->db->dbprefix('products')}.code as code, 
                 {$this->db->dbprefix('products')}.name as 'Product Name',
                 {$this->db->dbprefix('product_borrowed')}.borrowed_date as 'borrowed_date',
-                {$this->db->dbprefix('product_borrowed')}.return_date as 'Returned Date',                
-                {$this->db->dbprefix('product_borrowed')}.status as Status,",
+                {$this->db->dbprefix('product_borrowed')}.return_date as 'Returned Date',
+                (CASE 
+                WHEN 
+                    {$this->db->dbprefix('product_borrowed')}.return_date <= NOW()  AND 
+                    {$this->db->dbprefix('product_borrowed')}.status = 'borrowed' 
+                THEN CONCAT('<span style=\"color:red\">','Overdue', '</span>')
+                ELSE {$this->db->dbprefix('product_borrowed')}.status
+                END) as 'Status',",
                  FALSE
             )
             ->join('users', 'product_borrowed.userid=users.id', 'left')

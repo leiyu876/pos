@@ -126,6 +126,7 @@
         </div>
     </div>
 </div>
+
 <?php if ($Owner || $GP['bulk_actions']) { ?>
     <div style="display: none;">
         <input type="hidden" name="form_action" value="" id="form_action"/>
