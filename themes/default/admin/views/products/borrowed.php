@@ -54,7 +54,7 @@
 <div class="box">
     <div class="box-header">
         <h2 class="blue"><i
-                class="fa-fw fa fa-barcode"></i><?= lang('products') . ' (Borrowed)'; ?>
+                class="fa-fw fa fa-barcode"></i><?= lang('products') . ' ( Borrowed )'; ?>
         </h2>
 
         <div class="box-icon">
