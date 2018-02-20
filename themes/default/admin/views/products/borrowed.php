@@ -1,6 +1,9 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
 
 <script>
+    function capitalizeFirstLetter(string) {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+    }
     var oTable;
     $(document).ready(function () {
         oTable = $('#PRData').dataTable({
@@ -29,9 +32,8 @@
                  {"bSortable": true},
                  {"bSortable": true}, 
                  {"bSortable": true},
-                 {"bSortable": true},
-                 {"bSortable": true},
-                 {"bSortable": true}, 
+                 {"bSortable": true},               
+                 {"bSortable": true, "mRender": capitalizeFirstLetter},
                  {"bSortable": false}, 
             ]
         }).fnSetFilteringDelay().dtFilter([
@@ -43,7 +45,6 @@
             {column_number: 5, filter_default_label: "[<?=lang('Price');?>]", filter_type: "text", data: []},
             {column_number: 6, filter_default_label: "[<?=lang('Borrowed Date');?>]", filter_type: "text", data: []},
             {column_number: 7, filter_default_label: "[<?=lang('Return Date');?>]", filter_type: "text", data: []},
-            {column_number: 8, filter_default_label: "[<?=lang('Status');?>]", filter_type: "text", data: []},
         ], "footer");
 
     });
@@ -86,7 +87,6 @@
                             <th><?= lang("User Name") ?></th>
                             <th><?= lang("Product Code") ?></th>
                             <th><?= lang("Product Name") ?></th>
-                            <th><?= lang("Price") ?></th>
                             <th><?= lang("Borrowed Date") ?></th>
                             <th><?= lang("Return Date") ?></th>
                             <th><?= lang("Status") ?></th>
@@ -101,7 +101,6 @@
 
                         <tfoot class="dtFilter">
                         <tr class="active">
-                            <th></th>
                             <th></th>
                             <th></th>
                             <th></th>

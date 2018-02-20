@@ -153,7 +153,6 @@ class Products extends MY_Controller
                 CONCAT({$this->db->dbprefix('users')}.first_name,  ' ', {$this->db->dbprefix('users')}.last_name) as 'User Name',
                 {$this->db->dbprefix('products')}.code as code, 
                 {$this->db->dbprefix('products')}.name as 'Product Name',
-                {$this->db->dbprefix('product_borrowed')}.price as price,
                 {$this->db->dbprefix('product_borrowed')}.borrowed_date as 'borrowed_date',
                 {$this->db->dbprefix('product_borrowed')}.return_date as 'Returned Date',                
                 {$this->db->dbprefix('product_borrowed')}.status as Status,",
