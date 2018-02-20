@@ -223,7 +223,6 @@ class Products extends MY_Controller
         return array(
             'borrowed' => 'Borrow',
             'returned' => 'Returned',
-            'Overtime' => 'Overtime',
         );
     }
 
