@@ -150,7 +150,13 @@ class Products extends MY_Controller
             ->select("
                 {$this->db->dbprefix('product_borrowed')}.pb_id as pb_id, 
                 {$this->db->dbprefix('product_borrowed')}.userid as userid, 
-                CONCAT({$this->db->dbprefix('users')}.first_name,  ' ', {$this->db->dbprefix('users')}.last_name) as 'User Name',
+                (CASE 
+                WHEN 
+                    {$this->db->dbprefix('product_borrowed')}.return_date <= NOW()  AND 
+                    {$this->db->dbprefix('product_borrowed')}.status = 'borrowed' 
+                THEN CONCAT({$this->db->dbprefix('users')}.first_name,  ' ', {$this->db->dbprefix('users')}.last_name, ' *')
+                ELSE CONCAT({$this->db->dbprefix('users')}.first_name,  ' ', {$this->db->dbprefix('users')}.last_name)
+                END) as 'User Name',
                 {$this->db->dbprefix('products')}.code as code, 
                 {$this->db->dbprefix('products')}.name as 'Product Name',
                 {$this->db->dbprefix('product_borrowed')}.borrowed_date as 'borrowed_date',
