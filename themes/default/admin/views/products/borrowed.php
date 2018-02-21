@@ -15,11 +15,11 @@
     var oTable;
     $(document).ready(function () {
         oTable = $('#PRData').dataTable({
-            "aaSorting": [[0, "asc"], [1, "asc"]],
+            "aaSorting": [[0, "dsc"], [1, "asc"]],
             "aLengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "<?= lang('all') ?>"]],
             "iDisplayLength": <?= $Settings->rows_per_page ?>,
             'bProcessing': true, 'bServerSide': true,
-            'sAjaxSource': '<?= admin_url('products/getBorrowedProduts'.($warehouse_id ? '/'.$warehouse_id : '').($supplier ? '?supplier='.$supplier->id : '')) ?>',
+            'sAjaxSource': '<?= admin_url('products/getBorrowedProducts') ?>',
             'fnServerData': function (sSource, aoData, fnCallback) {
                 aoData.push({
                     "name": "<?= $this->security->get_csrf_token_name() ?>",
@@ -27,34 +27,18 @@
                 });
                 $.ajax({'dataType': 'json', 'type': 'POST', 'url': sSource, 'data': aoData, 'success': fnCallback});
             },
-            'fnRowCallback': function (nRow, aData, iDisplayIndex) {
-                var oSettings = oTable.fnSettings();
-                nRow.id = aData[0];
-                nRow.className = "product_link";
-                return nRow;
-            },
             "aoColumns": [
                 {"bSortable": true},
-                 {"bSortable": true},
-                 {"bSortable": true, "mRender": asteriskToRed},
-                 {"bSortable": true},
-                 {"bSortable": true}, 
-                 {"bSortable": true},
-                 {"bSortable": true},               
-                 {"bSortable": true, "mRender": capitalizeFirstLetter},
-                 {"bSortable": false}, 
+                {"bSortable": true},
+                {"bSortable": true, "mRender": asteriskToRed},
+                {"bSortable": true},
+                {"bSortable": true}, 
+                {"bSortable": true},
+                {"bSortable": true},               
+                {"bSortable": true, "mRender": capitalizeFirstLetter},
+                {"bSortable": false}, 
             ]
-        }).fnSetFilteringDelay().dtFilter([
-            {column_number: 0, filter_default_label: "[<?=lang('Record ID');?>]", filter_type: "text", data: []},
-            {column_number: 1, filter_default_label: "[<?=lang('User ID');?>]", filter_type: "text", data: []},
-            {column_number: 2, filter_default_label: "[<?=lang('User Name');?>]", filter_type: "text", data: []},
-            {column_number: 3, filter_default_label: "[<?=lang('Product ID');?>]", filter_type: "text", data: []},
-            {column_number: 4, filter_default_label: "[<?=lang('Product Name');?>]", filter_type: "text", data: []},
-            {column_number: 5, filter_default_label: "[<?=lang('Price');?>]", filter_type: "text", data: []},
-            {column_number: 6, filter_default_label: "[<?=lang('Borrowed Date');?>]", filter_type: "text", data: []},
-            {column_number: 7, filter_default_label: "[<?=lang('Return Date');?>]", filter_type: "text", data: []},
-        ], "footer");
-
+        });
     });
 </script>
 <?php if ($Owner || $GP['bulk_actions']) {
@@ -106,20 +90,6 @@
                             <td colspan="11" class="dataTables_empty"><?= lang('loading_data_from_server'); ?></td>
                         </tr>
                         </tbody>
-
-                        <tfoot class="dtFilter">
-                        <tr class="active">
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>   
-                        </tr>
-                        </tfoot>
                     </table>
                 </div>
             </div>
@@ -127,10 +97,3 @@
     </div>
 </div>
 
-<?php if ($Owner || $GP['bulk_actions']) { ?>
-    <div style="display: none;">
-        <input type="hidden" name="form_action" value="" id="form_action"/>
-        <?= form_submit('performAction', 'performAction', 'id="action-form-submit"') ?>
-    </div>
-    <?= form_close() ?>
-<?php } ?>

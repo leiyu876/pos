@@ -142,7 +142,7 @@ class Products extends MY_Controller
         $this->page_construct('products/borrowed', $meta, $this->data);
     }
 
-    function getBorrowedProduts($warehouse_id = NULL)
+    function getBorrowedProducts($warehouse_id = NULL)
     {  
         $this->load->library('datatables');
 
