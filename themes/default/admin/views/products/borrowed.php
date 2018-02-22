@@ -1,5 +1,4 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
-
 <script>
     function capitalizeFirstLetter(string) {
         return string.charAt(0).toUpperCase() + string.slice(1);
@@ -14,6 +13,13 @@
     }
     var oTable;
     $(document).ready(function () {
+
+        $('#pdf1').click(function (event) {
+            event.preventDefault();
+            window.location.href = "<?= admin_url('products/downloadBorrowedProductsPdf')?>";
+            return false;
+        });
+
         oTable = $('#PRData').dataTable({
             "aaSorting": [[0, "dsc"], [1, "asc"]],
             "aLengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "<?= lang('all') ?>"]],
@@ -60,6 +66,12 @@
                         <li>
                             <a href="<?php echo admin_url('products/product_borrow'); ?>" data-toggle="modal" data-target="#myModal">
                                 <i class="fa fa-plus"></i> <?= lang('Borrow_Product') ?>
+                            </a>
+
+                        </li>
+                        <li>
+                            <a href="#" id="pdf1">
+                                <i class="fa fa-file-pdf-o"></i> <?= lang('download_pdf') ?>
                             </a>
                         </li>
                     </ul>

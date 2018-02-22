@@ -186,7 +186,44 @@ class Products extends MY_Controller
                     <button class='btn po-close'>" . lang('no') . "</button>\"  rel='popover'><i class=\"fa fa-trash-o\"></i></a></div>", 
             "pb_id");
         echo $this->datatables->generate();
-        }
+    }
+
+    public function downloadBorrowedProductsPdf() {
+        $b = $this->db->dbprefix('product_borrowed');
+        $p = $this->db->dbprefix('products');
+        $u = $this->db->dbprefix('users');
+        $this->db->select("
+            {$b}.pb_id as 'id',
+            {$b}.userid as 'user_id',
+            (CASE WHEN {$b}.return_date <= NOW()  AND {$b}.status = 'borrowed' 
+                THEN CONCAT({$u}.first_name,  ' ', {$u}.last_name, '<span style=\"color:red\"> *</span>')
+            ELSE 
+                CONCAT({$u}.first_name,  ' ', {$u}.last_name)
+            END) as 'user_name',
+            {$p}.code as 'product_code',
+            {$p}.name as 'product_name',
+            {$b}.borrowed_date,
+            {$b}.return_date,
+            (CASE WHEN {$b}.return_date <= NOW()  AND {$b}.status = 'borrowed' 
+                THEN CONCAT('<span style=\"color:red\">','Overdue', '</span>')
+            ELSE 
+                    {$b}.status
+            END) as 'status'
+        ");
+
+        $this->db->from('product_borrowed');
+        $this->db->join('products', 'products.id = product_borrowed.product_id', 'left');
+        $this->db->join('users', 'users.id = product_borrowed.userid', 'left');
+
+        $data['query'] = $this->db->get();
+
+        $html = $this->load->view($this->theme . 'products/borrowedpdf', $data, true);
+
+        $name = date("Ymd")."_Borrowed_Products.pdf";
+
+        $this->sma->generate_pdf($html, $name, null, null, null, null, null, 'L');
+    }
+
 
     function product_borrow()
     {
