@@ -2217,6 +2217,16 @@ class Products extends MY_Controller
                     $this->load->helper('excel');
                     create_excel($this->excel, $filename);
 
+                } elseif ($this->input->post('form_action') == 'export_pdf') {
+
+                    $data['ids'] = $_POST['val'];
+                    $data['wh'] = $wh;
+
+                    $html = $this->load->view($this->theme . 'products/indexpdf', $data, true);
+                    
+                    $name = date("Ymd")."_Products.pdf";
+
+                    $this->sma->generate_pdf($html, $name, null, null, null, null, null, 'L');
                 }
             } else {
                 $this->session->set_flashdata('error', $this->lang->line("no_product_selected"));
