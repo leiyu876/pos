@@ -961,6 +961,16 @@ class Auth extends MY_Controller
                     $filename = 'users_' . date('Y_m_d_H_i_s');
                     $this->load->helper('excel');
                     create_excel($this->excel, $filename);
+
+                } elseif($this->input->post('form_action') == 'export_pdf') {
+
+                    $data['ids'] = $_POST['val'];
+
+                    $html = $this->load->view($this->theme . 'auth/indexpdf', $data, true);
+                    
+                    $name = date("Ymd")."_Users.pdf";
+
+                    $this->sma->generate_pdf($html, $name, null, null, null, null, null, 'L');
                 }
             } else {
                 $this->session->set_flashdata('error', lang("no_user_selected"));
