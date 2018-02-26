@@ -483,6 +483,7 @@ class Products extends MY_Controller
         $this->form_validation->set_rules('code', lang("product_code"), 'is_unique[products.code]|alpha_dash');
         $this->form_validation->set_rules('slug', lang("slug"), 'required|is_unique[products.slug]|alpha_dash');
         $this->form_validation->set_rules('weight', lang("weight"), 'numeric');
+        $this->form_validation->set_rules('bill_number', lang("bill_number"), 'numeric');
         $this->form_validation->set_rules('product_image', lang("product_image"), 'xss_clean');
         $this->form_validation->set_rules('digital_file', lang("digital_file"), 'xss_clean');
         $this->form_validation->set_rules('userfile', lang("product_gallery_images"), 'xss_clean');
@@ -494,6 +495,8 @@ class Products extends MY_Controller
                 'name' => $this->input->post('name'),
                 'type' => $this->input->post('type'),
                 'brand' => $this->input->post('brand'),
+                'billno' => $this->input->post('bill_number'),
+                'status' => $this->input->post('status'),
                 'category_id' => $this->input->post('category'),
                 'subcategory_id' => $this->input->post('subcategory') ? $this->input->post('subcategory') : NULL,
                 'cost' => $this->sma->formatDecimal($this->input->post('cost')),
@@ -765,6 +768,7 @@ class Products extends MY_Controller
             $this->data['categories'] = $this->site->getAllCategories();
             $this->data['tax_rates'] = $this->site->getAllTaxRates();
             $this->data['brands'] = $this->site->getAllBrands();
+            $this->data['status_list'] = $this->products_model->getStatusList();
             $this->data['base_units'] = $this->site->getAllBaseUnits();
             $this->data['warehouses'] = $warehouses;
             $this->data['warehouses_products'] = $id ? $this->products_model->getAllWarehousesWithPQ($id) : NULL;
@@ -890,6 +894,7 @@ class Products extends MY_Controller
             $this->form_validation->set_rules('slug', lang("slug"), 'required|is_unique[products.slug]|alpha_dash');
         }
         $this->form_validation->set_rules('weight', lang("weight"), 'numeric');
+        $this->form_validation->set_rules('bill_number', lang("bill_number"), 'numeric');
         $this->form_validation->set_rules('product_image', lang("product_image"), 'xss_clean');
         $this->form_validation->set_rules('digital_file', lang("digital_file"), 'xss_clean');
         $this->form_validation->set_rules('userfile', lang("product_gallery_images"), 'xss_clean');
@@ -901,6 +906,8 @@ class Products extends MY_Controller
                 'name' => $this->input->post('name'),
                 'type' => $this->input->post('type'),
                 'brand' => $this->input->post('brand'),
+                'billno' => $this->input->post('bill_number'),
+                'status' => $this->input->post('status'),
                 'category_id' => $this->input->post('category'),
                 'subcategory_id' => $this->input->post('subcategory') ? $this->input->post('subcategory') : NULL,
                 'cost' => $this->sma->formatDecimal($this->input->post('cost')),
@@ -1176,6 +1183,7 @@ class Products extends MY_Controller
             $this->data['tax_rates'] = $this->site->getAllTaxRates();
             $this->data['brands'] = $this->site->getAllBrands();
             $this->data['base_units'] = $this->site->getAllBaseUnits();
+            $this->data['status_list'] = $this->products_model->getStatusList();
             $this->data['warehouses'] = $warehouses;
             $this->data['warehouses_products'] = $warehouses_products;
             $this->data['product'] = $product;

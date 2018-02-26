@@ -1077,4 +1077,11 @@ class Products_model extends CI_Model
         return false;
     }
 
+    public function getStatusList() {
+        return array(
+            'new'         => 'New',
+            'second_hand' => 'Second Hand',
+            'damage'      => 'Damage',
+        );
+    }
 }

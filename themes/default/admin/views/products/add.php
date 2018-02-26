@@ -117,6 +117,12 @@ if (!empty($variants)) {
                         <?= lang('weight', 'weight'); ?>
                         <?= form_input('weight', set_value('weight'), 'class="form-control tip" id="weight"'); ?>
                     </div>
+
+                    <div class="form-group standard_combo">
+                        <?= lang('Bill_Number', 'Bill_Number'); ?>
+                        <?= form_input('bill_number', set_value('bill_number'), 'class="form-control tip" id="bill_number"'); ?>
+                    </div>
+
                     <div class="form-group all">
                         <?= lang("barcode_symbology", "barcode_symbology") ?>
                         <?php
@@ -137,6 +143,20 @@ if (!empty($variants)) {
                             }
                         }
                         echo form_dropdown('brand', $br, (isset($_POST['brand']) ? $_POST['brand'] : ($product ? $product->brand : '')), 'class="form-control select" id="brand" placeholder="' . lang("select") . " " . lang("brand") . '" style="width:100%"');
+                        ?>
+                    </div>
+                    <div class="form-group all">
+                        <?= lang("status", "status") ?>
+                        <?php
+                        $br = array();
+                        if ($status_list == false) {
+                            
+                        } else {
+                            foreach ($status_list as $key => $val) {
+                                $br[$key] = $val;
+                            }
+                        }
+                        echo form_dropdown('status', $br, (isset($_POST['status']) ? $_POST['status'] : ($product ? $product->status : '')), 'class="form-control select" id="brand" placeholder="' . lang("select") . " " . lang("status") . '" style="width:100%"');
                         ?>
                     </div>
                     <div class="form-group all">

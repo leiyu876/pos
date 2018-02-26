@@ -108,6 +108,12 @@ if (!empty($variants)) {
                         <?= lang('weight', 'weight'); ?>
                         <?= form_input('weight', set_value('weight', ($product ? $product->weight : '')), 'class="form-control tip" id="weight"'); ?>
                     </div>
+
+                    <div class="form-group standard_combo">
+                        <?= lang('Bill_Number', 'Bill_Number'); ?>
+                        <?= form_input('bill_number', set_value('bill_number', ($product ? $product->billno : '')), 'class="form-control tip" id="bill_number"'); ?>
+                    </div>
+
                     <div class="form-group all">
                         <?= lang("barcode_symbology", "barcode_symbology") ?>
                         <?php
@@ -123,6 +129,16 @@ if (!empty($variants)) {
                             $br[$brand->id] = $brand->name;
                         }
                         echo form_dropdown('brand', $br, (isset($_POST['brand']) ? $_POST['brand'] : ($product ? $product->brand : '')), 'class="form-control select" id="brand" placeholder="' . lang("select") . " " . lang("brand") . '" style="width:100%"')
+                        ?>
+                    </div>
+                    <div class="form-group all">
+                        <?= lang("status", "status") ?>
+                        <?php
+                        $cat = array();
+                        foreach ($status_list as $key => $val) {
+                            $cat[$key] = $val;
+                        }
+                        echo form_dropdown('status', $cat, (isset($_POST['status']) ? $_POST['status'] : ($product ? $product->status : '')), 'class="form-control select" id="status" placeholder="' . lang("select") . " " . lang("status") . '" required="required" style="width:100%"')
                         ?>
                     </div>
                     <div class="form-group all">
@@ -156,8 +172,12 @@ if (!empty($variants)) {
                         <?= lang('default_sale_unit', 'default_sale_unit'); ?>
                         <?php
                         $uopts[''] = lang('select').' '.lang('unit');
-                        foreach ($subunits as $sunit) {
-                            $uopts[$sunit->id] = $sunit->name .' ('.$sunit->code.')';
+                        if ($subunits == false) {
+                            
+                        } else {
+                            foreach ($subunits as $sunit) {
+                                $uopts[$sunit->id] = $sunit->name .' ('.$sunit->code.')';
+                            }
                         }
                         ?>
                         <?= form_dropdown('default_sale_unit', $uopts, $product->sale_unit, 'class="form-control" id="default_sale_unit" style="width:100%;"'); ?>
