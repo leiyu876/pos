@@ -14,6 +14,13 @@
     <?php } ?>
 </style>
 <script>
+
+    function formatStatus(x) {
+        var r = {new:"New", second_hand:"Second Hand", damage:'Damage'};
+
+        return r[x];
+    }
+
     var oTable;
     $(document).ready(function () {
         oTable = $('#PRData').dataTable({
@@ -37,13 +44,36 @@
                 return nRow;
             },
             "aoColumns": [
-                {"bSortable": false, "mRender": checkbox}, {"bSortable": false,"mRender": img_hl}, null, null, null, null, <?php if($Owner || $Admin) { echo '{"mRender": currencyFormat}, {"mRender": currencyFormat},'; } else { if($this->session->userdata('show_cost')) { echo '{"mRender": currencyFormat},';  } if($this->session->userdata('show_price')) { echo '{"mRender": currencyFormat},';  } } ?> {"mRender": formatQuantity}, null, <?php if(!$warehouse_id || !$Settings->racks) { echo '{"bVisible": false},'; } else { echo '{"bSortable": true},'; } ?> {"mRender": formatQuantity}, {"bSortable": false}
+                {"bSortable": false, "mRender": checkbox}, 
+                {"bSortable": false,"mRender": img_hl}, 
+                null, 
+                null,
+                null,
+                null,
+                {"mRender": formatStatus}, 
+                <?php if($Owner || $Admin) { 
+                    echo '{"mRender": currencyFormat}, {"mRender": currencyFormat},'; } 
+                else { 
+                    if($this->session->userdata('show_cost')) { 
+                        echo '{"mRender": currencyFormat},';  
+                    } 
+                    if($this->session->userdata('show_price')) { 
+                        echo '{"mRender": currencyFormat},';  } 
+                } ?> 
+                {"mRender": formatQuantity},
+                null, 
+                <?php if(!$warehouse_id || !$Settings->racks) { 
+                    echo '{"bVisible": false},'; } 
+                else { echo '{"bSortable": true},'; } ?> 
+                {"mRender": formatQuantity}, 
+                {"bSortable": false}
             ]
         }).fnSetFilteringDelay().dtFilter([
             {column_number: 2, filter_default_label: "[<?=lang('code');?>]", filter_type: "text", data: []},
             {column_number: 3, filter_default_label: "[<?=lang('name');?>]", filter_type: "text", data: []},
-            {column_number: 4, filter_default_label: "[<?=lang('brand');?>]", filter_type: "text", data: []},
-            {column_number: 5, filter_default_label: "[<?=lang('category');?>]", filter_type: "text", data: []},
+            {column_number: 4, filter_default_label: "[<?=lang('In / Out');?>]", filter_type: "text", data: []},
+            {column_number: 4, filter_default_label: "[<?=lang('Bill_Number');?>]", filter_type: "text", data: []},
+            {column_number: 5, filter_default_label: "[<?=lang('status');?>]", filter_type: "text", data: []},
             <?php $col = 5;
             if($Owner || $Admin) {
                 echo '{column_number : 6, filter_default_label: "['.lang('cost').']", filter_type: "text", data: [] },';
@@ -152,8 +182,9 @@
                             <th style="min-width:40px; width: 40px; text-align: center;"><?php echo $this->lang->line("image"); ?></th>
                             <th><?= lang("code") ?></th>
                             <th><?= lang("name") ?></th>
-                            <th><?= lang("brand") ?></th>
-                            <th><?= lang("category") ?></th>
+                            <th><?= lang('In / Out') ?></th>
+                            <th><?= lang("Bill_Number") ?></th>
+                            <th><?= lang("status") ?></th>
                             <?php
                             if ($Owner || $Admin) {
                                 echo '<th>' . lang("cost") . '</th>';
