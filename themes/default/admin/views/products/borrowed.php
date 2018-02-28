@@ -55,29 +55,30 @@
         <h2 class="blue"><i
                 class="fa-fw fa fa-barcode"></i><?= lang('products') . ' ( Borrowed )'; ?>
         </h2>
+        <? if ($Owner || $Admin) { ?>
+            <div class="box-icon">
+                <ul class="btn-tasks">
+                    <li class="dropdown">
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                            <i class="icon fa fa-tasks tip" data-placement="left" title="<?= lang("actions") ?>"></i>
+                        </a>
+                        <ul class="dropdown-menu pull-right tasks-menus" role="menu" aria-labelledby="dLabel">
+                            <li>
+                                <a href="<?php echo admin_url('products/product_borrow'); ?>" data-toggle="modal" data-target="#myModal">
+                                    <i class="fa fa-plus"></i> <?= lang('Borrow_Product') ?>
+                                </a>
 
-        <div class="box-icon">
-            <ul class="btn-tasks">
-                <li class="dropdown">
-                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                        <i class="icon fa fa-tasks tip" data-placement="left" title="<?= lang("actions") ?>"></i>
-                    </a>
-                    <ul class="dropdown-menu pull-right tasks-menus" role="menu" aria-labelledby="dLabel">
-                        <li>
-                            <a href="<?php echo admin_url('products/product_borrow'); ?>" data-toggle="modal" data-target="#myModal">
-                                <i class="fa fa-plus"></i> <?= lang('Borrow_Product') ?>
-                            </a>
-
-                        </li>
-                        <li>
-                            <a href="#" id="pdf1">
-                                <i class="fa fa-file-pdf-o"></i> <?= lang('download_pdf') ?>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
+                            </li>
+                            <li>
+                                <a href="#" id="pdf1">
+                                    <i class="fa fa-file-pdf-o"></i> <?= lang('download_pdf') ?>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        <? } ?>
     </div>
     <div class="box-content">
         <div class="row">

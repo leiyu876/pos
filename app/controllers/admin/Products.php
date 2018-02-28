@@ -165,8 +165,19 @@ class Products extends MY_Controller
 
     function getBorrowedProducts($warehouse_id = NULL)
     {  
-        $this->load->library('datatables');
+        $actions = "
+            <div class=\"text-center\">
+                <a href='" . admin_url('products/edit_borrowed/$1') . "' data-toggle='modal' data-target='#myModal' class='tip' title='" . lang("edit") . "'>
+                    <i class=\"fa fa-edit\"></i>
+                </a> 
+                <a href='#' class='tip po' title='<b>" . lang("delete") . "</b>' data-content=\"<p>" . lang('r_u_sure') . "</p>
+                    <a class='btn btn-danger po-delete' href='" . admin_url('products/delete_borrowed/$1') . "'>" 
+                    . lang('i_m_sure') . "</a> 
+                    <button class='btn po-close'>" . lang('no') . "</button>\"  rel='popover'><i class=\"fa fa-trash-o\"></i></a></div>";
 
+        $this->load->library('datatables');
+        $this->load->library('ion_auth');
+        
         $this->datatables
             ->select("
                 {$this->db->dbprefix('product_borrowed')}.pb_id as pb_id, 
@@ -195,16 +206,22 @@ class Products extends MY_Controller
             ->join('products', 'product_borrowed.product_id=products.id', 'left')
             ->from('product_borrowed');
 
+        if(! $this->Owner && ! $this->Admin) {
+            $this->datatables->where('product_borrowed.userid', $this->ion_auth->get_user_id());
+
+            $actions = "
+            <div class=\"text-center\">
+                <a href='#' data-toggle='modal' data-target='#myModal' class='tip' title='" . lang("transfer") . "'>
+                    <i class=\"fa fa-exchange\"></i>
+                </a> 
+            </div>";
+        }
+
+        
+
         $this->datatables->add_column(
             "Actions", 
-            "<div class=\"text-center\">
-                <a href='" . admin_url('products/edit_borrowed/$1') . "' data-toggle='modal' data-target='#myModal' class='tip' title='" . lang("edit") . "'>
-                    <i class=\"fa fa-edit\"></i>
-                </a> 
-                <a href='#' class='tip po' title='<b>" . lang("delete") . "</b>' data-content=\"<p>" . lang('r_u_sure') . "</p>
-                    <a class='btn btn-danger po-delete' href='" . admin_url('products/delete_borrowed/$1') . "'>" 
-                    . lang('i_m_sure') . "</a> 
-                    <button class='btn po-close'>" . lang('no') . "</button>\"  rel='popover'><i class=\"fa fa-trash-o\"></i></a></div>", 
+            $actions, 
             "pb_id");
         echo $this->datatables->generate();
     }
