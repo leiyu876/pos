@@ -4,64 +4,65 @@
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="fa fa-2x">&times;</i>
             </button>
-            <h4 class="modal-title" id="myModalLabel"><?php echo lang('Update'); ?></h4>
+            <h4 class="modal-title" id="myModalLabel"><?php echo lang('Transfer'); ?></h4>
         </div>
         <?php $attrib = array('data-toggle' => 'validator', 'role' => 'form');
-        echo admin_form_open("products/edit_borrowed/".$borrowed->pb_id, $attrib); ?>
+        echo admin_form_open("products/TransferToOtherUser/".$borrowed->pb_id, $attrib); ?>
         <div class="modal-body">
             <p><?= lang('enter_info'); ?></p>
             <div class="form-group">
-                <?= lang('Search_Product', 'Search_Product'). ' *'; ?>
+                <?= lang('Product Name : '); ?>
                 <?php 
-                $opts[''] = "";
+                $opts[0] = "";
                 if ($products == false) {
                             
                 } else {
                     foreach ($products as $product) {
+
                         $opts[$product->id] = $product->name .' ('.$product->code.')';
                     }
                 }
                 ?>
-                <?= form_dropdown('product_id', $opts, set_value('product_id', $borrowed->product_id), 'class="form-control tip" id="product_id" style="width:100%;" required="required"'); ?>
+                <?= form_input('product_id', $opts[$borrowed->product_id], 'class="form-control tip" id="product_id" style="width:100%;" readonly'); ?>
             </div>
             <div class="form-group">
-                <?= lang('Search_User', 'Search_User'). ' *'; ?>
+                <?= lang('Transfer From :'); ?>
                 <?php 
-                $usrid[''] = "";
+                $opts[''] = "";
                 if ($users == false) {
                             
                 } else {
                     foreach ($users as $user) {
-
-                        if($user->group_id == '1' || $user->group_id == '2') continue;
-
-                        $usrid[$user->id] = $user->first_name.' '.$user->last_name.' ('.$user->id.')';
+                        
+                        $opts[$user->id] = $user->first_name.' '.$user->last_name.' ('.$user->id.')';
                     }
                 }
                 ?>
-                <?= form_dropdown('user_id', $usrid, set_value('user_id', $borrowed->userid), 'class="form-control tip" id="user_id" style="width:100%;" required="required"'); ?>
+                <?= form_input('user_id_from', $opts[$borrowed->userid], 'class="form-control tip" id="user_id" style="width:100%;" readonly'); ?>
+            </div>
+            <div class="form-group">
+                <?= lang('Transfer To :'); ?>
+                <?php 
+                $opts = array();
+                if ($users == false) {
+                            
+                } else {
+                    foreach ($users as $user) {
+                        if($user->id == $borrowed->userid) continue;
+                        if($user->group_id == '1' || $user->group_id == '2') continue;
+                        $opts[$user->id] = $user->first_name.' '.$user->last_name.' ('.$user->id.')';
+                    }
+                }
+                ?>
+                <?= form_dropdown('user_id', $opts, set_value('user_id', $borrowed->userid), 'class="form-control tip" id="user_id" style="width:100%;" required="required"'); ?>
             </div>
             <div class="form-group">
                 <?= lang("Expected_Return_Date", "Expected_Return_Date"). ' *'; ?>
                 <?php echo form_input('return_date', $this->sma->hrsd($borrowed->return_date), 'class="form-control date" id="return_date" required="required"'); ?>
             </div>
-            <div class="form-group">
-                <?= lang('Status', 'Status'). ' *'; ?>
-                <?php 
-                $opts = array();
-                if ($status_list == false) {
-                            
-                } else {
-                    foreach ($status_list as $key => $val) {
-                        $opts[$key] = $val;
-                    }
-                }
-                ?>
-                <?= form_dropdown('status', $opts, set_value('status', $borrowed->status), 'class="form-control tip" id="status" style="width:100%;" required="required"'); ?>
-            </div>
         </div>
         <div class="modal-footer">
-            <?php echo form_submit('save', lang('Update'), 'class="btn btn-primary"'); ?>
+            <?php echo form_submit('save', lang('Save Changes'), 'class="btn btn-primary"'); ?>
         </div>
     </div>
     <?php echo form_close(); ?>

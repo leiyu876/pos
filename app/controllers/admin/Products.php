@@ -160,6 +160,7 @@ class Products extends MY_Controller
         $this->data['supplier'] = $this->input->get('supplier') ? $this->site->getCompanyByID($this->input->get('supplier')) : NULL;
         $bc = array(array('link' => base_url(), 'page' => lang('home')), array('link' => admin_url('products'), 'page' => lang('products')), array('link' => '#', 'page' => lang('Borrowed_Products')));
         $meta = array('page_title' => lang('products'), 'bc' => $bc);
+
         $this->page_construct('products/borrowed', $meta, $this->data);
     }
 
@@ -173,7 +174,12 @@ class Products extends MY_Controller
                 <a href='#' class='tip po' title='<b>" . lang("delete") . "</b>' data-content=\"<p>" . lang('r_u_sure') . "</p>
                     <a class='btn btn-danger po-delete' href='" . admin_url('products/delete_borrowed/$1') . "'>" 
                     . lang('i_m_sure') . "</a> 
-                    <button class='btn po-close'>" . lang('no') . "</button>\"  rel='popover'><i class=\"fa fa-trash-o\"></i></a></div>";
+                    <button class='btn po-close'>" . lang('no') . "</button>\"  rel='popover'><i class=\"fa fa-trash-o\"></i>
+                </a>
+                <a class=\"tip\" title='" . lang("Transfer_to_other_user") . "' href='" . admin_url('products/TransferToOtherUser/$1') . "' data-toggle='modal' data-target='#myModal'>
+                    <i class=\"fa fa-exchange\"></i>
+                </a> 
+            </div>";
 
         $this->load->library('datatables');
         $this->load->library('ion_auth');
@@ -208,22 +214,49 @@ class Products extends MY_Controller
 
         if(! $this->Owner && ! $this->Admin) {
             $this->datatables->where('product_borrowed.userid', $this->ion_auth->get_user_id());
-
-            $actions = "
-            <div class=\"text-center\">
-                <a href='#' data-toggle='modal' data-target='#myModal' class='tip' title='" . lang("transfer") . "'>
-                    <i class=\"fa fa-exchange\"></i>
-                </a> 
-            </div>";
+            $actions = "";
         }
 
-        
+        $this->datatables->add_column("Actions", $actions, "pb_id");
 
-        $this->datatables->add_column(
-            "Actions", 
-            $actions, 
-            "pb_id");
         echo $this->datatables->generate();
+    }
+
+    function TransferToOtherUser($id = NULL)
+    {
+        $this->form_validation->set_rules('user_id', lang("user"), 'required');
+        $this->form_validation->set_rules('return_date', lang("Return_Date"), 'required');        
+
+        $borrowed_details = $this->site->getBorrowedByID($id);
+
+        if ($this->form_validation->run() == true) {
+            
+            $date = DateTime::createFromFormat('d/m/Y', $this->input->post('return_date'));
+            
+            $data = array(
+                'userid' => $this->input->post('user_id'),
+                'return_date' => $date->format('Y-m-d'),
+            );
+
+        } elseif ($this->input->post('save')) {
+            
+            $this->session->set_flashdata('error', validation_errors());
+            admin_redirect("products/borrowed");
+        }
+
+        if ($this->form_validation->run() == true && $this->products_model->updateBorrowed($id, $data)) {
+            $this->session->set_flashdata('message', lang("Successfully_Transfered"));
+            admin_redirect("products/borrowed");
+        } else {
+
+            $this->data['error'] = validation_errors() ? validation_errors() : $this->session->flashdata('error');
+            $this->data['products'] = $this->products_model->getAllProducts();
+            $this->data['users'] = $this->auth_model->getAllUsers();
+            $this->data['status_list'] = $this->getBorrowedStatusList();
+            $this->data['modal_js'] = $this->site->modal_js();
+            $this->data['borrowed'] = $borrowed_details;
+            $this->load->view($this->theme . 'products/product_borrow_transfer', $this->data);
+        }
     }
 
     public function downloadBorrowedProductsPdf() {
@@ -265,6 +298,8 @@ class Products extends MY_Controller
 
     function product_borrow()
     {
+        $this->sma->checkPermissions();
+        
         $this->form_validation->set_rules('product_id', lang("product"), 'required');
         $this->form_validation->set_rules('user_id', lang("user"), 'required');
         $this->form_validation->set_rules('return_date', lang("Return_Date"), 'required');        
@@ -292,7 +327,7 @@ class Products extends MY_Controller
         } else {
 
             $this->data['error'] = validation_errors() ? validation_errors() : $this->session->flashdata('error');
-            $this->data['products'] = $this->products_model->getAllProducts();
+            $this->data['products'] = $this->products_model->getAllProductsNotBorrowed();
             $this->data['users'] = $this->auth_model->getAllUsers();
             $this->data['modal_js'] = $this->site->modal_js();
             $this->load->view($this->theme . 'products/product_borrow', $this->data);

@@ -13,31 +13,36 @@
             <div class="form-group">
                 <?= lang('Search_Product', 'Search_Product'). ' *'; ?>
                 <?php 
-                $opts[''] = "";
-                if ($products == false) {
-                            
-                } else {
-                    foreach ($products as $product) {
-                        $opts[$product->id] = $product->name .' ('.$product->code.')';
+                    $pid = array();
+                    if ($products == false) {
+                                
+                    } else {
+                        foreach ($products as $product) {
+                            if($product->status && $product->status == 'borrowed') continue;
+
+                            $pid[$product->id] = $product->name .' ('.$product->code.')';
+                        }
                     }
-                }
                 ?>
-                <?= form_dropdown('product_id', $opts, set_value('product_id'), 'class="form-control tip" id="product_id" style="width:100%;" required="required"'); ?>
+                <?= form_dropdown('product_id', $pid, set_value('product_id'), 'class="form-control tip" id="product_id" style="width:100%;" required="required"'); ?>
                 
             </div>
             <div class="form-group">
                 <?= lang('Search_User', 'Search_User'). ' *'; ?>
                 <?php 
-                $opts[''] = "";
+                $ursid = array();
                 if ($users == false) {
                             
                 } else {
                     foreach ($users as $user) {
-                        $opts[$user->id] = $user->first_name.' '.$user->last_name.' ('.$user->id.')';
+                        
+                        if($user->group_id == '1' || $user->group_id == '2') continue;
+
+                        $ursid[$user->id] = $user->first_name.' '.$user->last_name.' ('.$user->id.')';
                     }
                 }
                 ?>
-                <?= form_dropdown('user_id', $opts, set_value('user_id'), 'class="form-control tip" id="user_id" style="width:100%;" required="required"'); ?>
+                <?= form_dropdown('user_id', $ursid, set_value('user_id'), 'class="form-control tip" id="user_id" style="width:100%;" required="required"'); ?>
             </div>
             <div class="form-group">
                 <?= lang("Expected_Return_Date", "Expected_Return_Date"). ' *'; ?>

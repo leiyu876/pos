@@ -20,6 +20,22 @@ class Products_model extends CI_Model
         return FALSE;
     }
 
+    public function getAllProductsNotBorrowed()
+    {
+        $this->db->select('*');
+        $this->db->from('products');
+        $this->db->join('product_borrowed', 'product_borrowed.product_id = products.id', 'left');
+        $q = $this->db->get();
+        
+        if ($q->num_rows() > 0) {
+            foreach (($q->result()) as $row) {
+                $data[] = $row;
+            }
+            return $data;
+        }
+        return FALSE;
+    }
+
     public function getCategoryProducts($category_id)
     {
         $q = $this->db->get_where('products', array('category_id' => $category_id));
