@@ -890,11 +890,17 @@
                                     </li>
                                     <?php if ($GP['products-add']) { ?>
                                     <li id="products_add">
-                                        <a class="submenu" href="<?= admin_url('products/add'); ?>">
+                                        <a class="submenu" href="<?= Admin_url('products/add'); ?>">
                                             <i class="fa fa-plus-circle"></i><span class="text"> <?= lang('add_product'); ?></span>
                                         </a>
                                     </li>
                                     <?php } ?>
+                                    <li id="products_borrowed">
+                                        <a class="submenu" href="<?= admin_url('products/borrowed'); ?>">
+                                            <i class="fa fa-barcode"></i>
+                                            <span class="text"> <?= lang('Borrowed_Products'); ?></span>
+                                        </a>
+                                    </li>
                                     <?php if ($GP['products-barcode']) { ?>
                                     <li id="products_sheet">
                                         <a class="submenu" href="<?= admin_url('products/print_barcodes'); ?>">

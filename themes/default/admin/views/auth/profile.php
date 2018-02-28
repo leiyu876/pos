@@ -151,7 +151,7 @@
                                                                             $gp[""] = "";
                                                                             foreach ($groups as $group) {
                                                                                 if ($group['name'] != 'customer' && $group['name'] != 'supplier') {
-                                                                                    $gp[$group['id']] = $group['name'];
+                                                                                    $gp[$group['id']] = $group['description'];
                                                                                 }
                                                                             }
                                                                             echo form_dropdown('group', $gp, (isset($_POST['group']) ? $_POST['group'] : $user->group_id), 'id="group" data-placeholder="' . $this->lang->line("select") . ' ' . $this->lang->line("group") . '" required="required" class="form-control input-tip select" style="width:100%;"');

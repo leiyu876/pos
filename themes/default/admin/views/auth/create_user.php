@@ -94,7 +94,7 @@
                                 <?php
                                 foreach ($groups as $group) {
                                     if ($group['name'] != 'customer' && $group['name'] != 'supplier') {
-                                        $gp[$group['id']] = $group['name'];
+                                        $gp[$group['id']] = $group['description'];
                                     }
                                 }
                                 echo form_dropdown('group', $gp, (isset($_POST['group']) ? $_POST['group'] : ''), 'id="group" required="required" class="form-control select" style="width:100%;"');

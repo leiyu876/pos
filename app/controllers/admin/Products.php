@@ -106,7 +106,7 @@ class Products extends MY_Controller
                         {$this->db->dbprefix('product_borrowed')}.status = 'borrowed' 
                     THEN 'Out'
                     ELSE 'In'
-                    END) as 'User Name',
+                    END) as 'InOut',
                     billno, 
                     products.status, 
                     cost as cost, 
