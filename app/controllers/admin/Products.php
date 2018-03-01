@@ -96,17 +96,15 @@ class Products extends MY_Controller
             // ->group_by("products.id");
         } else {
             
+            $this->load->helper('My_datatable_helper');
+
             $this->datatables
                 ->select(
                     $this->db->dbprefix('products') . ".id as productid, 
                     {$this->db->dbprefix('products')}.image as image, 
                     {$this->db->dbprefix('products')}.code as code, 
                     {$this->db->dbprefix('products')}.name as name, 
-                    (CASE WHEN 
-                        {$this->db->dbprefix('product_borrowed')}.status = 'borrowed' 
-                    THEN 'Out'
-                    ELSE 'In'
-                    END) as 'InOut',
+                    {$this->db->dbprefix('product_borrowed')}.status as borrowed_status,
                     billno, 
                     products.status, 
                     cost as cost, 
@@ -121,6 +119,8 @@ class Products extends MY_Controller
                 ->join('brands', 'products.brand=brands.id', 'left')
                 ->join('product_borrowed', 'products.id=product_borrowed.product_id', 'left')
                 ->group_by("products.id");
+
+            $this->datatables->edit_column('borrowed_status', '$1', 'check_movement(borrowed_status)');
         }
         if (!$this->Owner && !$this->Admin) {
             if (!$this->session->userdata('show_cost')) {
