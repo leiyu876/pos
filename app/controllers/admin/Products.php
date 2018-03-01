@@ -96,8 +96,6 @@ class Products extends MY_Controller
             // ->group_by("products.id");
         } else {
             
-            $this->load->helper('My_datatable_helper');
-
             $this->datatables
                 ->select(
                     $this->db->dbprefix('products') . ".id as productid, 
