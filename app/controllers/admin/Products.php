@@ -118,7 +118,7 @@ class Products extends MY_Controller
                 ->join('product_borrowed', 'products.id=product_borrowed.product_id', 'left')
                 ->group_by("products.id");
 
-            $this->load->helper('datatable');
+            $this->load->helper('mydatatable');
             $this->datatables->edit_column('borrowed_status', '$1', 'check_movement(borrowed_status)');
         }
         if (!$this->Owner && !$this->Admin) {
