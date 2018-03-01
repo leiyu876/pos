@@ -190,7 +190,7 @@ class Products extends MY_Controller
                 {$this->db->dbprefix('product_borrowed')}.userid as userid, 
                 (CASE 
                 WHEN 
-                    {$this->db->dbprefix('product_borrowed')}.return_date <= NOW()  AND 
+                    {$this->db->dbprefix('product_borrowed')}.return_date < DATE(NOW())  AND 
                     {$this->db->dbprefix('product_borrowed')}.status = 'borrowed' 
                 THEN CONCAT({$this->db->dbprefix('users')}.first_name,  ' ', {$this->db->dbprefix('users')}.last_name, ' *')
                 ELSE CONCAT({$this->db->dbprefix('users')}.first_name,  ' ', {$this->db->dbprefix('users')}.last_name)
@@ -201,9 +201,9 @@ class Products extends MY_Controller
                 {$this->db->dbprefix('product_borrowed')}.return_date as 'Returned Date',
                 (CASE 
                 WHEN 
-                    {$this->db->dbprefix('product_borrowed')}.return_date <= NOW()  AND 
+                    {$this->db->dbprefix('product_borrowed')}.return_date < DATE(NOW())  AND 
                     {$this->db->dbprefix('product_borrowed')}.status = 'borrowed' 
-                THEN CONCAT('<span style=\"color:red\">','Overdue', '</span>')
+                THEN CONCAT('<span style=\"color:red\">', 'Overdue', '</span>')
                 ELSE {$this->db->dbprefix('product_borrowed')}.status
                 END) as 'Status',",
                  FALSE
