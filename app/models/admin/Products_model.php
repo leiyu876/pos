@@ -20,9 +20,10 @@ class Products_model extends CI_Model
         return FALSE;
     }
 
-    public function getAllProductsNotBorrowed()
+    public function getAllProductsNotBorrowedNotDeleted()
     {
         $this->db->select('*');
+        $this->db->where('products.is_deleted', false);
         $this->db->from('products');
         $this->db->join('product_borrowed', 'product_borrowed.product_id = products.id', 'left');
         $q = $this->db->get();
@@ -31,6 +32,26 @@ class Products_model extends CI_Model
             foreach (($q->result()) as $row) {
                 $data[] = $row;
             }
+            return $data;
+        }
+        return FALSE;
+    }
+
+    public function getAllProductsNotDeletedNotBorrowedOthers($details)
+    {
+        $this->db->select('*');
+        $this->db->where('products.is_deleted', false);
+        $this->db->from('products');
+        $this->db->join('product_borrowed', 'product_borrowed.product_id = products.id', 'left');
+        $q = $this->db->get();
+        
+        if ($q->num_rows() > 0) {
+            foreach (($q->result()) as $row) {
+                if($row->status == 'borrowed' && $row->pb_id != $details->pb_id) continue;
+                
+                $data[] = $row;
+            }
+            
             return $data;
         }
         return FALSE;

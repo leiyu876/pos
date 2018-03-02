@@ -336,7 +336,7 @@ class Products extends MY_Controller
         } else {
 
             $this->data['error'] = validation_errors() ? validation_errors() : $this->session->flashdata('error');
-            $this->data['products'] = $this->products_model->getAllProductsNotBorrowed();
+            $this->data['products'] = $this->products_model->getAllProductsNotBorrowedNotDeleted();
             $this->data['users'] = $this->auth_model->getAllUsers();
             $this->data['modal_js'] = $this->site->modal_js();
             $this->load->view($this->theme . 'products/product_borrow', $this->data);
@@ -1319,7 +1319,7 @@ class Products extends MY_Controller
         } else {
 
             $this->data['error'] = validation_errors() ? validation_errors() : $this->session->flashdata('error');
-            $this->data['products'] = $this->products_model->getAllProducts();
+            $this->data['products'] = $this->products_model->getAllProductsNotDeletedNotBorrowedOthers($borrowed_details);
             $this->data['users'] = $this->auth_model->getAllUsers();
             $this->data['status_list'] = $this->getBorrowedStatusList();
             $this->data['modal_js'] = $this->site->modal_js();
