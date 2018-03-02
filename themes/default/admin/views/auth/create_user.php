@@ -27,7 +27,7 @@
                                     <?php echo form_input('last_name', '', 'class="form-control" id="last_name" required="required"'); ?>
                                 </div>
                             </div>
-                            <div class="form-group">
+                            <div style="display:none" class="form-group">
                                 <?= lang('gender', 'gender'); ?>
                                 <?php
                                 $ge[''] = array('male' => lang('male'), 'female' => lang('female'));
@@ -35,7 +35,7 @@
                                 ?>
                             </div>
 
-                            <div class="form-group">
+                            <div style="display:none" class="form-group">
                                 <?php echo lang('company', 'company'); ?>
                                 <div class="controls">
                                     <?php echo form_input('company', '', 'class="form-control" id="company" required="required"'); ?>
@@ -57,14 +57,14 @@
                                     <?php /* echo form_input('email', '', 'class="form-control" id="email" required="required"'); */ ?>
                                 </div>
                             </div>
-                            <div class="form-group">
+                            <div style="display:none" class="form-group">
                                 <?php echo lang('username', 'username'); ?>
                                 <div class="controls">
                                     <input type="text" id="username" name="username" class="form-control"
                                            required="required" pattern=".{4,20}"/>
                                 </div>
                             </div>
-                            <div class="form-group">
+                            <div style="display:none" class="form-group">
                                 <?php echo lang('password', 'password'); ?>
                                 <div class="controls">
                                     <?php echo form_password('password', '', 'class="form-control tip" id="password" required="required" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" data-bv-regexp-message="'.lang('pasword_hint').'"'); ?>
@@ -72,7 +72,7 @@
                                 </div>
                             </div>
 
-                            <div class="form-group">
+                            <div style="display:none" class="form-group">
                                 <?php echo lang('confirm_password', 'confirm_password'); ?>
                                 <div class="controls">
                                     <?php echo form_password('confirm_password', '', 'class="form-control" id="confirm_password" required="required" data-bv-identical="true" data-bv-identical-field="password" data-bv-identical-message="' . lang('pw_not_same') . '"'); ?>
@@ -82,14 +82,14 @@
                         </div>
                         <div class="col-md-5 col-md-offset-1">
 
-                            <div class="form-group">
+                            <div style="display:none" class="form-group">
                                 <?= lang('status', 'status'); ?>
                                 <?php
                                 $opt = array(1 => lang('active'), 0 => lang('inactive'));
                                 echo form_dropdown('status', $opt, (isset($_POST['status']) ? $_POST['status'] : ''), 'id="status" required="required" class="form-control select" style="width:100%;"');
                                 ?>
                             </div>
-                            <div class="form-group">
+                            <div style="display:none" class="form-group">
                                 <?= lang("group", "group"); ?>
                                 <?php
                                 foreach ($groups as $group) {
@@ -145,7 +145,7 @@
                                 </div>
                             </div>
 
-                            <div class="row">
+                            <div style="display:none" class="row">
                                 <div class="col-md-8">
                                     <label class="checkbox" for="notify">
                                         <input type="checkbox" name="notify" value="1" id="notify" checked="checked"/>

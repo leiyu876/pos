@@ -21,7 +21,7 @@
 
         <ul id="myTab" class="nav nav-tabs">
             <li class=""><a href="#edit" class="tab-grey"><?= lang('edit') ?></a></li>
-            <li class=""><a href="#cpassword" class="tab-grey"><?= lang('change_password') ?></a></li>
+            <li style="display: none" class=""><a href="#cpassword" class="tab-grey"><?= lang('change_password') ?></a></li>
             <li class=""><a href="#avatar" class="tab-grey"><?= lang('avatar') ?></a></li>
         </ul>
 
@@ -57,7 +57,7 @@
                                                 </div>
                                             </div>
                                             <?php if (!$this->ion_auth->in_group('customer', $id) && !$this->ion_auth->in_group('supplier', $id)) { ?>
-                                                <div class="form-group">
+                                                <div style="display: none" class="form-group">
                                                     <?php echo lang('company', 'company'); ?>
                                                     <div class="controls">
                                                         <?php echo form_input('company', $user->company, 'class="form-control" id="company" required="required"'); ?>
@@ -75,7 +75,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="form-group">
+                                            <div style="display: none" class="form-group">
                                                 <?= lang('gender', 'gender'); ?>
                                                 <div class="controls">  <?php
                                                     $ge[''] = array('male' => lang('male'), 'female' => lang('female'));
@@ -84,14 +84,14 @@
                                                 </div>
                                             </div>
                                             <?php if (($Owner || $Admin) && $id != $this->session->userdata('user_id')) { ?>
-                                            <div class="form-group">
+                                            <div style="display: none" class="form-group">
                                                 <?= lang('award_points', 'award_points'); ?>
                                                 <?= form_input('award_points', set_value('award_points', $user->award_points), 'class="form-control tip" id="award_points"  required="required"'); ?>
                                             </div>
                                             <?php } ?>
 
                                             <?php if ($Owner && $id != $this->session->userdata('user_id')) { ?>
-                                                <div class="form-group">
+                                                <div style="display: none" class="form-group">
                                                     <?php echo lang('username', 'username'); ?>
                                                     <input type="text" name="username" class="form-control"
                                                            id="username" value="<?= $user->username ?>"
@@ -103,7 +103,7 @@
                                                     <input type="email" name="email" class="form-control" id="email"
                                                            value="<?= $user->email ?>" required="required"/>
                                                 </div>
-                                                <div class="row">
+                                                <div style="display: none" class="row">
                                                     <div class="panel panel-warning">
                                                         <div
                                                             class="panel-heading"><?= lang('if_you_need_to_rest_password_for_user') ?></div>
@@ -145,7 +145,7 @@
                                                                             ?>
                                                                         </div>
                                                                         <?php if (!$this->ion_auth->in_group('customer', $id) && !$this->ion_auth->in_group('supplier', $id)) { ?>
-                                                                        <div class="form-group">
+                                                                        <div style="display: none" class="form-group">
                                                                             <?= lang("group", "group"); ?>
                                                                             <?php
                                                                             $gp[""] = "";

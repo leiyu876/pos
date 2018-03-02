@@ -92,7 +92,7 @@
                     </li>
                 </ul>
                 <ul class="nav navbar-nav pull-right">
-                    <li class="dropdown hidden-xs"><a class="btn tip" title="<?= lang('dashboard') ?>" data-placement="bottom" href="<?= admin_url('welcome') ?>"><i class="fa fa-dashboard"></i></a></li>
+                    <!--<li class="dropdown hidden-xs"><a class="btn tip" title="<?= lang('dashboard') ?>" data-placement="bottom" href="<?= admin_url('welcome') ?>"><i class="fa fa-dashboard"></i></a></li>
                     <?php if (SHOP) { ?>
                     <li class="dropdown hidden-xs"><a class="btn tip" title="<?= lang('shop') ?>" data-placement="bottom" href="<?= base_url() ?>"><i class="fa fa-shopping-cart"></i></a></li>
                     <?php } ?>
@@ -190,7 +190,7 @@
                                </a>
                            </li>
                         </ul>
-                    </li>
+                    </li>-->
                     <li class="dropdown hidden-xs">
                         <a class="btn tip" title="<?= lang('language') ?>" data-placement="bottom" data-toggle="dropdown"
                            href="#">
@@ -226,7 +226,7 @@
                     </li>
                         <?php } */ ?>
                     <?php if (($Owner || $Admin || $GP['reports-quantity_alerts'] || $GP['reports-expiry_alerts']) && ($qty_alert_num > 0 || $exp_alert_num > 0 || $shop_sale_alerts)) { ?>
-                        <li class="dropdown hidden-sm">
+                        <li style="display:none" class="dropdown hidden-sm">
                             <a class="btn blightOrange tip" title="<?= lang('alerts') ?>"
                                 data-placement="left" data-toggle="dropdown" href="#">
                                 <i class="fa fa-exclamation-triangle"></i>
@@ -269,14 +269,15 @@
                         </li>
                     <?php } ?>
                     <?php if (POS) { ?>
-                    <li class="dropdown hidden-xs">
+                    <!--<li  class="dropdown hidden-xs">-->
+                    <div style="display:none">
                         <a class="btn bdarkGreen tip" title="<?= lang('pos') ?>" data-placement="bottom" href="<?= admin_url('pos') ?>">
                             <i class="fa fa-th-large"></i> <span class="padding05"><?= lang('pos') ?></span>
                         </a>
                     </li>
                     <?php } ?>
                     <?php if ($Owner) { ?>
-                        <li class="dropdown">
+                        <li style="display:none" class="dropdown">
                             <a class="btn bdarkGreen tip" id="today_profit" title="<span><?= lang('today_profit') ?></span>"
                                 data-placement="bottom" data-html="true" href="<?= admin_url('reports/profit') ?>"
                                 data-toggle="modal" data-target="#myModal">
@@ -286,13 +287,13 @@
                     <?php } ?>
                     <?php if ($Owner || $Admin) { ?>
                     <?php if (POS) { ?>
-                    <li class="dropdown hidden-xs">
+                    <li style="display:none" class="dropdown hidden-xs">
                         <a class="btn bblue tip" title="<?= lang('list_open_registers') ?>" data-placement="bottom" href="<?= admin_url('pos/registers') ?>">
                             <i class="fa fa-list"></i>
                         </a>
                     </li>
                     <?php } ?>
-                    <li class="dropdown hidden-xs">
+                    <li style="display:none" class="dropdown hidden-xs">
                         <a class="btn bred tip" title="<?= lang('clear_ls') ?>" data-placement="bottom" id="clearLS" href="#">
                             <i class="fa fa-eraser"></i>
                         </a>
