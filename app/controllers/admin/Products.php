@@ -102,12 +102,9 @@ class Products extends MY_Controller
                     {$this->db->dbprefix('product_borrowed')}.status as borrowed_status,
                     billno, 
                     products.status, 
-                    cost as cost, 
                     products.price as price, 
-                    COALESCE(quantity, 0) as quantity, 
-                    {$this->db->dbprefix('units')}.code as unit, 
-                    '' as rack, 
-                    alert_quantity", FALSE)
+                    products.percentage as percentage, 
+                    '' as rack", FALSE)
                 ->from('products')
                 ->join('categories', 'products.category_id=categories.id', 'left')
                 ->join('units', 'products.unit=units.id', 'left')
@@ -564,8 +561,8 @@ class Products extends MY_Controller
         $warehouses = $this->site->getAllWarehouses();
         $this->form_validation->set_rules('category', lang("category"), 'required|is_natural_no_zero');
         if ($this->input->post('type') == 'standard') {
-            $this->form_validation->set_rules('cost', lang("product_cost"), 'required');
-            $this->form_validation->set_rules('unit', lang("product_unit"), 'required');
+            //$this->form_validation->set_rules('cost', lang("product_cost"), 'required');
+            //$this->form_validation->set_rules('unit', lang("product_unit"), 'required');
         }
         if ($this->input->post('barcode_symbology') == 'ean13') {
             $this->form_validation->set_rules('code', lang("product_code"), 'min_length[13]|max_length[13]');
@@ -573,11 +570,13 @@ class Products extends MY_Controller
         $this->form_validation->set_rules('code', lang("product_code"), 'is_unique[products.code]|alpha_dash');
         $this->form_validation->set_rules('slug', lang("slug"), 'required|is_unique[products.slug]|alpha_dash');
         $this->form_validation->set_rules('weight', lang("weight"), 'numeric');
+        $this->form_validation->set_rules('percentage', lang("Percentage"), 'numeric');
         $this->form_validation->set_rules('bill_number', lang("bill_number"), 'numeric');
         $this->form_validation->set_rules('product_image', lang("product_image"), 'xss_clean');
         $this->form_validation->set_rules('digital_file', lang("digital_file"), 'xss_clean');
         $this->form_validation->set_rules('userfile', lang("product_gallery_images"), 'xss_clean');
         if ($this->form_validation->run() == true) {
+
             $tax_rate = $this->input->post('tax_rate') ? $this->site->getTaxRateByID($this->input->post('tax_rate')) : NULL;
             $data = array(
                 'code' => $this->input->post('code'),
@@ -591,6 +590,7 @@ class Products extends MY_Controller
                 'subcategory_id' => $this->input->post('subcategory') ? $this->input->post('subcategory') : NULL,
                 'cost' => $this->sma->formatDecimal($this->input->post('cost')),
                 'price' => $this->sma->formatDecimal($this->input->post('price')),
+                'percentage' => $this->input->post('percentage'),
                 'unit' => $this->input->post('unit'),
                 'sale_unit' => $this->input->post('default_sale_unit'),
                 'purchase_unit' => $this->input->post('default_purchase_unit'),
@@ -676,6 +676,7 @@ class Products extends MY_Controller
                     $this->form_validation->set_rules('wh_pr_qty_issue', 'wh_pr_qty_issue', 'required');
                     $this->form_validation->set_message('required', lang('wh_pr_qty_issue'));
                 }
+            
             }
 
             if ($this->input->post('type') == 'service') {
@@ -969,8 +970,8 @@ class Products extends MY_Controller
         }
         $this->form_validation->set_rules('category', lang("category"), 'required|is_natural_no_zero');
         if ($this->input->post('type') == 'standard') {
-            $this->form_validation->set_rules('cost', lang("product_cost"), 'required');
-            $this->form_validation->set_rules('unit', lang("product_unit"), 'required');
+            //$this->form_validation->set_rules('cost', lang("product_cost"), 'required');
+            //$this->form_validation->set_rules('unit', lang("product_unit"), 'required');
         }
         $this->form_validation->set_rules('code', lang("product_code"), 'alpha_dash');
         if ($this->input->post('code') !== $product->code) {
@@ -1002,6 +1003,7 @@ class Products extends MY_Controller
                 'subcategory_id' => $this->input->post('subcategory') ? $this->input->post('subcategory') : NULL,
                 'cost' => $this->sma->formatDecimal($this->input->post('cost')),
                 'price' => $this->sma->formatDecimal($this->input->post('price')),
+                'percentage' => $this->input->post('percentage'),
                 'unit' => $this->input->post('unit'),
                 'sale_unit' => $this->input->post('default_sale_unit'),
                 'purchase_unit' => $this->input->post('default_purchase_unit'),

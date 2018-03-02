@@ -81,7 +81,7 @@ if (!empty($variants)) {
                 ?>
 
                 <div class="col-md-5">
-                    <div class="form-group">
+                    <div class="form-group" style="display:none">
                         <?= lang("product_type", "type") ?>
                         <?php
                         $opts = array('standard' => lang('standard'), 'combo' => lang('combo'), 'digital' => lang('digital'), 'service' => lang('service'));
@@ -103,17 +103,18 @@ if (!empty($variants)) {
                         <span class="help-block"><?= lang('you_scan_your_barcode_too') ?></span>
                     </div>
 
-                    <div class="form-group all">
+                    <div class="form-group all" style="display:none">
                         <?= lang('slug', 'slug'); ?>
                         <?= form_input('slug', set_value('slug'), 'class="form-control tip" id="slug" required="required"'); ?>
                     </div>
 
-                    <div class="form-group all">
+                    <div class="form-group all" style="display:none">
                         <?= lang('second_name', 'second_name'); ?>
                         <?= form_input('second_name', set_value('second_name'), 'class="form-control tip" id="second_name"'); ?>
                     </div>
 
-                    <div class="form-group standard_combo">
+                    <!--    <div class="form-group standard_combo" >-->
+                    <div style="display:none">
                         <?= lang('weight', 'weight'); ?>
                         <?= form_input('weight', set_value('weight'), 'class="form-control tip" id="weight"'); ?>
                     </div>
@@ -123,7 +124,7 @@ if (!empty($variants)) {
                         <?= form_input('bill_number', set_value('bill_number'), 'class="form-control tip" id="bill_number"'); ?>
                     </div>
 
-                    <div class="form-group all">
+                    <div class="form-group all" style="display:none">
                         <?= lang("barcode_symbology", "barcode_symbology") ?>
                         <?php
                         $bs = array('code25' => 'Code25', 'code39' => 'Code39', 'code128' => 'Code128', 'ean8' => 'EAN8', 'ean13' => 'EAN13', 'upca' => 'UPC-A', 'upce' => 'UPC-E');
@@ -169,14 +170,15 @@ if (!empty($variants)) {
                         echo form_dropdown('category', $cat, (isset($_POST['category']) ? $_POST['category'] : ($product ? $product->category_id : '')), 'class="form-control select" id="category" placeholder="' . lang("select") . " " . lang("category") . '" required="required" style="width:100%"')
                         ?>
                     </div>
-                    <div class="form-group all">
+                    <div class="form-group all" style="display:none">
                         <?= lang("subcategory", "subcategory") ?>
                         <div class="controls" id="subcat_data"> <?php
                             echo form_input('subcategory', ($product ? $product->subcategory_id : ''), 'class="form-control" id="subcategory"  placeholder="' . lang("select_category_to_load") . '"');
                             ?>
                         </div>
                     </div>
-                    <div class="form-group standard">
+                    <!--<div class="form-group standard" >-->
+                    <div style="display:none">
                         <?= lang('product_unit', 'unit'); ?>
                         <?php
                         $pu[''] = lang('select').' '.lang('unit');
@@ -188,27 +190,33 @@ if (!empty($variants)) {
                             }
                         }
                         ?>
-                        <?= form_dropdown('unit', $pu, set_value('unit', ($product ? $product->unit : '')), 'class="form-control tip" id="unit" required="required" style="width:100%;"'); ?>
+                        <?= form_dropdown('unit', $pu, set_value('unit', ($product ? $product->unit : '')), 'class="form-control tip" id="unit" style="width:100%;"'); ?>
                     </div>
-                    <div class="form-group standard">
+                    <!--<div class="form-group standard" >-->
+                    <div style="display:none">
                         <?= lang('default_sale_unit', 'default_sale_unit'); ?>
                         <?php $uopts[''] = lang('select_unit_first'); ?>
                         <?= form_dropdown('default_sale_unit', $uopts, ($product ? $product->sale_unit : ''), 'class="form-control" id="default_sale_unit" style="width:100%;"'); ?>
                     </div>
-                    <div class="form-group standard">
+                    <!--<div class="form-group standard">-->
+                    <div style="display:none">
                         <?= lang('default_purchase_unit', 'default_purchase_unit'); ?>
                         <?= form_dropdown('default_purchase_unit', $uopts, ($product ? $product->purchase_unit : ''), 'class="form-control" id="default_purchase_unit" style="width:100%;"'); ?>
                     </div>
-                    <div class="form-group standard">
+                    <!--<div class="form-group standard" >-->
+                    <div style="display:none">
                         <?= lang("product_cost", "cost") ?>
-                        <?= form_input('cost', (isset($_POST['cost']) ? $_POST['cost'] : ($product ? $this->sma->formatDecimal($product->cost) : '')), 'class="form-control tip" id="cost" required="required"') ?>
+                        <?= form_input('cost', (isset($_POST['cost']) ? $_POST['cost'] : ($product ? $this->sma->formatDecimal($product->cost) : '')), 'class="form-control tip" id="cost"') ?>
                     </div>
                     <div class="form-group all">
                         <?= lang("product_price", "price") ?>
                         <?= form_input('price', (isset($_POST['price']) ? $_POST['price'] : ($product ? $this->sma->formatDecimal($product->price) : '')), 'class="form-control tip" id="price" required="required"') ?>
                     </div>
-
-                    <div class="form-group">
+                    <div class="form-group" >
+                        <?= lang("Percentage", "percentage") ?>
+                        <?= form_input('percentage', (isset($_POST['percentage']) ? $_POST['percentage'] : ($product ? $this->sma->formatDecimal($product->percentage) : '')), 'class="form-control tip" id="percentage" required="required"') ?>
+                    </div>
+                    <div class="form-group" style="display:none">
                         <input type="checkbox" class="checkbox" value="1" name="promotion" id="promotion" <?= $this->input->post('promotion') ? 'checked="checked"' : ''; ?>>
                         <label for="promotion" class="padding05">
                             <?= lang('promotion'); ?>
@@ -240,7 +248,7 @@ if (!empty($variants)) {
                     <?php } ?>
 
                     <?php if ($Settings->tax1) { ?>
-                        <div class="form-group all">
+                        <div class="form-group all" style="display:none">
                             <?= lang('product_tax', "tax_rate") ?>
                             <?php
                             $tr[""] = "";
@@ -250,7 +258,7 @@ if (!empty($variants)) {
                             echo form_dropdown('tax_rate', $tr, (isset($_POST['tax_rate']) ? $_POST['tax_rate'] : ($product ? $product->tax_rate : $Settings->default_tax_rate)), 'class="form-control select" id="tax_rate" placeholder="' . lang("select") . ' ' . lang("product_tax") . '" style="width:100%"')
                             ?>
                         </div>
-                        <div class="form-group all">
+                        <div class="form-group all" style="display:none">
                             <?= lang("tax_method", "tax_method") ?>
                             <?php
                             $tm = array('1' => lang('exclusive'), '0' => lang('inclusive'));
@@ -258,7 +266,8 @@ if (!empty($variants)) {
                             ?>
                         </div>
                     <?php } ?>
-                    <div class="form-group standard">
+                    <!--<div class="form-group standard" >-->
+                    <div style="display: none;">
                         <?= lang("alert_quantity", "alert_quantity") ?>
                         <div
                             class="input-group"> <?= form_input('alert_quantity', (isset($_POST['alert_quantity']) ? $_POST['alert_quantity'] : ($product ? $this->sma->formatQuantityDecimal($product->alert_quantity) : '')), 'class="form-control tip" id="alert_quantity"') ?>
@@ -275,14 +284,15 @@ if (!empty($variants)) {
                                data-show-preview="false" accept="image/*" class="form-control file">
                     </div>
 
-                    <div class="form-group all">
+                    <div style="display: none;" class="form-group all">
                         <?= lang("product_gallery_images", "images") ?>
                         <input id="images" type="file" data-browse-label="<?= lang('browse'); ?>" name="userfile[]" multiple="true" data-show-upload="false"
                                data-show-preview="false" class="form-control file" accept="image/*">
                     </div>
                     <div id="img-details"></div>
                 </div>
-                <div class="col-md-6 col-md-offset-1">
+                <!--<div class="col-md-6 col-md-offset-1">-->
+                <div style="display:none">
                     <div class="standard">
 
                         <div id="attrs"></div>
@@ -418,47 +428,48 @@ if (!empty($variants)) {
                         </div>
                     </div>
 
-                <div class="form-group standard">
-                    <div class="form-group">
-                        <?= lang("supplier", "supplier") ?>
-                        <button type="button" class="btn btn-primary btn-xs" id="addSupplier"><i class="fa fa-plus"></i>
-                        </button>
+                    <!--<div class="form-group standard">-->
+                    <div style="display:none">
+                        <div class="form-group">
+                            <?= lang("supplier", "supplier") ?>
+                            <button type="button" class="btn btn-primary btn-xs" id="addSupplier"><i class="fa fa-plus"></i>
+                            </button>
+                        </div>
+                        <div class="row" id="supplier-con">
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <?php
+                                    echo form_input('supplier', (isset($_POST['supplier']) ? $_POST['supplier'] : ''), 'class="form-control ' . ($product ? '' : 'suppliers') . '" id="' . ($product && ! empty($product->supplier1) ? 'supplier1' : 'supplier') . '" placeholder="' . lang("select") . ' ' . lang("supplier") . '" style="width:100%;"');
+                                    ?>
+                                </div>
+                            </div>
+                            <div class="col-xs-6">
+                                <div class="form-group">
+                                    <?= form_input('supplier_part_no', (isset($_POST['supplier_part_no']) ? $_POST['supplier_part_no'] : ""), 'class="form-control tip" id="supplier_part_no" placeholder="' . lang('supplier_part_no') . '"'); ?>
+                                </div>
+                            </div>
+                            <div class="col-xs-6">
+                                <div class="form-group">
+                                <?= form_input('supplier_price', (isset($_POST['supplier_price']) ? $_POST['supplier_price'] : ""), 'class="form-control tip" id="supplier_price" placeholder="' . lang('supplier_price') . '"'); ?>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="ex-suppliers"></div>
                     </div>
-                    <div class="row" id="supplier-con">
-                        <div class="col-xs-12">
-                            <div class="form-group">
-                                <?php
-                                echo form_input('supplier', (isset($_POST['supplier']) ? $_POST['supplier'] : ''), 'class="form-control ' . ($product ? '' : 'suppliers') . '" id="' . ($product && ! empty($product->supplier1) ? 'supplier1' : 'supplier') . '" placeholder="' . lang("select") . ' ' . lang("supplier") . '" style="width:100%;"');
-                                ?>
-                            </div>
-                        </div>
-                        <div class="col-xs-6">
-                            <div class="form-group">
-                                <?= form_input('supplier_part_no', (isset($_POST['supplier_part_no']) ? $_POST['supplier_part_no'] : ""), 'class="form-control tip" id="supplier_part_no" placeholder="' . lang('supplier_part_no') . '"'); ?>
-                            </div>
-                        </div>
-                        <div class="col-xs-6">
-                            <div class="form-group">
-                            <?= form_input('supplier_price', (isset($_POST['supplier_price']) ? $_POST['supplier_price'] : ""), 'class="form-control tip" id="supplier_price" placeholder="' . lang('supplier_price') . '"'); ?>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="ex-suppliers"></div>
-                </div>
 
                 </div>
 
                 <div class="col-md-12">
-                    <div class="form-group">
+                    <div class="form-group" style="display: none;">
                         <input name="featured" type="checkbox" class="checkbox" id="featured" value="1" <?= isset($_POST['featured']) ? 'checked="checked"' : '' ?>/>
                         <label for="featured" class="padding05"><?= lang('featured') ?></label>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" style="display: none;">
                         <input name="hide" type="checkbox" class="checkbox" id="hide" value="1" <?= isset($_POST['hide']) ? 'checked="checked"' : '' ?>/>
                         <label for="hide" class="padding05"><?= lang('hide_in_shop') ?></label>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group" style="display: none;">
                         <input name="cf" type="checkbox" class="checkbox" id="extras" value="" <?= isset($_POST['cf']) ? 'checked="checked"' : '' ?>/>
                         <label for="extras" class="padding05"><?= lang('custom_fields') ?></label>
                     </div>
@@ -508,11 +519,11 @@ if (!empty($variants)) {
 
                     </div>
 
-                    <div class="form-group all">
+                    <div class="form-group all" style="display: none;">
                         <?= lang("product_details", "product_details") ?>
                         <?= form_textarea('product_details', (isset($_POST['product_details']) ? $_POST['product_details'] : ($product ? $product->product_details : '')), 'class="form-control" id="details"'); ?>
                     </div>
-                    <div class="form-group all">
+                    <div class="form-group all" style="display: none;">
                         <?= lang("product_details_for_invoice", "details") ?>
                         <?= form_textarea('details', (isset($_POST['details']) ? $_POST['details'] : ($product ? $product->details : '')), 'class="form-control" id="details"'); ?>
                     </div>

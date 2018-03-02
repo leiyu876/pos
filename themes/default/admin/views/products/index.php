@@ -52,20 +52,21 @@
                 null,
                 {"mRender": formatStatus}, 
                 <?php if($Owner || $Admin) { 
-                    echo '{"mRender": currencyFormat}, {"mRender": currencyFormat},'; } 
+                    //echo '{"mRender": currencyFormat}, {"mRender": currencyFormat},'; } 
+                    echo '{"mRender": currencyFormat},'; } 
                 else { 
+                    /*
                     if($this->session->userdata('show_cost')) { 
                         echo '{"mRender": currencyFormat},';  
                     } 
+                    */
                     if($this->session->userdata('show_price')) { 
                         echo '{"mRender": currencyFormat},';  } 
                 } ?> 
-                {"mRender": formatQuantity},
-                null, 
+                null,
                 <?php if(!$warehouse_id || !$Settings->racks) { 
                     echo '{"bVisible": false},'; } 
                 else { echo '{"bSortable": true},'; } ?> 
-                {"mRender": formatQuantity}, 
                 {"bSortable": false}
             ]
         }).fnSetFilteringDelay().dtFilter([
@@ -76,18 +77,17 @@
             {column_number: 6, filter_default_label: "[<?=lang('status');?>]", filter_type: "text", data: []},
             <?php $col = 6;
             if($Owner || $Admin) {
-                echo '{column_number : 7, filter_default_label: "['.lang('cost').']", filter_type: "text", data: [] },';
-                echo '{column_number : 8, filter_default_label: "['.lang('price').']", filter_type: "text", data: [] },';
-                $col += 2;
+                /*echo '{column_number : 7, filter_default_label: "['.lang('cost').']", filter_type: "text", data: [] },';*/
+                echo '{column_number : 7, filter_default_label: "['.lang('price').']", filter_type: "text", data: [] },';
+                echo '{column_number : 8, filter_default_label: "['.lang('Percentage').']", filter_type: "text", data: [] },';
+                $col += 1;
             } else {
-                if($this->session->userdata('show_cost')) { $col++; echo '{column_number : '.$col.', filter_default_label: "['.lang('cost').']", filter_type: "text", data: [] },'; }
+                /*if($this->session->userdata('show_cost')) { $col++; echo '{column_number : '.$col.', filter_default_label: "['.lang('cost').']", filter_type: "text", data: [] },'; }*/
                 if($this->session->userdata('show_price')) { $col++; echo '{column_number : '.$col.', filter_default_label: "['.lang('price').']", filter_type: "text, data: []" },'; }
             }
             ?>
-            {column_number: <?php $col++; echo $col; ?>, filter_default_label: "[<?=lang('quantity');?>]", filter_type: "text", data: []},
-            {column_number: <?php $col++; echo $col; ?>, filter_default_label: "[<?=lang('unit');?>]", filter_type: "text", data: []},
+
             <?php $col++; if($warehouse_id && $Settings->racks) { echo '{column_number : '. $col.', filter_default_label: "['.lang('rack').']", filter_type: "text", data: [] },'; } ?>
-            {column_number: <?php $col++; echo $col; ?>, filter_default_label: "[<?=lang('alert_quantity');?>]", filter_type: "text", data: []},
         ], "footer");
 
     });
@@ -187,7 +187,7 @@
                             <th><?= lang("status") ?></th>
                             <?php
                             if ($Owner || $Admin) {
-                                echo '<th>' . lang("cost") . '</th>';
+                                //echo '<th>' . lang("cost") . '</th>';
                                 echo '<th>' . lang("price") . '</th>';
                             } else {
                                 if ($this->session->userdata('show_cost')) {
@@ -198,10 +198,9 @@
                                 }
                             }
                             ?>
-                            <th><?= lang("quantity") ?></th>
-                            <th><?= lang("unit") ?></th>
+                            <th><?= lang("Percentage") ?></th>
                             <th><?= lang("rack") ?></th>
-                            <th><?= lang("alert_quantity") ?></th>
+                            
                             <th style="min-width:65px; text-align:center;"><?= lang("actions") ?></th>
                         </tr>
                         </thead>
@@ -224,19 +223,17 @@
                             <th></th>
                             <?php
                             if ($Owner || $Admin) {
-                                echo '<th></th>';
+                                /*echo '<th></th>';*/
                                 echo '<th></th>';
                             } else {
-                                if ($this->session->userdata('show_cost')) {
+                                /*if ($this->session->userdata('show_cost')) {
                                     echo '<th></th>';
-                                }
+                                }*/
                                 if ($this->session->userdata('show_price')) {
                                     echo '<th></th>';
                                 }
                             }
                             ?>
-                            <th></th>
-                            <th></th>
                             <th></th>
                             <th></th>
                             <th style="width:65px; text-align:center;"><?= lang("actions") ?></th>
