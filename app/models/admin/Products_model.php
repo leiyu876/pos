@@ -1093,6 +1093,14 @@ class Products_model extends CI_Model
         return false;
     }
 
+    public function deleteProductNote($id, $data = array())
+    {
+        if ($this->db->update("products", $data, array('id' => $id))) {
+            return true;
+        }
+        return false;
+    }
+
     public function getStatusList() {
         return array(
             'new'         => 'New',

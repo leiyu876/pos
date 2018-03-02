@@ -54,12 +54,10 @@ class Products extends MY_Controller
             $warehouse_id = $user->warehouse_id;
         }
         $detail_link = anchor('admin/products/view/$1', '<i class="fa fa-file-text-o"></i> ' . lang('product_details'));
-        $delete_link = "<a href='#' class='tip po' title='<b>" . $this->lang->line("delete_product") . "</b>' data-content=\"<p>"
-            . lang('r_u_sure') . "</p><a class='btn btn-danger po-delete1' id='a__$1' href='" . admin_url('products/delete/$1') . "'>"
-            . lang('i_m_sure') . "</a> <button class='btn po-close'>" . lang('no') . "</button>\"  rel='popover'><i class=\"fa fa-trash-o\"></i> "
-            . lang('delete_product') . "</a>";
+        $delete_link = "<a href='" . admin_url('products/delete_note/$1') . "' data-toggle='modal' data-target='#myModal' class='tip' title='" . lang("Delete with Note") . "'>
+                    <i class=\"fa fa-trash-o\"></i>".lang('delete_product')."
+                </a>";
         $single_barcode = anchor('admin/products/print_barcodes/$1', '<i class="fa fa-print"></i> ' . lang('print_barcode_label'));
-        // $single_label = anchor_popup('products/single_label/$1/' . ($warehouse_id ? $warehouse_id : ''), '<i class="fa fa-print"></i> ' . lang('print_label'), $this->popup_attributes);
         $action = '<div class="text-center"><div class="btn-group text-left">'
             . '<button type="button" class="btn btn-default btn-xs btn-primary dropdown-toggle" data-toggle="dropdown">'
             . lang('actions') . ' <span class="caret"></span></button>
@@ -93,7 +91,6 @@ class Products extends MY_Controller
             $this->datatables->join('categories', 'products.category_id=categories.id', 'left')
             ->join('units', 'products.unit=units.id', 'left')
             ->join('brands', 'products.brand=brands.id', 'left');
-            // ->group_by("products.id");
         } else {
             
             $this->datatables
@@ -116,6 +113,7 @@ class Products extends MY_Controller
                 ->join('units', 'products.unit=units.id', 'left')
                 ->join('brands', 'products.brand=brands.id', 'left')
                 ->join('product_borrowed', 'products.id=product_borrowed.product_id', 'left')
+                ->where('products.is_deleted', false)
                 ->group_by("products.id");
 
             $this->load->helper('mydatatable');
@@ -350,6 +348,14 @@ class Products extends MY_Controller
         return array(
             'borrowed' => 'Borrow',
             'returned' => 'Returned',
+        );
+    }
+
+    public function getDeletingOptionList() {
+        return array(
+            'damage' => 'Damage',
+            'lost' => 'Lost',
+            'sold' => 'Sold',
         );
     }
 
@@ -1552,6 +1558,41 @@ class Products extends MY_Controller
             admin_redirect('welcome');
         }
 
+    }
+
+    function delete_note($id = NULL)
+    {
+        $this->form_validation->set_rules('delete_status', lang("status"), 'required');
+        $this->form_validation->set_rules('delete_notes', lang("Notes"), 'required');      
+
+        $product = $this->site->getProductByID($id);
+
+        if ($this->form_validation->run() == true) {
+            
+            $data = array(
+                'is_deleted' => true,
+                'delete_status' => $this->input->post('delete_status'),
+                'delete_notes' => $this->input->post('delete_notes'),
+            );
+        } elseif ($this->input->post('save')) {
+            
+            $this->session->set_flashdata('error', validation_errors());
+            admin_redirect("products/index");
+        }
+
+        if ($this->form_validation->run() == true && $this->products_model->deleteProductNote($id, $data)) {
+            $this->session->set_flashdata('message', lang("Successfully_Deleted"));
+            admin_redirect("products/index");
+        } else {
+
+            $this->data['error'] = validation_errors() ? validation_errors() : $this->session->flashdata('error');
+            $this->data['products'] = $this->products_model->getAllProducts();
+            $this->data['users'] = $this->auth_model->getAllUsers();
+            $this->data['delete_option_list'] = $this->getDeletingOptionList();
+            $this->data['modal_js'] = $this->site->modal_js();
+            $this->data['product_details'] = $product;
+            $this->load->view($this->theme . 'products/delete_note', $this->data);
+        }
     }
 
     function delete_borrowed($id = NULL)
