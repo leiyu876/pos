@@ -25,7 +25,7 @@
                         <?= lang("name", "name"); ?>
                         <?php echo form_input('name', $supplier->name, 'class="form-control tip" id="name" required="required"'); ?>
                     </div>
-                    <div class="form-group">
+                    <div style="display:none" class="form-group">
                         <?= lang("vat_no", "vat_no"); ?>
                         <?php echo form_input('vat_no', $supplier->vat_no, 'class="form-control" id="vat_no"'); ?>
                     </div>
@@ -73,30 +73,30 @@
                         <?= lang("country", "country"); ?>
                         <?php echo form_input('country', $supplier->country, 'class="form-control" id="country"'); ?>
                     </div>
-                    <div class="form-group">
+                    <div style="display:none" class="form-group">
                         <?= lang("scf1", "cf1"); ?>
                         <?php echo form_input('cf1', $supplier->cf1, 'class="form-control" id="cf1"'); ?>
                     </div>
-                    <div class="form-group">
+                    <div style="display:none" class="form-group">
                         <?= lang("scf2", "cf2"); ?>
                         <?php echo form_input('cf2', $supplier->cf2, 'class="form-control" id="cf2"'); ?>
 
                     </div>
-                    <div class="form-group">
+                    <div style="display:none" class="form-group">
                         <?= lang("scf3", "cf3"); ?>
                         <?php echo form_input('cf3', $supplier->cf3, 'class="form-control" id="cf3"'); ?>
                     </div>
-                    <div class="form-group">
+                    <div style="display:none" class="form-group">
                         <?= lang("scf4", "cf4"); ?>
                         <?php echo form_input('cf4', $supplier->cf4, 'class="form-control" id="cf4"'); ?>
 
                     </div>
-                    <div class="form-group">
+                    <div style="display:none" class="form-group">
                         <?= lang("scf5", "cf5"); ?>
                         <?php echo form_input('cf5', $supplier->cf5, 'class="form-control" id="cf5"'); ?>
 
                     </div>
-                    <div class="form-group">
+                    <div style="display:none" class="form-group">
                         <?= lang("scf6", "cf6"); ?>
                         <?php echo form_input('cf6', $supplier->cf6, 'class="form-control" id="cf6"'); ?>
                     </div>

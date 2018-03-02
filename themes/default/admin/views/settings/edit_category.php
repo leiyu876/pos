@@ -21,7 +21,7 @@
                 <?= form_input('name', set_value('name', $category->name), 'class="form-control gen_slug" id="name" required="required"'); ?>
             </div>
 
-            <div class="form-group all">
+            <div style="display:none" class="form-group all">
                 <?= lang('slug', 'slug'); ?>
                 <?= form_input('slug', set_value('slug', $category->slug), 'class="form-control tip" id="slug" required="required"'); ?>
             </div>

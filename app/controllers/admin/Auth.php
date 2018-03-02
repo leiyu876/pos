@@ -56,11 +56,61 @@ class Auth extends MY_Controller
             ->group_by('users.id')
             ->where('company_id', NULL)
             ->edit_column('active', '$1__$2', 'active, id')
-            ->add_column("Actions", "<div class=\"text-center\"><a href='" . admin_url('auth/profile/$1') . "' class='tip' title='" . lang("edit_user") . "'><i class=\"fa fa-edit\"></i></a></div>", "id");
+            ->add_column("Actions", 
+            "<div class=\"text-center\">
+                <a href='" . admin_url('auth/profile/$1') . "' class='tip' title='" . lang("edit_user") . "'><i class=\"fa fa-edit\"></i></a>
+                <a href='" . admin_url('auth/borrowed_history/$1') . "' class='tip' title='" . lang("Borrowed History") . "'><i class=\"fa fa-barcode\"></i></a>
+            </div>", "id");
 
         if (!$this->Owner) {
             $this->datatables->unset_column('id');
         }
+        echo $this->datatables->generate();
+    }
+
+    function borrowed_history()
+    {
+        $this->data['supplier'] = $this->input->get('supplier') ? $this->site->getCompanyByID($this->input->get('supplier')) : NULL;
+        $bc = array(array('link' => base_url(), 'page' => lang('home')), array('link' => admin_url('users'), 'page' => lang('users')), array('link' => '#', 'page' => lang('Borrowed History')));
+        $meta = array('page_title' => lang('products'), 'bc' => $bc);
+
+        $this->page_construct('auth/borrowed_history', $meta, $this->data);
+    }
+
+    function getBorrowedHistory($warehouse_id = NULL)
+    {  
+        $this->load->library('datatables');
+        $this->load->library('ion_auth');
+        
+        $this->datatables
+            ->select("
+                {$this->db->dbprefix('product_borrowed')}.pb_id as pb_id, 
+                {$this->db->dbprefix('product_borrowed')}.userid as userid, 
+                (CASE 
+                WHEN 
+                    {$this->db->dbprefix('product_borrowed')}.return_date < DATE(NOW())  AND 
+                    {$this->db->dbprefix('product_borrowed')}.status = 'borrowed' 
+                THEN CONCAT({$this->db->dbprefix('users')}.first_name,  ' ', {$this->db->dbprefix('users')}.last_name, ' *')
+                ELSE CONCAT({$this->db->dbprefix('users')}.first_name,  ' ', {$this->db->dbprefix('users')}.last_name)
+                END) as complete_name,
+                {$this->db->dbprefix('products')}.code as code, 
+                {$this->db->dbprefix('products')}.name as product_name,
+                {$this->db->dbprefix('product_borrowed')}.borrowed_date as borrowed_date,
+                {$this->db->dbprefix('product_borrowed')}.return_date as return_date,
+                {$this->db->dbprefix('product_borrowed')}.actual_return_date as actual_return_date,
+                (CASE 
+                WHEN 
+                    {$this->db->dbprefix('product_borrowed')}.return_date < DATE(NOW())  AND 
+                    {$this->db->dbprefix('product_borrowed')}.status = 'borrowed' 
+                THEN CONCAT('<span style=\"color:red\">', 'Overdue', '</span>')
+                ELSE {$this->db->dbprefix('product_borrowed')}.status
+                END) as status_return,",
+                 FALSE
+            )
+            ->join('users', 'product_borrowed.userid=users.id', 'left')
+            ->join('products', 'product_borrowed.product_id=products.id', 'left')
+            ->from('product_borrowed');
+
         echo $this->datatables->generate();
     }
 

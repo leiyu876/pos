@@ -21,11 +21,10 @@
         });
 
         oTable = $('#PRData').dataTable({
-            "aaSorting": [[0, "dsc"], [1, "asc"]],
-            "aLengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "<?= lang('all') ?>"]],
+            "aaSorting": [[0, "asc"]],
             "iDisplayLength": <?= $Settings->rows_per_page ?>,
             'bProcessing': true, 'bServerSide': true,
-            'sAjaxSource': '<?= admin_url('products/getBorrowedProducts') ?>',
+            'sAjaxSource': '<?= admin_url('auth/getBorrowedHistory') ?>',
             'fnServerData': function (sSource, aoData, fnCallback) {
                 aoData.push({
                     "name": "<?= $this->security->get_csrf_token_name() ?>",
@@ -43,55 +42,16 @@
                 {"bSortable": true},
                 {"bSortable": true},               
                 {"bSortable": true, "mRender": capitalizeFirstLetter},
-                {"bSortable": false}, 
             ]
         });
     });
 </script>
-<?php if ($Owner || $GP['bulk_actions']) {
-    echo admin_form_open('products/product_actions'.($warehouse_id ? '/'.$warehouse_id : ''), 'id="action-form"');
-} ?>
+
 <div class="box">
     <div class="box-header">
         <h2 class="blue"><i
-                class="fa-fw fa fa-barcode"></i><?= lang('products') . ' ( Borrowed )'; ?>
+                class="fa-fw fa fa-barcode"></i><?= lang('Borrowed History'); ?>
         </h2>
-        <? if ($Owner || $Admin) { ?>
-            <div class="box-icon">
-                <ul class="btn-tasks">
-                    <li class="dropdown">
-                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                            <i class="icon fa fa-tasks tip" data-placement="left" title="<?= lang("actions") ?>"></i>
-                        </a>
-                        <ul class="dropdown-menu pull-right tasks-menus" role="menu" aria-labelledby="dLabel">
-                            <li>
-                                <a href="<?php echo admin_url('products/product_borrow'); ?>" data-toggle="modal" data-target="#myModal">
-                                    <i class="fa fa-plus"></i> <?= lang('Borrow_Product') ?>
-                                </a>
-
-                            </li>
-                            <li>
-                                <a href="<?php echo admin_url('products/return'); ?>">
-                                    <i class="fa fa-arrow-left"></i> <?= lang('Return Products') ?>
-                                </a>
-
-                            </li>
-                            <li>
-                                <a href="<?php echo admin_url('products/unreturn'); ?>">
-                                    <i class="fa fa-arrow-right"></i> <?= lang('Unreturn Products') ?>
-                                </a>
-
-                            </li>
-                            <li>
-                                <a href="#" id="pdf1">
-                                    <i class="fa fa-file-pdf-o"></i> <?= lang('download_pdf') ?>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        <? } ?>
     </div>
     <div class="box-content">
         <div class="row">
@@ -109,7 +69,6 @@
                             <th><?= lang("Return Date") ?></th>
                             <th><?= lang("Actual Return") ?></th>
                             <th><?= lang("Status") ?></th>
-                            <th><?= lang("Actions") ?></th>
                         </tr>
                         </thead>
                         <tbody>

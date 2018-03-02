@@ -1125,7 +1125,8 @@ class Products_model extends CI_Model
     public function getStatusList() {
         return array(
             'new'         => 'New',
-            'second_hand' => 'Second Hand',
+            'second_hand' => 'Used',
+            'maintenance'      => 'Maintenance',
             'damage'      => 'Damage',
         );
     }

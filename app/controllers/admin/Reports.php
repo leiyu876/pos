@@ -1199,6 +1199,8 @@ class Reports extends MY_Controller
                 END) as complete_name,
                 {$this->db->dbprefix('product_borrowed')}.return_date as return_date,
                 {$this->db->dbprefix('product_borrowed')}.actual_return_date as actual_return_date, 
+                CONCAT(DATEDIFF({$this->db->dbprefix('product_borrowed')}.actual_return_date, {$this->db->dbprefix('product_borrowed')}.return_date), ' days') as delay, 
+                {$this->db->dbprefix('product_borrowed')}.return_status as return_status,
                 (CASE 
                 WHEN 
                     {$this->db->dbprefix('product_borrowed')}.return_date < DATE(NOW())  AND 

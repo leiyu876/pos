@@ -59,6 +59,20 @@
                 ?>
                 <?= form_dropdown('status', $opts, set_value('status', $borrowed->status), 'class="form-control tip" id="status" style="width:100%;" required="required"'); ?>
             </div>
+            <div class="form-group" id="return_status" style="display:none">
+                <?= lang("Item Status", "return_status"); ?>
+                <?php 
+                    $opts = array();
+                    if ($return_status_list == false) {
+                                
+                    } else {
+                        foreach ($return_status_list as $key => $val) {
+                            $opts[$key] = $val;
+                        }
+                    }
+                ?>
+                <?= form_dropdown('return_status', $opts, set_value('return_status', $borrowed->return_status), 'class="form-control tip" id="return_status" style="width:100%;" required="required"'); ?>
+            </div>
         </div>
         <div class="modal-footer">
             <?php echo form_submit('save', lang('Update'), 'class="btn btn-primary"'); ?>
@@ -69,6 +83,15 @@
 <?= $modal_js ?>
 <script type="text/javascript">
     $(document).ready(function() {
+
+        $( '#status' ).change(function() {
+            if($( '#status' ).val() == 'returned') {
+                $('#return_status').slideDown();
+            } else {
+                $('#return_status').slideUp();
+            }          
+        });
+
         $('#base_unit').change(function(e) {
             var bu = $(this).val();
             if(bu > 0)

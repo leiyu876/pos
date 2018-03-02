@@ -58,12 +58,18 @@ class Products extends MY_Controller
                     <i class=\"fa fa-trash-o\"></i>".lang('delete_product')."
                 </a>";
         $single_barcode = anchor('admin/products/print_barcodes/$1', '<i class="fa fa-print"></i> ' . lang('print_barcode_label'));
-        $action = '<div class="text-center"><div class="btn-group text-left">'
+        /*$action = '<div class="text-center"><div class="btn-group text-left">'
             . '<button type="button" class="btn btn-default btn-xs btn-primary dropdown-toggle" data-toggle="dropdown">'
             . lang('actions') . ' <span class="caret"></span></button>
         <ul class="dropdown-menu pull-right" role="menu">
             <li>' . $detail_link . '</li>
             <li><a href="' . admin_url('products/add/$1') . '"><i class="fa fa-plus-square"></i> ' . lang('duplicate_product') . '</a></li>
+            <li><a href="' . admin_url('products/edit/$1') . '"><i class="fa fa-edit"></i> ' . lang('edit_product') . '</a></li>';*/
+        $action = '<div class="text-center"><div class="btn-group text-left">'
+            . '<button type="button" class="btn btn-default btn-xs btn-primary dropdown-toggle" data-toggle="dropdown">'
+            . lang('actions') . ' <span class="caret"></span></button>
+        <ul class="dropdown-menu pull-right" role="menu">
+            <li>' . $detail_link . '</li>
             <li><a href="' . admin_url('products/edit/$1') . '"><i class="fa fa-edit"></i> ' . lang('edit_product') . '</a></li>';
         if ($warehouse_id) {
             $action .= '<li><a href="' . admin_url('products/set_rack/$1/' . $warehouse_id) . '" data-toggle="modal" data-target="#myModal"><i class="fa fa-bars"></i> '
@@ -71,7 +77,6 @@ class Products extends MY_Controller
         }
         $action .= '<li><a href="' . base_url() . 'assets/uploads/$2" data-type="image" data-toggle="lightbox"><i class="fa fa-file-photo-o"></i> '
             . lang('view_image') . '</a></li>
-            <li>' . $single_barcode . '</li>
             <li class="divider"></li>
             <li>' . $delete_link . '</li>
             </ul>
@@ -217,6 +222,98 @@ class Products extends MY_Controller
         echo $this->datatables->generate();
     }
 
+    function return()
+    {
+        $bc = array(array('link' => base_url(), 'page' => lang('home')), array('link' => admin_url('products'), 'page' => lang('products')), array('link' => '#', 'page' => lang('Return_Products')));
+        $meta = array('page_title' => lang('products'), 'bc' => $bc);
+
+        $this->page_construct('products/return', $meta, $this->data);
+    }
+
+    function getReturn()
+    {
+        $this->load->library('datatables');
+        $this->load->library('ion_auth');
+        
+        $this->datatables
+            ->select("
+                {$this->db->dbprefix('product_borrowed')}.pb_id as pb_id, 
+                {$this->db->dbprefix('product_borrowed')}.userid as userid, 
+                (CASE 
+                WHEN 
+                    {$this->db->dbprefix('product_borrowed')}.return_date < DATE(NOW())  AND 
+                    {$this->db->dbprefix('product_borrowed')}.status = 'borrowed' 
+                THEN CONCAT({$this->db->dbprefix('users')}.first_name,  ' ', {$this->db->dbprefix('users')}.last_name, ' *')
+                ELSE CONCAT({$this->db->dbprefix('users')}.first_name,  ' ', {$this->db->dbprefix('users')}.last_name)
+                END) as complete_name,
+                {$this->db->dbprefix('products')}.code as code, 
+                {$this->db->dbprefix('products')}.name as product_name,
+                {$this->db->dbprefix('product_borrowed')}.borrowed_date as borrowed_date,
+                {$this->db->dbprefix('product_borrowed')}.return_date as return_date,
+                {$this->db->dbprefix('product_borrowed')}.actual_return_date as actual_return_date,
+                (CASE 
+                WHEN 
+                    {$this->db->dbprefix('product_borrowed')}.return_date < DATE(NOW())  AND 
+                    {$this->db->dbprefix('product_borrowed')}.status = 'borrowed' 
+                THEN CONCAT('<span style=\"color:red\">', 'Overdue', '</span>')
+                ELSE {$this->db->dbprefix('product_borrowed')}.status
+                END) as status_return,",
+                 FALSE
+            )
+            ->join('users', 'product_borrowed.userid=users.id', 'left')
+            ->join('products', 'product_borrowed.product_id=products.id', 'left')
+            ->where('product_borrowed.status', 'returned')
+            ->from('product_borrowed');
+
+        echo $this->datatables->generate();
+    }
+
+    function unreturn()
+    {
+        $bc = array(array('link' => base_url(), 'page' => lang('home')), array('link' => admin_url('products'), 'page' => lang('products')), array('link' => '#', 'page' => lang('Unreturn_Products')));
+        $meta = array('page_title' => lang('products'), 'bc' => $bc);
+
+        $this->page_construct('products/unreturn', $meta, $this->data);
+    }
+
+    function getUnreturn()
+    {
+        $this->load->library('datatables');
+        $this->load->library('ion_auth');
+        
+        $this->datatables
+            ->select("
+                {$this->db->dbprefix('product_borrowed')}.pb_id as pb_id, 
+                {$this->db->dbprefix('product_borrowed')}.userid as userid, 
+                (CASE 
+                WHEN 
+                    {$this->db->dbprefix('product_borrowed')}.return_date < DATE(NOW())  AND 
+                    {$this->db->dbprefix('product_borrowed')}.status = 'borrowed' 
+                THEN CONCAT({$this->db->dbprefix('users')}.first_name,  ' ', {$this->db->dbprefix('users')}.last_name, ' *')
+                ELSE CONCAT({$this->db->dbprefix('users')}.first_name,  ' ', {$this->db->dbprefix('users')}.last_name)
+                END) as complete_name,
+                {$this->db->dbprefix('products')}.code as code, 
+                {$this->db->dbprefix('products')}.name as product_name,
+                {$this->db->dbprefix('product_borrowed')}.borrowed_date as borrowed_date,
+                {$this->db->dbprefix('product_borrowed')}.return_date as return_date,
+                {$this->db->dbprefix('product_borrowed')}.actual_return_date as actual_return_date,
+                (CASE 
+                WHEN 
+                    {$this->db->dbprefix('product_borrowed')}.return_date < DATE(NOW())  AND 
+                    {$this->db->dbprefix('product_borrowed')}.status = 'borrowed' 
+                THEN CONCAT('<span style=\"color:red\">', 'Overdue', '</span>')
+                ELSE {$this->db->dbprefix('product_borrowed')}.status
+                END) as status_return,",
+                 FALSE
+            )
+            ->join('users', 'product_borrowed.userid=users.id', 'left')
+            ->join('products', 'product_borrowed.product_id=products.id', 'left')
+            ->where('product_borrowed.status', 'borrowed')
+            ->from('product_borrowed');
+
+        echo $this->datatables->generate();
+    }
+
     function TransferToOtherUser($id = NULL)
     {
         $this->form_validation->set_rules('user_id', lang("user"), 'required');
@@ -340,11 +437,19 @@ class Products extends MY_Controller
 
         }
     }
-
+    
     public function getBorrowedStatusList() {
         return array(
             'borrowed' => 'Borrow',
             'returned' => 'Returned',
+        );
+    }
+
+    public function getBorrowedReturnStatusList() {
+        return array(
+            'good' => 'Good',
+            'maintenance' => 'Maintenance',
+            'damage' => 'Damage',
         );
     }
 
@@ -1294,7 +1399,8 @@ class Products extends MY_Controller
     {
         $this->form_validation->set_rules('product_id', lang("product"), 'required');
         $this->form_validation->set_rules('user_id', lang("user"), 'required');
-        $this->form_validation->set_rules('return_date', lang("Return_Date"), 'required');        
+        $this->form_validation->set_rules('return_date', lang("Return_Date"), 'required');   
+        $this->form_validation->set_rules('return_status', lang("Return_Status"), 'required');     
 
         $borrowed_details = $this->site->getBorrowedByID($id);
 
@@ -1308,7 +1414,14 @@ class Products extends MY_Controller
                 'borrowed_date' => date('Y-m-d'),
                 'return_date' => $date->format('Y-m-d'),
                 'status' => $this->input->post('status'),
+                'return_status' => $this->input->post('return_status'),
             );
+            
+            if($this->input->post('status') == 'returned') {
+                $data['actual_return_date'] = date('Y-m-d');
+            }
+
+            
         } elseif ($this->input->post('save')) {
             
             $this->session->set_flashdata('error', validation_errors());
@@ -1324,6 +1437,7 @@ class Products extends MY_Controller
             $this->data['products'] = $this->products_model->getAllProductsNotDeletedNotBorrowedOthers($borrowed_details);
             $this->data['users'] = $this->auth_model->getAllUsers();
             $this->data['status_list'] = $this->getBorrowedStatusList();
+            $this->data['return_status_list'] = $this->getBorrowedReturnStatusList();
             $this->data['modal_js'] = $this->site->modal_js();
             $this->data['borrowed'] = $borrowed_details;
             $this->load->view($this->theme . 'products/product_borrow_edit', $this->data);

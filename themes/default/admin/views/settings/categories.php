@@ -14,7 +14,11 @@
                 });
                 $.ajax({'dataType': 'json', 'type': 'POST', 'url': sSource, 'data': aoData, 'success': fnCallback});
             },
-            "aoColumns": [{"bSortable": false, "mRender": checkbox}, {"bSortable": false, "mRender": img_hl}, null, null, null, null, {"bSortable": false}]
+            "aoColumns": [
+            {"bSortable": false, "mRender": checkbox}, 
+            {"bSortable": false, "mRender": img_hl}, 
+            null, null,
+            {"bSortable": false}]
         });
     });
 </script>
@@ -35,7 +39,7 @@
                                 <i class="fa fa-plus"></i> <?= lang('add_category') ?>
                             </a>
                         </li>
-                        <li>
+                        <li style="display:none">
                             <a href="<?php echo admin_url('system_settings/import_categories'); ?>" data-toggle="modal" data-target="#myModal">
                                 <i class="fa fa-plus"></i> <?= lang('import_categories') ?>
                             </a>
@@ -72,8 +76,6 @@
                                 </th>
                                 <th><?= lang("category_code"); ?></th>
                                 <th><?= lang("category_name"); ?></th>
-                                <th><?= lang("slug"); ?></th>
-                                <th><?= lang("parent_category"); ?></th>
                                 <th style="width:100px;"><?= lang("actions"); ?></th>
                             </tr>
                         </thead>

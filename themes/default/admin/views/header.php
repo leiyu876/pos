@@ -351,31 +351,31 @@
                                             <span class="text"> <?= lang('import_products'); ?></span>
                                         </a>
                                     </li>
-                                    <li id="products_print_barcodes">
+                                    <li style="display:none" id="products_print_barcodes">
                                         <a class="submenu" href="<?= admin_url('products/print_barcodes'); ?>">
                                             <i class="fa fa-tags"></i>
                                             <span class="text"> <?= lang('print_barcode_label'); ?></span>
                                         </a>
                                     </li>
-                                    <li id="products_quantity_adjustments">
+                                    <li style="display:none" id="products_quantity_adjustments">
                                         <a class="submenu" href="<?= admin_url('products/quantity_adjustments'); ?>">
                                             <i class="fa fa-filter"></i>
                                             <span class="text"> <?= lang('quantity_adjustments'); ?></span>
                                         </a>
                                     </li>
-                                    <li id="products_add_adjustment">
+                                    <li style="display:none" id="products_add_adjustment">
                                         <a class="submenu" href="<?= admin_url('products/add_adjustment'); ?>">
                                             <i class="fa fa-filter"></i>
                                             <span class="text"> <?= lang('add_adjustment'); ?></span>
                                         </a>
                                     </li>
-                                    <li id="products_stock_counts">
+                                    <li style="display:none" id="products_stock_counts">
                                         <a class="submenu" href="<?= admin_url('products/stock_counts'); ?>">
                                             <i class="fa fa-list-ol"></i>
                                             <span class="text"> <?= lang('stock_counts'); ?></span>
                                         </a>
                                     </li>
-                                    <li id="products_count_stock">
+                                    <li style="display:none" id="products_count_stock">
                                         <a class="submenu" href="<?= admin_url('products/count_stock'); ?>">
                                             <i class="fa fa-plus-circle"></i>
                                             <span class="text"> <?= lang('count_stock'); ?></span>
@@ -557,23 +557,23 @@
                                             <i class="fa fa-user-plus"></i><span class="text"> <?= lang('new_user'); ?></span>
                                         </a>
                                     </li>
-                                    <li id="billers_index">
+                                    <li style="display:none" id="billers_index">
                                         <a class="submenu" href="<?= admin_url('billers'); ?>">
                                             <i class="fa fa-users"></i><span class="text"> <?= lang('list_billers'); ?></span>
                                         </a>
                                     </li>
-                                    <li id="billers_index">
+                                    <li style="display:none" id="billers_index">
                                         <a class="submenu" href="<?= admin_url('billers/add'); ?>" data-toggle="modal" data-target="#myModal">
                                             <i class="fa fa-plus-circle"></i><span class="text"> <?= lang('add_biller'); ?></span>
                                         </a>
                                     </li>
                                     <?php } ?>
-                                    <li id="customers_index">
+                                    <li style="display:none" id="customers_index">
                                         <a class="submenu" href="<?= admin_url('customers'); ?>">
                                             <i class="fa fa-users"></i><span class="text"> <?= lang('list_customers'); ?></span>
                                         </a>
                                     </li>
-                                    <li id="customers_index">
+                                    <li style="display:none" id="customers_index">
                                         <a class="submenu" href="<?= admin_url('customers/add'); ?>" data-toggle="modal" data-target="#myModal">
                                             <i class="fa fa-plus-circle"></i><span class="text"> <?= lang('add_customer'); ?></span>
                                         </a>
@@ -595,7 +595,7 @@
                                     <i class="fa fa-info-circle"></i><span class="text"> <?= lang('notifications'); ?></span>
                                 </a>
                             </li>
-                            <li class="mm_calendar">
+                            <li style="display:none" class="mm_calendar">
                                 <a class="submenu" href="<?= admin_url('calendar'); ?>">
                                     <i class="fa fa-calendar"></i><span class="text"> <?= lang('calendar'); ?></span>
                                 </a>
@@ -613,38 +613,38 @@
                                             </a>
                                         </li>
                                         <?php if (POS) { ?>
-                                        <li id="pos_settings">
+                                        <li style="display:none" id="pos_settings">
                                             <a href="<?= admin_url('pos/settings') ?>">
                                                 <i class="fa fa-th-large"></i><span class="text"> <?= lang('pos_settings'); ?></span>
                                             </a>
                                         </li>
-                                        <li id="pos_printers">
+                                        <li style="display:none" id="pos_printers">
                                             <a href="<?= admin_url('pos/printers') ?>">
                                                 <i class="fa fa-print"></i><span class="text"> <?= lang('list_printers'); ?></span>
                                             </a>
                                         </li>
-                                        <li id="pos_add_printer">
+                                        <li style="display:none" id="pos_add_printer">
                                             <a href="<?= admin_url('pos/add_printer') ?>">
                                                 <i class="fa fa-plus-circle"></i><span class="text"> <?= lang('add_printer'); ?></span>
                                             </a>
                                         </li>
                                         <?php } ?>
-                                        <li id="system_settings_change_logo">
+                                        <li style="display:none" id="system_settings_change_logo">
                                             <a href="<?= admin_url('system_settings/change_logo') ?>" data-toggle="modal" data-target="#myModal">
                                                 <i class="fa fa-upload"></i><span class="text"> <?= lang('change_logo'); ?></span>
                                             </a>
                                         </li>
-                                        <li id="system_settings_currencies">
+                                        <li style="display:none" id="system_settings_currencies">
                                             <a href="<?= admin_url('system_settings/currencies') ?>">
                                                 <i class="fa fa-money"></i><span class="text"> <?= lang('currencies'); ?></span>
                                             </a>
                                         </li>
-                                        <li id="system_settings_customer_groups">
+                                        <li style="display:none" id="system_settings_customer_groups">
                                             <a href="<?= admin_url('system_settings/customer_groups') ?>">
                                                 <i class="fa fa-chain"></i><span class="text"> <?= lang('customer_groups'); ?></span>
                                             </a>
                                         </li>
-                                        <li id="system_settings_price_groups">
+                                        <li style="display:none" id="system_settings_price_groups">
                                             <a href="<?= admin_url('system_settings/price_groups') ?>">
                                                 <i class="fa fa-dollar"></i><span class="text"> <?= lang('price_groups'); ?></span>
                                             </a>
@@ -654,12 +654,12 @@
                                                 <i class="fa fa-folder-open"></i><span class="text"> <?= lang('categories'); ?></span>
                                             </a>
                                         </li>
-                                        <li id="system_settings_expense_categories">
+                                        <li style="display:none" id="system_settings_expense_categories">
                                             <a href="<?= admin_url('system_settings/expense_categories') ?>">
                                                 <i class="fa fa-folder-open"></i><span class="text"> <?= lang('expense_categories'); ?></span>
                                             </a>
                                         </li>
-                                        <li id="system_settings_units">
+                                        <li style="display:none" id="system_settings_units">
                                             <a href="<?= admin_url('system_settings/units') ?>">
                                                 <i class="fa fa-wrench"></i><span class="text"> <?= lang('units'); ?></span>
                                             </a>
@@ -669,17 +669,17 @@
                                                 <i class="fa fa-th-list"></i><span class="text"> <?= lang('brands'); ?></span>
                                             </a>
                                         </li>
-                                        <li id="system_settings_variants">
+                                        <li style="display:none" id="system_settings_variants">
                                             <a href="<?= admin_url('system_settings/variants') ?>">
                                                 <i class="fa fa-tags"></i><span class="text"> <?= lang('variants'); ?></span>
                                             </a>
                                         </li>
-                                        <li id="system_settings_tax_rates">
+                                        <li style="display:none" id="system_settings_tax_rates">
                                             <a href="<?= admin_url('system_settings/tax_rates') ?>">
                                                 <i class="fa fa-plus-circle"></i><span class="text"> <?= lang('tax_rates'); ?></span>
                                             </a>
                                         </li>
-                                        <li id="system_settings_warehouses">
+                                        <li style="display:none" id="system_settings_warehouses">
                                             <a href="<?= admin_url('system_settings/warehouses') ?>">
                                                 <i class="fa fa-building-o"></i><span class="text"> <?= lang('warehouses'); ?></span>
                                             </a>
@@ -689,12 +689,12 @@
                                                 <i class="fa fa-envelope"></i><span class="text"> <?= lang('email_templates'); ?></span>
                                             </a>
                                         </li>
-                                        <li id="system_settings_user_groups">
+                                        <li style="display:none" id="system_settings_user_groups">
                                             <a href="<?= admin_url('system_settings/user_groups') ?>">
                                                 <i class="fa fa-key"></i><span class="text"> <?= lang('group_permissions'); ?></span>
                                             </a>
                                         </li>
-                                        <li id="system_settings_backups">
+                                        <li style="display:none" id="system_settings_backups">
                                             <a href="<?= admin_url('system_settings/backups') ?>">
                                                 <i class="fa fa-database"></i><span class="text"> <?= lang('backups'); ?></span>
                                             </a>

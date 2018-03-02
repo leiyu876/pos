@@ -35,7 +35,7 @@
                                 <i class="fa fa-plus"></i> <?= lang('add_brand') ?>
                             </a>
                         </li>
-                        <li>
+                        <li style="display:none">
                             <a href="<?php echo admin_url('system_settings/import_brands'); ?>" data-toggle="modal" data-target="#myModal">
                                 <i class="fa fa-plus"></i> <?= lang('import_brands') ?>
                             </a>

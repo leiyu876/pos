@@ -25,7 +25,7 @@
             "aLengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "<?= lang('all') ?>"]],
             "iDisplayLength": <?= $Settings->rows_per_page ?>,
             'bProcessing': true, 'bServerSide': true,
-            'sAjaxSource': '<?= admin_url('products/getBorrowedProducts') ?>',
+            'sAjaxSource': '<?= admin_url('products/getReturn') ?>',
             'fnServerData': function (sSource, aoData, fnCallback) {
                 aoData.push({
                     "name": "<?= $this->security->get_csrf_token_name() ?>",
@@ -43,18 +43,14 @@
                 {"bSortable": true},
                 {"bSortable": true},               
                 {"bSortable": true, "mRender": capitalizeFirstLetter},
-                {"bSortable": false}, 
             ]
         });
     });
 </script>
-<?php if ($Owner || $GP['bulk_actions']) {
-    echo admin_form_open('products/product_actions'.($warehouse_id ? '/'.$warehouse_id : ''), 'id="action-form"');
-} ?>
 <div class="box">
     <div class="box-header">
         <h2 class="blue"><i
-                class="fa-fw fa fa-barcode"></i><?= lang('products') . ' ( Borrowed )'; ?>
+                class="fa-fw fa fa-barcode"></i><?= lang('products') . ' ( Return )'; ?>
         </h2>
         <? if ($Owner || $Admin) { ?>
             <div class="box-icon">
@@ -82,11 +78,6 @@
                                 </a>
 
                             </li>
-                            <li>
-                                <a href="#" id="pdf1">
-                                    <i class="fa fa-file-pdf-o"></i> <?= lang('download_pdf') ?>
-                                </a>
-                            </li>
                         </ul>
                     </li>
                 </ul>
@@ -109,7 +100,6 @@
                             <th><?= lang("Return Date") ?></th>
                             <th><?= lang("Actual Return") ?></th>
                             <th><?= lang("Status") ?></th>
-                            <th><?= lang("Actions") ?></th>
                         </tr>
                         </thead>
                         <tbody>

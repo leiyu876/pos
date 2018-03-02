@@ -2,14 +2,14 @@
 <?php if ($Owner || $Admin) { ?>
     <ul id="myTab" class="nav nav-tabs">
         <li class=""><a href="#details" class="tab-grey"><?= lang('product_details') ?></a></li>
-        <li class=""><a href="#chart" class="tab-grey"><?= lang('chart') ?></a></li>
-        <li class=""><a href="#sales" class="tab-grey"><?= lang('sales') ?></a></li>
-        <li class=""><a href="#history" class="tab-grey"><?= lang('History') ?></a></li>
-        <li class=""><a href="#quotes" class="tab-grey"><?= lang('quotes') ?></a></li>
+        <li style="display:none" class=""><a href="#chart" class="tab-grey"><?= lang('chart') ?></a></li>
+        <li style="display:none" class=""><a href="#sales" class="tab-grey"><?= lang('sales') ?></a></li>
+        <li class=""><a href="#history" class="tab-grey"><?= lang('Borrowed History') ?></a></li>
+        <li style="display:none" class=""><a href="#quotes" class="tab-grey"><?= lang('quotes') ?></a></li>
         <?php if($product->type == 'standard') { ?>
-        <li class=""><a href="#purchases" class="tab-grey"><?= lang('purchases') ?></a></li>
-        <li class=""><a href="#transfers" class="tab-grey"><?= lang('transfers') ?></a></li>
-        <li class=""><a href="#damages" class="tab-grey"><?= lang('quantity_adjustments') ?></a></li>
+        <li style="display:none" class=""><a href="#purchases" class="tab-grey"><?= lang('purchases') ?></a></li>
+        <li style="display:none" class=""><a href="#transfers" class="tab-grey"><?= lang('transfers') ?></a></li>
+        <li style="display:none" class=""><a href="#damages" class="tab-grey"><?= lang('quantity_adjustments') ?></a></li>
         <?php } ?>
     </ul>
 
@@ -121,19 +121,19 @@
                                                 <td><?php echo $subcategory->name; ?></td>
                                             </tr>
                                         <?php } ?>
-                                        <tr>
+                                        <tr style="display:none">
                                             <td><?= lang("unit"); ?></td>
                                             <td><?= $unit ? $unit->name.' ('.$unit->code.')' : ''; ?></td>
                                         </tr>
                                         <?php if ($Owner || $Admin) {
-                                            echo '<tr><td>' . lang("cost") . '</td><td>' . $this->sma->formatMoney($product->cost) . '</td></tr>';
+                                            echo '<tr style="display:none"><td>' . lang("cost") . '</td><td>' . $this->sma->formatMoney($product->cost) . '</td></tr>';
                                             echo '<tr><td>' . lang("price") . '</td><td>' . $this->sma->formatMoney($product->price) . '</td></tr>';
                                             if ($product->promotion) {
                                                 echo '<tr><td>' . lang("promotion") . '</td><td>' . $this->sma->formatMoney($product->promo_price) . ' ('.$this->sma->hrsd($product->start_date).' - '.$this->sma->hrsd($product->end_date).')</td></tr>';
                                             }
                                         } else {
                                             if ($this->session->userdata('show_cost')) {
-                                                echo '<tr><td>' . lang("cost") . '</td><td>' . $this->sma->formatMoney($product->cost) . '</td></tr>';
+                                                echo '<tr style="display:none"><td>' . lang("cost") . '</td><td>' . $this->sma->formatMoney($product->cost) . '</td></tr>';
                                             }
                                             if ($this->session->userdata('show_price')) {
                                                 echo '<tr><td>' . lang("price") . '</td><td>' . $this->sma->formatMoney($product->price) . '</td></tr>';
@@ -145,11 +145,11 @@
                                         ?>
 
                                         <?php if ($product->tax_rate) { ?>
-                                            <tr>
+                                            <tr style="display:none">
                                                 <td><?= lang("tax_rate"); ?></td>
                                                 <td><?php echo $tax_rate->name; ?></td>
                                             </tr>
-                                            <tr>
+                                            <tr style="display:none"    >
                                                 <td><?= lang("tax_method"); ?></td>
                                                 <td><?php echo $product->tax_method == 0 ? lang('inclusive') : lang('exclusive'); ?></td>
                                             </tr>
@@ -302,7 +302,7 @@
                         </div>
 
                         <?php if (!$Supplier || !$Customer) { ?>
-                        <div class="buttons">
+                        <div style="display:none" class="buttons">
                             <div class="btn-group btn-group-justified">
                                 <div class="btn-group">
                                     <a href="<?= admin_url('products/print_barcodes/' . $product->id) ?>" class="tip btn btn-primary" title="<?= lang('print_barcode_label') ?>">
@@ -672,6 +672,8 @@
                                         <th><?= lang("Name"); ?></th>
                                         <th><?= lang("Return Date"); ?></th>
                                         <th><?= lang("Actual Return"); ?></th>
+                                        <th><?= lang("Delay"); ?></th>
+                                        <th><?= lang("Product Status"); ?></th>
                                         <th><?= lang("Status"); ?></th>
                                     </tr>
                                 </thead>

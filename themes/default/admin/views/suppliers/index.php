@@ -22,7 +22,7 @@
             "aoColumns": [{
                 "bSortable": false,
                 "mRender": checkbox
-            }, null, null, null, null, null, null, null, {"bSortable": false}]
+            }, null, null, null, null, null, null, {"bSortable": false}]
         }).dtFilter([
             {column_number: 1, filter_default_label: "[<?=lang('company');?>]", filter_type: "text", data: []},
             {column_number: 2, filter_default_label: "[<?=lang('name');?>]", filter_type: "text", data: []},
@@ -30,7 +30,6 @@
             {column_number: 4, filter_default_label: "[<?=lang('phone');?>]", filter_type: "text", data: []},
             {column_number: 5, filter_default_label: "[<?=lang('city');?>]", filter_type: "text", data: []},
             {column_number: 6, filter_default_label: "[<?=lang('country');?>]", filter_type: "text", data: []},
-            {column_number: 7, filter_default_label: "[<?=lang('vat_no');?>]", filter_type: "text", data: []},
         ], "footer");
     });
 </script>
@@ -53,7 +52,7 @@
                                 <i class="fa fa-plus-circle"></i> <?= lang("add_supplier"); ?>
                             </a>
                         </li>
-                        <li>
+                        <li style="display:none">
                             <a href="<?= admin_url('suppliers/import_csv'); ?>" data-toggle="modal" data-target="#myModal">
                                 <i class="fa fa-plus-circle"></i> <?= lang("import_by_csv"); ?>
 
@@ -96,7 +95,6 @@
                             <th><?= lang("phone"); ?></th>
                             <th><?= lang("city"); ?></th>
                             <th><?= lang("country"); ?></th>
-                            <th><?= lang("vat_no"); ?></th>
                             <th style="width:85px; text-align:center;"><?= lang("actions"); ?></th>
                         </tr>
                         </thead>
@@ -110,7 +108,6 @@
                             <th style="min-width:30px; width: 30px; text-align: center;">
                                 <input class="checkbox checkft" type="checkbox" name="check"/>
                             </th>
-                            <th></th>
                             <th></th>
                             <th></th>
                             <th></th>

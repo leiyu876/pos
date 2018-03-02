@@ -298,8 +298,7 @@ if (!empty($variants)) {
                         <div id="attrs"></div>
 
                         <div class="form-group">
-                            <input type="checkbox" class="checkbox" name="attributes"
-                                   id="attributes" <?= $this->input->post('attributes') || $product_options ? 'checked="checked"' : ''; ?>><label
+                            <input type="checkbox" class="checkbox" name="attributes" id="attributes" <?= $this->input->post('attributes') || $product_options ? 'checked="checked"' : ''; ?>><label
                                 for="attributes"
                                 class="padding05"><?= lang('product_has_attributes'); ?></label> <?= lang('eg_sizes_colors'); ?>
                         </div>

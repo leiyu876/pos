@@ -97,10 +97,12 @@
 } ?>
 <div class="box">
     <div class="box-header">
-        <h2 class="blue"><i
+        <h2 style="display:none" class="blue"><i
                 class="fa-fw fa fa-barcode"></i><?= lang('products') . ' (' . ($warehouse_id ? $warehouse->name : lang('all_warehouses')) . ')'.($supplier ? ' ('.lang('supplier').': '.($supplier->company && $supplier->company != '-' ? $supplier->company : $supplier->name).')' : ''); ?>
         </h2>
-
+        <h2 class="blue"><i
+                class="fa-fw fa fa-barcode"></i><?= lang('products'); ?>
+        </h2>
         <div class="box-icon">
             <ul class="btn-tasks">
                 <li class="dropdown">
@@ -114,18 +116,18 @@
                             </a>
                         </li>
                         <?php if(!$warehouse_id) { ?>
-                        <li>
+                        <li style="display:none">
                             <a href="<?= admin_url('products/update_price') ?>" data-toggle="modal" data-target="#myModal">
                                 <i class="fa fa-file-excel-o"></i> <?= lang('update_price') ?>
                             </a>
                         </li>
                         <?php } ?>
-                        <li>
+                        <li style="display:none">
                             <a href="#" id="labelProducts" data-action="labels">
                                 <i class="fa fa-print"></i> <?= lang('print_barcode_label') ?>
                             </a>
                         </li>
-                        <li>
+                        <li style="display:none">
                             <a href="#" id="sync_quantity" data-action="sync_quantity">
                                 <i class="fa fa-arrows-v"></i> <?= lang('sync_quantity') ?>
                             </a>
@@ -151,7 +153,7 @@
                     </ul>
                 </li>
                 <?php if (!empty($warehouses)) { ?>
-                    <li class="dropdown">
+                    <li style="display:none" class="dropdown">
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#"><i class="icon fa fa-building-o tip" data-placement="left" title="<?= lang("warehouses") ?>"></i></a>
                         <ul class="dropdown-menu pull-right tasks-menus" role="menu" aria-labelledby="dLabel">
                             <li><a href="<?= admin_url('products') ?>"><i class="fa fa-building-o"></i> <?= lang('all_warehouses') ?></a></li>
@@ -170,7 +172,7 @@
     <div class="box-content">
         <div class="row">
             <div class="col-lg-12">
-                <p class="introtext"><?= lang('list_results'); ?></p>
+                <p style="display:none" class="introtext"><?= lang('list_results'); ?></p>
 
                 <div class="table-responsive">
                     <table id="PRData" class="table table-bordered table-condensed table-hover table-striped">
