@@ -193,18 +193,19 @@ class Products extends MY_Controller
                     {$this->db->dbprefix('product_borrowed')}.status = 'borrowed' 
                 THEN CONCAT({$this->db->dbprefix('users')}.first_name,  ' ', {$this->db->dbprefix('users')}.last_name, ' *')
                 ELSE CONCAT({$this->db->dbprefix('users')}.first_name,  ' ', {$this->db->dbprefix('users')}.last_name)
-                END) as 'User Name',
+                END) as complete_name,
                 {$this->db->dbprefix('products')}.code as code, 
-                {$this->db->dbprefix('products')}.name as 'Product Name',
-                {$this->db->dbprefix('product_borrowed')}.borrowed_date as 'borrowed_date',
-                {$this->db->dbprefix('product_borrowed')}.return_date as 'Returned Date',
+                {$this->db->dbprefix('products')}.name as product_name,
+                {$this->db->dbprefix('product_borrowed')}.borrowed_date as borrowed_date,
+                {$this->db->dbprefix('product_borrowed')}.return_date as return_date,
+                {$this->db->dbprefix('product_borrowed')}.actual_return_date as actual_return_date,
                 (CASE 
                 WHEN 
                     {$this->db->dbprefix('product_borrowed')}.return_date < DATE(NOW())  AND 
                     {$this->db->dbprefix('product_borrowed')}.status = 'borrowed' 
                 THEN CONCAT('<span style=\"color:red\">', 'Overdue', '</span>')
                 ELSE {$this->db->dbprefix('product_borrowed')}.status
-                END) as 'Status',",
+                END) as status_return,",
                  FALSE
             )
             ->join('users', 'product_borrowed.userid=users.id', 'left')
@@ -232,9 +233,18 @@ class Products extends MY_Controller
             
             $date = DateTime::createFromFormat('d/m/Y', $this->input->post('return_date'));
             
-            $data = array(
+            $data_from = array(
+                'actual_return_date' => date('Y-m-d'),
+                'status' => 'returned',
+                'transfer_to' => $this->input->post('user_id'),
+            );
+            
+            $data_to = array(
+                'product_id' => $borrowed_details->product_id,
                 'userid' => $this->input->post('user_id'),
+                'borrowed_date' => date('Y-m-d'),
                 'return_date' => $date->format('Y-m-d'),
+                'status' => 'borrowed',
             );
 
         } elseif ($this->input->post('save')) {
@@ -243,7 +253,9 @@ class Products extends MY_Controller
             admin_redirect("products/borrowed");
         }
 
-        if ($this->form_validation->run() == true && $this->products_model->updateBorrowed($id, $data)) {
+        if ($this->form_validation->run() == true && 
+            $this->products_model->updateBorrowed($id, $data_from) &&
+            $this->products_model->addBorrowed($data_to)) {
             $this->session->set_flashdata('message', lang("Successfully_Transfered"));
             admin_redirect("products/borrowed");
         } else {
