@@ -1179,6 +1179,44 @@ class Reports extends MY_Controller
 
     }
 
+    function getHistoryReport($pdf = NULL, $xls = NULL)
+    {
+        $productid = $this->input->get('product') ? $this->input->get('product') : NULL;
+
+        $this->load->library('datatables');
+        $this->load->library('ion_auth');
+        
+        $this->datatables
+            ->select("
+                {$this->db->dbprefix('product_borrowed')}.borrowed_date as borrowed_date,
+                {$this->db->dbprefix('product_borrowed')}.userid as userid, 
+                (CASE 
+                WHEN 
+                    {$this->db->dbprefix('product_borrowed')}.return_date < DATE(NOW())  AND 
+                    {$this->db->dbprefix('product_borrowed')}.status = 'borrowed' 
+                THEN CONCAT({$this->db->dbprefix('users')}.first_name,  ' ', {$this->db->dbprefix('users')}.last_name, ' *')
+                ELSE CONCAT({$this->db->dbprefix('users')}.first_name,  ' ', {$this->db->dbprefix('users')}.last_name)
+                END) as complete_name,
+                {$this->db->dbprefix('product_borrowed')}.return_date as return_date,
+                {$this->db->dbprefix('product_borrowed')}.actual_return_date as actual_return_date, 
+                (CASE 
+                WHEN 
+                    {$this->db->dbprefix('product_borrowed')}.return_date < DATE(NOW())  AND 
+                    {$this->db->dbprefix('product_borrowed')}.status = 'borrowed' 
+                THEN CONCAT('<span style=\"color:red\">', 'Overdue', '</span>')
+                ELSE {$this->db->dbprefix('product_borrowed')}.status
+                END) as status_return,",
+                 FALSE
+            )
+            ->join('users', 'product_borrowed.userid=users.id', 'left')
+            ->join('products', 'product_borrowed.product_id=products.id', 'left')
+            ->where('products.id', $productid)
+            ->from('product_borrowed');
+
+        echo $this->datatables->generate();
+
+    }
+
     function getQuotesReport($pdf = NULL, $xls = NULL)
     {
 

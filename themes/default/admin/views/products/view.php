@@ -4,6 +4,7 @@
         <li class=""><a href="#details" class="tab-grey"><?= lang('product_details') ?></a></li>
         <li class=""><a href="#chart" class="tab-grey"><?= lang('chart') ?></a></li>
         <li class=""><a href="#sales" class="tab-grey"><?= lang('sales') ?></a></li>
+        <li class=""><a href="#history" class="tab-grey"><?= lang('History') ?></a></li>
         <li class=""><a href="#quotes" class="tab-grey"><?= lang('quotes') ?></a></li>
         <?php if($product->type == 'standard') { ?>
         <li class=""><a href="#purchases" class="tab-grey"><?= lang('purchases') ?></a></li>
@@ -630,6 +631,56 @@
                                     <th></th>
                                 </tr>
                                 </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="history" class="tab-pane fade">
+        <?php $warehouse_id = NULL; ?>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                oTable = $('#historyData').dataTable({
+                    "iDisplayLength": <?= $Settings->rows_per_page ?>,
+                    'bProcessing': true, 'bServerSide': true,
+                    'sAjaxSource': '<?= admin_url('reports/getHistoryReport/?v=1&product='.$product->id) ?>',
+                    'fnServerData': function (sSource, aoData, fnCallback) {
+                        aoData.push({
+                            "name": "<?= $this->security->get_csrf_token_name() ?>",
+                            "value": "<?= $this->security->get_csrf_hash() ?>"
+                        });
+                        $.ajax({'dataType': 'json', 'type': 'POST', 'url': sSource, 'data': aoData, 'success': fnCallback});
+                    },
+                });
+            });
+        </script>
+        <div class="box">
+            <div class="box-header">
+                <h2 class="blue"><i class="fa-fw fa fa-heart nb"></i><?= $product->name . ' ' . lang('History'); ?></h2>
+            </div>
+            <div class="box-content">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="table-responsive">
+                            <table id="historyData" class="table table-bordered table-hover table-striped table-condensed">
+                                <thead>
+                                    <tr>
+                                        <th><?= lang("Borrowed Date"); ?></th>
+                                        <th><?= lang("User ID"); ?></th>
+                                        <th><?= lang("Name"); ?></th>
+                                        <th><?= lang("Return Date"); ?></th>
+                                        <th><?= lang("Actual Return"); ?></th>
+                                        <th><?= lang("Status"); ?></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td colspan="9"
+                                            class="dataTables_empty"><?= lang('loading_data_from_server') ?></td>
+                                    </tr>
+                                </tbody>
                             </table>
                         </div>
                     </div>
