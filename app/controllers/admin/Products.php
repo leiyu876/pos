@@ -223,7 +223,7 @@ class Products extends MY_Controller
         echo $this->datatables->generate();
     }
 
-    function return_products()
+    public function return_products()
     {
         $bc = array(array('link' => base_url(), 'page' => lang('home')), array('link' => admin_url('products'), 'page' => lang('products')), array('link' => '#', 'page' => lang('Return_Products')));
         $meta = array('page_title' => lang('products'), 'bc' => $bc);
