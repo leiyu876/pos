@@ -32,7 +32,7 @@ class CustomNotification_Model extends CI_Model
             'action' => $action,
             'action_by' => $action_by,
             'action_to' => $action_to,
-            'datetime' => date('Y-m-d H:i:s'),
+            'action_date' => date('Y-m-d H:i:s'),
         );
 
         if ($this->db->insert("custom_notifications", $data));  

@@ -39,7 +39,7 @@ class Notifications extends MY_Controller
                 {$this->db->dbprefix('custom_notifications')}.product_id as product_id, 
                 {$this->db->dbprefix('custom_notifications')}.action as action, 
                 {$this->db->dbprefix('custom_notifications')}.action_to as action_to, 
-                {$this->db->dbprefix('custom_notifications')}.datetime as datetime", FALSE)
+                {$this->db->dbprefix('custom_notifications')}.action_date as action_date", FALSE)
             ->from('custom_notifications');
 
         $this->db->order_by("notification_id", "desc");
