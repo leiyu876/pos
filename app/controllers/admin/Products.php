@@ -223,7 +223,7 @@ class Products extends MY_Controller
         echo $this->datatables->generate();
     }
 
-    function return()
+    function return_products()
     {
         $bc = array(array('link' => base_url(), 'page' => lang('home')), array('link' => admin_url('products'), 'page' => lang('products')), array('link' => '#', 'page' => lang('Return_Products')));
         $meta = array('page_title' => lang('products'), 'bc' => $bc);
@@ -235,40 +235,6 @@ class Products extends MY_Controller
     {
         $this->load->library('datatables');
         $this->load->library('ion_auth');
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         
         $this->datatables
             ->select("
@@ -295,7 +261,7 @@ class Products extends MY_Controller
                 END) as status_return,",
                  FALSE
             )
-            ->where("{$this->db->dbprefix('product_borrowed')}.status_return", 'returned')
+            ->where("product_borrowed.status", 'returned')
             ->join('users', 'product_borrowed.userid=users.id', 'left')
             ->join('products', 'product_borrowed.product_id=products.id', 'left')            
             ->from('product_borrowed');

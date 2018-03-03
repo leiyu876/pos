@@ -71,7 +71,7 @@
 
                             </li>
                             <li>
-                                <a href="<?php echo admin_url('products/return'); ?>">
+                                <a href="<?php echo admin_url('products/return_products'); ?>">
                                     <i class="fa fa-arrow-left"></i> <?= lang('Return Products') ?>
                                 </a>
 
