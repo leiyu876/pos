@@ -14,7 +14,7 @@ class Products extends MY_Controller
         $this->load->library('form_validation');
         $this->load->admin_model('products_model');
         $this->load->admin_model('auth_model');
-        $this->load->admin_model('customnotification_model');
+        $this->load->admin_model('customNotification_model');
         $this->digital_upload_path = 'files/';
         $this->upload_path = 'assets/uploads/';
         $this->thumbs_path = 'assets/uploads/thumbs/';
