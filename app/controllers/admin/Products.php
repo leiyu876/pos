@@ -263,7 +263,7 @@ class Products extends MY_Controller
             )
             ->join('users', 'product_borrowed.userid=users.id', 'left')
             ->join('products', 'product_borrowed.product_id=products.id', 'left')
-            ->where('product_borrowed.status', 'returned')
+            ->where("{$this->db->dbprefix('product_borrowed')}.status", 'returned')
             ->from('product_borrowed');
 
         echo $this->datatables->generate();
