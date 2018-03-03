@@ -707,7 +707,7 @@
                                     </ul>
                                 </li>
                             <?php } ?>
-                            <li class="mm_reports">
+                            <li style="display:none" class="mm_reports">
                                 <a class="dropmenu" href="#">
                                     <i class="fa fa-bar-chart-o"></i>
                                     <span class="text"> <?= lang('reports'); ?> </span>
