@@ -14,6 +14,7 @@ class Products extends MY_Controller
         $this->load->library('form_validation');
         $this->load->admin_model('products_model');
         $this->load->admin_model('auth_model');
+        $this->load->admin_model('customnotification_model');
         $this->digital_upload_path = 'files/';
         $this->upload_path = 'assets/uploads/';
         $this->thumbs_path = 'assets/uploads/thumbs/';
@@ -345,9 +346,11 @@ class Products extends MY_Controller
             admin_redirect("products/borrowed");
         }
 
-        if ($this->form_validation->run() == true && 
-            $this->products_model->updateBorrowed($id, $data_from) &&
-            $this->products_model->addBorrowed($data_to)) {
+        if ($this->form_validation->run() == true && $this->products_model->updateBorrowed($id, $data_from) && $this->products_model->addBorrowed($data_to)) {
+
+            $this->customnotification_model->addNotification($data_to['product_id'], 'transfered_from', $this->session->userdata('user_id'), $borrowed_details->userid);
+            $this->customnotification_model->addNotification($data_to['product_id'], 'transfered_to', $this->session->userdata('user_id'), $data_to['userid']);
+
             $this->session->set_flashdata('message', lang("Successfully_Transfered"));
             admin_redirect("products/borrowed");
         } else {
@@ -425,6 +428,7 @@ class Products extends MY_Controller
         }
 
         if ($this->form_validation->run() == true && $this->products_model->addBorrowed($data)) {
+            $this->customnotification_model->addNotification($data['product_id'], 'borrowed', $this->session->userdata('user_id'), $data['userid']);
             $this->session->set_flashdata('message', lang("Successfully_Added"));
             admin_redirect("products/borrowed");
         } else {
@@ -956,6 +960,11 @@ class Products extends MY_Controller
         }
 
         if ($this->form_validation->run() == true && $this->products_model->addProduct($data, $items, $warehouse_qty, $product_attributes, $photos)) {
+
+            $this->db->select('id')->order_by("id", 'desc')->limit(1);
+            $query = $this->db->get('products');
+            $res = $query->result();
+            $this->customnotification_model->addNotification($res[0]->id, 'added', $this->session->userdata('user_id'), $this->session->userdata('user_id'));
             $this->session->set_flashdata('message', lang("product_added"));
             admin_redirect('products');
         } else {
@@ -1371,6 +1380,7 @@ class Products extends MY_Controller
         }
 
         if ($this->form_validation->run() == true && $this->products_model->updateProduct($id, $data, $items, $warehouse_qty, $product_attributes, $photos, $update_variants)) {
+            $this->customnotification_model->addNotification($id, 'updated', $this->session->userdata('user_id'), $this->session->userdata('user_id'));
             $this->session->set_flashdata('message', lang("product_updated"));
             admin_redirect('products');
         } else {
@@ -1429,6 +1439,9 @@ class Products extends MY_Controller
         }
 
         if ($this->form_validation->run() == true && $this->products_model->updateBorrowed($id, $data)) {
+            $notification_status = 'borrowed_updated';
+            if($data['status'] == 'returned') $notification_status = 'returned';
+            $this->customnotification_model->addNotification($data['product_id'], $notification_status, $this->session->userdata('user_id'), $data['userid']);
             $this->session->set_flashdata('message', lang("Successfully_Updated"));
             admin_redirect("products/borrowed");
         } else {
@@ -1667,6 +1680,9 @@ class Products extends MY_Controller
         }
 
         if ($this->products_model->deleteProduct($id)) {
+
+            $this->customnotification_model->addNotification($id, 'deleted', $this->session->userdata('user_id'), $this->session->userdata('user_id'));
+
             if($this->input->is_ajax_request()) {
                 $this->sma->send_json(array('error' => 0, 'msg' => lang("product_deleted")));
             }
@@ -1697,6 +1713,7 @@ class Products extends MY_Controller
         }
 
         if ($this->form_validation->run() == true && $this->products_model->deleteProductNote($id, $data)) {
+            $this->customnotification_model->addNotification($id, 'deleted', $this->session->userdata('user_id'), $this->session->userdata('user_id'));
             $this->session->set_flashdata('message', lang("Successfully_Deleted"));
             admin_redirect("products/index");
         } else {
@@ -1719,8 +1736,12 @@ class Products extends MY_Controller
             $id = $this->input->get('id');
         }
 
+        $d = $this->site->getBorrowedByID($id);
+
         if ($this->products_model->deleteProductBorrowed($id)) {
-           
+            
+            $this->customnotification_model->addNotification($d->pb_id, 'borrowed_deleted', $this->session->userdata('user_id'), $d->userid);
+            
             if($this->input->is_ajax_request()) {
                 $this->sma->send_json(array('error' => 0, 'msg' => lang("Borrowed Order Deleted")));
             }

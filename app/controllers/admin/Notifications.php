@@ -23,6 +23,34 @@ class Notifications extends MY_Controller
 
     function index()
     {
+        $bc = array(array('link' => base_url(), 'page' => lang('home')), array('link' => admin_url('products'), 'page' => lang('products')), array('link' => '#', 'page' => lang('Borrowed_Products')));
+        $meta = array('page_title' => lang('products'), 'bc' => $bc);
+
+        $this->page_construct('notifications/index', $meta, $this->data);
+    }
+
+    function getNotifications()
+    {  
+        $this->load->library('datatables');
+        $this->load->library('ion_auth');
+        
+        $this->datatables
+            ->select("
+                {$this->db->dbprefix('custom_notifications')}.product_id as product_id, 
+                {$this->db->dbprefix('custom_notifications')}.action as action, 
+                {$this->db->dbprefix('custom_notifications')}.action_to as action_to, 
+                {$this->db->dbprefix('custom_notifications')}.datetime as datetime", FALSE)
+            ->from('custom_notifications');
+
+        $this->db->order_by("notification_id", "desc");
+        $this->load->helper('mydatatable');
+        $this->datatables->edit_column('product_id', '$1', 'productidtoname(product_id)');
+        $this->datatables->edit_column('action_to', '$1', 'useridtoname(action_to)');
+        echo $this->datatables->generate();
+    }
+
+    function index_old()
+    {
         if (!$this->Owner && !$this->Admin) {
             $this->session->set_flashdata('warning', lang('access_denied'));
             redirect($_SERVER["HTTP_REFERER"]);
@@ -34,7 +62,7 @@ class Notifications extends MY_Controller
         $this->page_construct('notifications/index', $meta, $this->data);
     }
 
-    function getNotifications()
+    function getNotifications_old   ()
     {
 
         $this->load->library('datatables');

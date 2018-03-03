@@ -14,11 +14,10 @@ class CustomNotification_Model extends CI_Model
             'added' => 'Added',
             'removed' => 'Removed',
             'updated' => 'Updated',
-            'transfer_from' => 'Transfer From',
-            'transfer_to' => 'Transfer To',
+            'transfered_from' => 'Transfered From',
+            'transfered_to' => 'Transfered To',
             'borrowed' => 'Borrowed',
-            'return' => 'Return',
-            'borrowed_added' => 'Borrowed Added',
+            'returned' => 'Returned',
             'borrowed_updated' => 'Borrowed Updated',
             'borrowed_deleted' => 'Borrowed Deleted',
         );
@@ -26,26 +25,16 @@ class CustomNotification_Model extends CI_Model
         return $list;
     }
 
-    public function setCustomNotifications($product_id, $action, $action_by, $action_to) {
-        var_dump('expression'); exit;
-        $date = date('Y-m-d H:i:s', time());
-        $this->db->where("from_date <=", $date);
-        $this->db->where("till_date >=", $date);
-        if (!$this->Owner) {
-            if ($this->Supplier) {
-                $this->db->where('scope', 4);
-            } elseif ($this->Customer) {
-                $this->db->where('scope', 1)->or_where('scope', 3);
-            } elseif (!$this->Customer && !$this->Supplier) {
-                $this->db->where('scope', 2)->or_where('scope', 3);
-            }
-        }
-        $q = $this->db->get("notifications");
-        if ($q->num_rows() > 0) {
-            foreach (($q->result()) as $row) {
-                $data[] = $row;
-            }
-            return $data;
-        }
+    public function addNotification($product_id, $action, $action_by, $action_to) {
+        
+        $data = array(
+            'product_id' => $product_id,
+            'action' => $action,
+            'action_by' => $action_by,
+            'action_to' => $action_to,
+            'datetime' => date('Y-m-d H:i:s'),
+        );
+
+        if ($this->db->insert("custom_notifications", $data));  
     }
 }

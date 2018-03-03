@@ -17,3 +17,39 @@ if ( ! function_exists('check_movement'))
     	return $status == 'borrowed' ? 'Out' : 'In';
     }   
 }
+
+if ( ! function_exists('productidtoname'))
+{
+    function productidtoname($id)
+    {
+    	$CI = get_instance();
+
+	    $CI->load->model('site');
+
+	    $q = $CI->site->getProductByID($id);
+    	
+    	if ($q == false) {
+    		return 'Product Deleted';
+        } else {
+        	return $q->name.' ['.$q->code.']';
+        }
+    }   
+}
+
+if ( ! function_exists('useridtoname'))
+{
+    function useridtoname($id)
+    {
+    	$CI = get_instance();
+
+	    $CI->load->model('site');
+
+	    $q = $CI->site->getUser($id);
+    	
+    	if ($q == false) {
+    		return 'User Deleted';
+        } else {
+        	return $q->first_name.' ['.$q->last_name.']';
+        }
+    }   
+}
