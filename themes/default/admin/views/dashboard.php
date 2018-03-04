@@ -59,7 +59,7 @@ function row_status($x)
                         <p><?= lang('products') ?></p>
                     </a>
                 </div>
-                <div class="col-lg-1 col-md-2 col-xs-6">
+                <div style="display:none" class="col-lg-1 col-md-2 col-xs-6">
                     <a class="bdarkGreen white quick-button small" href="<?= admin_url('sales') ?>">
                         <i class="fa fa-heart"></i>
 
@@ -67,7 +67,7 @@ function row_status($x)
                     </a>
                 </div>
 
-                <div class="col-lg-1 col-md-2 col-xs-6">
+                <div style="display:none" class="col-lg-1 col-md-2 col-xs-6">
                     <a class="blightOrange white quick-button small" href="<?= admin_url('quotes') ?>">
                         <i class="fa fa-heart-o"></i>
 
@@ -75,7 +75,7 @@ function row_status($x)
                     </a>
                 </div>
 
-                <div class="col-lg-1 col-md-2 col-xs-6">
+                <div style="display:none" class="col-lg-1 col-md-2 col-xs-6">
                     <a class="bred white quick-button small" href="<?= admin_url('purchases') ?>">
                         <i class="fa fa-star"></i>
 
@@ -83,7 +83,7 @@ function row_status($x)
                     </a>
                 </div>
 
-                <div class="col-lg-1 col-md-2 col-xs-6">
+                <div style="display:none" class="col-lg-1 col-md-2 col-xs-6">
                     <a class="bpink white quick-button small" href="<?= admin_url('transfers') ?>">
                         <i class="fa fa-star-o"></i>
 
@@ -91,7 +91,7 @@ function row_status($x)
                     </a>
                 </div>
 
-                <div class="col-lg-1 col-md-2 col-xs-6">
+                <div style="display:none" class="col-lg-1 col-md-2 col-xs-6">
                     <a class="bgrey white quick-button small" href="<?= admin_url('customers') ?>">
                         <i class="fa fa-users"></i>
 
@@ -206,25 +206,25 @@ function row_status($x)
     <div class="col-md-12">
         <div class="box">
             <div class="box-header">
-                <h2 class="blue"><i class="fa-fw fa fa-tasks"></i> <?= lang('latest_five') ?></h2>
+                <h2 class="blue"><i class="fa-fw fa fa-tasks"></i> <?= lang('Latest') ?></h2>
             </div>
             <div class="box-content">
                 <div class="row">
                     <div class="col-md-12">
 
                         <ul id="dbTab" class="nav nav-tabs">
-                            <?php if ($Owner || $Admin || $GP['sales-index']) { ?>
-                            <li class=""><a href="#sales"><?= lang('sales') ?></a></li>
-                            <?php } if ($Owner || $Admin || $GP['quotes-index']) { ?>
-                            <li class=""><a href="#quotes"><?= lang('quotes') ?></a></li>
-                            <?php } if ($Owner || $Admin || $GP['purchases-index']) { ?>
-                            <li class=""><a href="#purchases"><?= lang('purchases') ?></a></li>
-                            <?php } if ($Owner || $Admin || $GP['transfers-index']) { ?>
-                            <li class=""><a href="#transfers"><?= lang('transfers') ?></a></li>
-                            <?php } if ($Owner || $Admin || $GP['customers-index']) { ?>
-                            <li class=""><a href="#customers"><?= lang('customers') ?></a></li>
-                            <?php } if ($Owner || $Admin || $GP['suppliers-index']) { ?>
+                            <?php if ($Owner || $Admin || $GP['suppliers-index']) { ?>
                             <li class=""><a href="#suppliers"><?= lang('suppliers') ?></a></li>
+                            <?php } if ($Owner || $Admin || $GP['sales-index']) { ?>
+                            <li style="display:none" class=""><a href="#sales"><?= lang('sales') ?></a></li>
+                            <?php } if ($Owner || $Admin || $GP['quotes-index']) { ?>
+                            <li style="display:none" class=""><a href="#quotes"><?= lang('quotes') ?></a></li>
+                            <?php } if ($Owner || $Admin || $GP['purchases-index']) { ?>
+                            <li style="display:none" class=""><a href="#purchases"><?= lang('purchases') ?></a></li>
+                            <?php } if ($Owner || $Admin || $GP['transfers-index']) { ?>
+                            <li style="display:none" class=""><a href="#transfers"><?= lang('transfers') ?></a></li>
+                            <?php } if ($Owner || $Admin || $GP['customers-index']) { ?>
+                            <li style="display:none" class=""><a href="#customers"><?= lang('customers') ?></a></li>
                             <?php } ?>
                         </ul>
 

@@ -30,7 +30,7 @@
                 <?= lang("category_image", "image") ?>
                 <input id="image" type="file" data-browse-label="<?= lang('browse'); ?>" name="userfile" data-show-upload="false" data-show-preview="false" class="form-control file">
             </div>
-            <div class="form-group">
+            <div style="display:none" class="form-group">
                 <?= lang("parent_category", "parent") ?>
                 <?php
                 $cat[''] = lang('select').' '.lang('parent_category');
