@@ -22,6 +22,7 @@ class Customnotification_model extends CI_Model
             'borrowed_deleted' => 'Borrowed Deleted',
         );
 
+
         return $list;
     }
 
