@@ -14,7 +14,7 @@ class Products extends MY_Controller
         $this->load->library('form_validation');
         $this->load->admin_model('products_model');
         $this->load->admin_model('auth_model');
-        $this->load->admin_model('customNotification_model');
+        $this->load->admin_model('customnotification_model');
         $this->digital_upload_path = 'files/';
         $this->upload_path = 'assets/uploads/';
         $this->thumbs_path = 'assets/uploads/thumbs/';
@@ -428,7 +428,11 @@ class Products extends MY_Controller
         }
 
         if ($this->form_validation->run() == true && $this->products_model->addBorrowed($data)) {
+            
             $this->customnotification_model->addNotification($data['product_id'], 'borrowed', $this->session->userdata('user_id'), $data['userid']);
+            $this->load->admin_model('customemail_model');
+            $this->customemail_model->send_email($data['product_id'], $data['userid'], 'assign');
+
             $this->session->set_flashdata('message', lang("Successfully_Added"));
             admin_redirect("products/borrowed");
         } else {
@@ -1440,7 +1444,11 @@ class Products extends MY_Controller
 
         if ($this->form_validation->run() == true && $this->products_model->updateBorrowed($id, $data)) {
             $notification_status = 'borrowed_updated';
-            if($data['status'] == 'returned') $notification_status = 'returned';
+            if($data['status'] == 'returned') { 
+                $notification_status = 'returned';
+                $this->load->admin_model('customemail_model');
+                $this->customemail_model->send_email($data['product_id'], $data['userid'], 'unassign');
+            }
             $this->customnotification_model->addNotification($data['product_id'], $notification_status, $this->session->userdata('user_id'), $data['userid']);
             $this->session->set_flashdata('message', lang("Successfully_Updated"));
             admin_redirect("products/borrowed");
