@@ -159,7 +159,7 @@
                                                                         </div>
                                                                         <div class="clearfix"></div>
                                                                         <div class="no">
-                                                                            <div class="form-group">
+                                                                            <div style="display:none" class="form-group">
                                                                                 <?= lang("biller", "biller"); ?>
                                                                                 <?php
                                                                                 $bl[""] = lang('select').' '.lang('biller');
@@ -170,7 +170,7 @@
                                                                                 ?>
                                                                             </div>
 
-                                                                            <div class="form-group">
+                                                                            <div style="display:none" class="form-group">
                                                                                 <?= lang("warehouse", "warehouse"); ?>
                                                                                 <?php
                                                                                 $wh[''] = lang('select').' '.lang('warehouse');
@@ -180,21 +180,21 @@
                                                                                 echo form_dropdown('warehouse', $wh, (isset($_POST['warehouse']) ? $_POST['warehouse'] : $user->warehouse_id), 'id="warehouse" class="form-control select" data-placeholder="' . $this->lang->line("select") . ' ' . $this->lang->line("warehouse") . '" style="width:100%;" ');
                                                                                 ?>
                                                                             </div>
-                                                                            <div class="form-group">
+                                                                            <div style="display:none" class="form-group">
                                                                                 <?= lang("view_right", "view_right"); ?>
                                                                                 <?php
                                                                                 $vropts = array(1 => lang('all_records'), 0 => lang('own_records'));
                                                                                 echo form_dropdown('view_right', $vropts, (isset($_POST['view_right']) ? $_POST['view_right'] : $user->view_right), 'id="view_right" class="form-control select" style="width:100%;"');
                                                                                 ?>
                                                                             </div>
-                                                                            <div class="form-group">
+                                                                            <div style="display:none" class="form-group">
                                                                                 <?= lang("edit_right", "edit_right"); ?>
                                                                                 <?php
                                                                                 $opts = array(1 => lang('yes'), 0 => lang('no'));
                                                                                 echo form_dropdown('edit_right', $opts, (isset($_POST['edit_right']) ? $_POST['edit_right'] : $user->edit_right), 'id="edit_right" class="form-control select" style="width:100%;"');
                                                                                 ?>
                                                                             </div>
-                                                                            <div class="form-group">
+                                                                            <div style="display:none" class="form-group">
                                                                                 <?= lang("allow_discount", "allow_discount"); ?>
                                                                                 <?= form_dropdown('allow_discount', $opts, (isset($_POST['allow_discount']) ? $_POST['allow_discount'] : $user->allow_discount), 'id="allow_discount" class="form-control select" style="width:100%;"'); ?>
                                                                             </div>

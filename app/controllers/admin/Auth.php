@@ -585,14 +585,15 @@ class Auth extends MY_Controller
             $email = strtolower($this->input->post('email'));
             $password = $this->input->post('password');
             $notify = $this->input->post('notify');
-
+            
             $additional_data = array(
                 'first_name' => $this->input->post('first_name'),
                 'last_name' => $this->input->post('last_name'),
                 'company' => $this->input->post('company'),
                 'phone' => $this->input->post('phone'),
                 'gender' => $this->input->post('gender'),
-                'group_id' => $this->input->post('group') ? $this->input->post('group') : '3',
+                'group_id' => 5,
+                //'group_id' => $this->input->post('group') ? $this->input->post('group') : '3',
                 'biller_id' => $this->input->post('biller'),
                 'warehouse_id' => $this->input->post('warehouse'),
                 'view_right' => $this->input->post('view_right'),
