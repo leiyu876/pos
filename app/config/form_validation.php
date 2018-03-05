@@ -72,11 +72,6 @@ $config = array(
             'rules' => 'required'
         ),
         array(
-            'field' => 'username',
-            'label' => lang('username'),
-            'rules' => 'required|alpha_dash'
-        ),
-        array(
             'field' => 'email',
             'label' => lang('email'),
             'rules' => 'required|valid_email'
@@ -84,11 +79,6 @@ $config = array(
         array(
             'field' => 'phone',
             'label' => lang('phone'),
-            'rules' => 'required'
-        ),
-        array(
-            'field' => 'company',
-            'label' => lang('company'),
             'rules' => 'required'
         ),
         array(

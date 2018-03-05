@@ -50,7 +50,7 @@ class Auth extends MY_Controller
 
         $this->load->library('datatables');
         $this->datatables
-            ->select($this->db->dbprefix('users').".id as id, first_name, last_name, email, " . $this->db->dbprefix('groups') . ".description, active")
+            ->select($this->db->dbprefix('users').".id as id, iqama , first_name, last_name, email, " . $this->db->dbprefix('groups') . ".description, active")
             ->from("users")
             ->join('groups', 'users.group_id=groups.id', 'left')
             ->group_by('users.id')
@@ -574,6 +574,7 @@ class Auth extends MY_Controller
         }
 
         $this->data['title'] = "Create User";
+        $this->form_validation->set_rules('iqama', lang("iqama"), 'trim|is_unique[users.iqama]');
         $this->form_validation->set_rules('username', lang("username"), 'trim|is_unique[users.username]');
         $this->form_validation->set_rules('email', lang("email"), 'trim|is_unique[users.email]');
         $this->form_validation->set_rules('status', lang("status"), 'trim|required');
@@ -581,12 +582,14 @@ class Auth extends MY_Controller
 
         if ($this->form_validation->run() == true) {
 
+            $iqama = strtolower($this->input->post('iqama'));
             $username = strtolower($this->input->post('username'));
             $email = strtolower($this->input->post('email'));
             $password = $this->input->post('password');
             $notify = $this->input->post('notify');
             
             $additional_data = array(
+                'iqama' => $this->input->post('iqama'),
                 'first_name' => $this->input->post('first_name'),
                 'last_name' => $this->input->post('last_name'),
                 'company' => $this->input->post('company'),
@@ -621,7 +624,6 @@ class Auth extends MY_Controller
 
     function edit_user($id = NULL)
     {
-
         if ($this->input->post('id')) {
             $id = $this->input->post('id');
         }
@@ -644,6 +646,7 @@ class Auth extends MY_Controller
         if ($this->form_validation->run() === TRUE) {
 
             if ($this->Owner) {
+
                 if ($id == $this->session->userdata('user_id')) {
                     $data = array(
                         'first_name' => $this->input->post('first_name'),
@@ -662,6 +665,7 @@ class Auth extends MY_Controller
                     );
                 } else {
                     $data = array(
+                        'iqama' => $this->input->post('iqama'),
                         'first_name' => $this->input->post('first_name'),
                         'last_name' => $this->input->post('last_name'),
                         'company' => $this->input->post('company'),
@@ -681,6 +685,7 @@ class Auth extends MY_Controller
                 }
 
             } elseif ($this->Admin) {
+
                 $data = array(
                     'first_name' => $this->input->post('first_name'),
                     'last_name' => $this->input->post('last_name'),
@@ -691,6 +696,7 @@ class Auth extends MY_Controller
                     'award_points' => $this->input->post('award_points'),
                 );
             } else {
+
                 $data = array(
                     'first_name' => $this->input->post('first_name'),
                     'last_name' => $this->input->post('last_name'),
@@ -715,6 +721,7 @@ class Auth extends MY_Controller
             //$this->sma->print_arrays($data);
 
         }
+
         if ($this->form_validation->run() === TRUE && $this->ion_auth->update($user->id, $data)) {
             $this->session->set_flashdata('message', lang('user_updated'));
             admin_redirect("auth/profile/" . $id);

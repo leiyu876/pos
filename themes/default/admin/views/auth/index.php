@@ -17,8 +17,9 @@
             "aoColumns": [{
                 "bSortable": false,
                 "mRender": checkbox
-            }, null, null, null, null, {"mRender": user_status}, {"bSortable": false}]
+            }, null,null, null, null, null, {"mRender": user_status}, {"bSortable": false}]
         }).fnSetFilteringDelay().dtFilter([
+            {column_number: 1, filter_default_label: "[<?=lang('Iqama');?>]", filter_type: "text", data: []},
             {column_number: 1, filter_default_label: "[<?=lang('first_name');?>]", filter_type: "text", data: []},
             {column_number: 2, filter_default_label: "[<?=lang('last_name');?>]", filter_type: "text", data: []},
             {column_number: 3, filter_default_label: "[<?=lang('email_address');?>]", filter_type: "text", data: []},
@@ -80,6 +81,7 @@
                             <th style="min-width:30px; width: 30px; text-align: center;">
                                 <input class="checkbox checkth" type="checkbox" name="check"/>
                             </th>
+                            <th class="col-xs-2"><?php echo lang('Iqama'); ?></th>
                             <th class="col-xs-2"><?php echo lang('first_name'); ?></th>
                             <th class="col-xs-2"><?php echo lang('last_name'); ?></th>
                             <th class="col-xs-2"><?php echo lang('email_address'); ?></th>
@@ -98,6 +100,7 @@
                             <th style="min-width:30px; width: 30px; text-align: center;">
                                 <input class="checkbox checkft" type="checkbox" name="check"/>
                             </th>
+                            <th></th>
                             <th></th>
                             <th></th>
                             <th></th>
