@@ -581,14 +581,14 @@ class Auth extends MY_Controller
         $this->form_validation->set_rules('group', lang("group"), 'trim|required');
 
         if ($this->form_validation->run() == true) {
-
-            $iqama = strtolower($this->input->post('iqama'));
+            
             $username = strtolower($this->input->post('username'));
             $email = strtolower($this->input->post('email'));
             $password = $this->input->post('password');
             $notify = $this->input->post('notify');
             
             $additional_data = array(
+                'iqama' => $this->input->post('iqama'),
                 'first_name' => $this->input->post('first_name'),
                 'last_name' => $this->input->post('last_name'),
                 'company' => $this->input->post('company'),
