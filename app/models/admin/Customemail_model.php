@@ -32,18 +32,23 @@ class Customemail_Model extends CI_Model
         } elseif($about == 'user') {
 
             $contact_detail = $this->site->getUser($action_to);
+
+            $this->load->library('parser');
+            $parse_data = array(
+                'iqama' => $contact_detail->iqama,
+                'first_name' => $contact_detail->first_name,
+                'full_name' => $contact_detail->first_name . ' ' . $contact_detail->last_name,
+                'phone' => $contact_detail->phone,
+                'site_link' => site_url(),
+                'site_name' => $this->Settings->site_name,
+                'logo' => '<img src="' . base_url() . 'assets/uploads/logos/' . $this->Settings->logo . '" alt="' . $this->Settings->site_name . '"/>'
+            );
             
-            $v = $this->email_view_user();
+            $v = file_get_contents('./themes/' . $this->Settings->theme . '/admin/views/email_templates/custom/users_update.html');
 
-            $v = str_replace("{site_name}", $this->Settings->site_name, $v);
-            $v = str_replace("{iqama}", $contact_detail->iqama, $v);
-            $v = str_replace("{first_name}", $contact_detail->first_name, $v);
-            $v = str_replace("{complete_name}", $contact_detail->first_name.' '.$contact_detail->last_name, $v);
-            $v = str_replace("{phone}", $contact_detail->phone, $v);
-            $v = str_replace("{action}", $action, $v);
-            $v = str_replace("{email}", $contact_detail->email, $v);
+            $v = $this->parser->parse_string($v, $parse_data);
 
-            $this->sma->send_email($contact_detail->email, 'Account Details', $v);
+            $this->sma->send_email($contact_detail->email, 'Account Updated'. ' - ' . $this->Settings->site_name, $v);
         }
     } 
 

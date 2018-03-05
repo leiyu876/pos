@@ -186,19 +186,24 @@ class Ion_auth
 
         if (!$email_activation || $active == '1') {
             $id = $this->auth_model->register($username, $password, $email, $additional_data, $active);
+            
             if ($id !== FALSE) {
+                
                 if ($notify) {
                     $this->load->library('parser');
                     $parse_data = array(
-                        'client_name' => $additional_data['first_name'] . ' ' . $additional_data['last_name'],
+                        'iqama' => $additional_data['iqama'],
+                        'first_name' => $additional_data['first_name'],
+                        'full_name' => $additional_data['first_name'] . ' ' . $additional_data['last_name'],
+                        'phone' => $additional_data['phone'],
                         'site_link' => site_url(),
                         'site_name' => $this->Settings->site_name,
-                        'email' => $email,
-                        'password' => $password,
+                        //'email' => $email,
+                        //'password' => $password,
                         'logo' => '<img src="' . base_url() . 'assets/uploads/logos/' . $this->Settings->logo . '" alt="' . $this->Settings->site_name . '"/>'
                     );
 
-                    $msg = file_get_contents('./themes/' . $this->Settings->theme . '/admin/views/email_templates/credentials.html');
+                    $msg = file_get_contents('./themes/' . $this->Settings->theme . '/admin/views/email_templates/custom/users.html');
                     $message = $this->parser->parse_string($msg, $parse_data);
                     $subject = $this->lang->line('new_user_created') . ' - ' . $this->Settings->site_name;
                     try {

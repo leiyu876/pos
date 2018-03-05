@@ -234,7 +234,7 @@ class Sma
             if ($this->Settings->protocol == 'sendmail') {
                 $config['mailpath'] = $this->Settings->mailpath;
             }
-
+            
             $this->email->initialize($config);
 
             if ($from && $from_name) {

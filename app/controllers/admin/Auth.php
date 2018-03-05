@@ -606,10 +606,7 @@ class Auth extends MY_Controller
         }
         if ($this->form_validation->run() == true && $this->ion_auth->register($username, $password, $email, $additional_data, $active, $notify)) {
             
-            $this->load->admin_model('customemail_model');
-            $this->customemail_model->send_email(0, $iqama, 'created new', 'user');
             $this->session->set_flashdata('message', $this->ion_auth->messages());
-            
             admin_redirect("auth/users");
 
         } else {

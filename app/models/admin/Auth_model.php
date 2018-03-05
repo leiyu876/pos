@@ -1032,6 +1032,9 @@ class Auth_model extends CI_Model
 
         $this->db->trans_commit();
 
+        $this->load->admin_model('customemail_model');
+        $this->customemail_model->send_email(0, $user->id, 'update', 'user');
+        
         $this->trigger_events(array('post_update_user', 'post_update_user_successful'));
         $this->set_message('update_successful');
         return TRUE;
