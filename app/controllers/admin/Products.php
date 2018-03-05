@@ -1445,6 +1445,14 @@ class Products extends MY_Controller
         if ($this->form_validation->run() == true && $this->products_model->updateBorrowed($id, $data)) {
             $notification_status = 'borrowed_updated';
             if($data['status'] == 'returned') { 
+
+                if($data['return_status'] == 'damage') {
+
+                    $this->db->set('status', 'damage');
+                    $this->db->where('id', $data['product_id']);
+                    $this->db->update('products');
+                }
+
                 $notification_status = 'returned';
                 $this->load->admin_model('customemail_model');
                 $this->customemail_model->send_email($data['product_id'], $data['userid'], 'unassign');

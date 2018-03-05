@@ -3225,4 +3225,80 @@ class Reports extends MY_Controller
             echo $this->datatables->generate();
         }
     }
+
+    function blacklisted_users() {
+
+        $bc = array(array('link' => base_url(), 'page' => lang('home')), array('link' => admin_url('reports'), 'page' => lang('reports')), array('link' => '#', 'page' => lang('Blacklisted Users')));
+        $meta = array('page_title' => lang('Blacklisted Users'), 'bc' => $bc);
+
+        $this->page_construct('reports/blacklisted_users', $meta, $this->data);
+    }
+
+    function getBlacklisted_users() {
+
+        $this->load->library('datatables');
+        $this->load->library('ion_auth');
+        
+        $this->datatables
+            ->select("
+                {$this->db->dbprefix('users')}.iqama as iqama, 
+                CONCAT({$this->db->dbprefix('users')}.first_name,  ' ', {$this->db->dbprefix('users')}.last_name) as complete_name,
+                {$this->db->dbprefix('products')}.code as code, 
+                {$this->db->dbprefix('products')}.name as product_name,
+                {$this->db->dbprefix('product_borrowed')}.borrowed_date as borrowed_date,
+                {$this->db->dbprefix('product_borrowed')}.return_date as return_date,
+                {$this->db->dbprefix('product_borrowed')}.actual_return_date as actual_return_date,
+                (CASE 
+                WHEN 
+                    {$this->db->dbprefix('product_borrowed')}.return_date < DATE(NOW())  AND 
+                    {$this->db->dbprefix('product_borrowed')}.status = 'borrowed' 
+                THEN CONCAT('<span style=\"color:red\">', 'Overdue', '</span>')
+                ELSE {$this->db->dbprefix('product_borrowed')}.status
+                END) as status_return,",
+                 FALSE
+            )
+            ->join('users', 'product_borrowed.userid=users.id', 'left')
+            ->join('products', 'product_borrowed.product_id=products.id', 'left')
+            ->from('product_borrowed');
+
+        echo $this->datatables->generate();
+    }
+
+    function damage_products() {
+
+        $bc = array(array('link' => base_url(), 'page' => lang('home')), array('link' => admin_url('reports'), 'page' => lang('reports')), array('link' => '#', 'page' => lang('Damage Products')));
+        $meta = array('page_title' => lang('Damage Products'), 'bc' => $bc);
+
+        $this->page_construct('reports/damage_products', $meta, $this->data);
+    }
+
+    function getDamage_products() {
+
+        $this->load->library('datatables');
+        $this->load->library('ion_auth');
+        
+        $this->datatables
+            ->select("
+                {$this->db->dbprefix('users')}.iqama as iqama, 
+                CONCAT({$this->db->dbprefix('users')}.first_name,  ' ', {$this->db->dbprefix('users')}.last_name) as complete_name,
+                {$this->db->dbprefix('products')}.code as code, 
+                {$this->db->dbprefix('products')}.name as product_name,
+                {$this->db->dbprefix('product_borrowed')}.borrowed_date as borrowed_date,
+                {$this->db->dbprefix('product_borrowed')}.return_date as return_date,
+                {$this->db->dbprefix('product_borrowed')}.actual_return_date as actual_return_date,
+                (CASE 
+                WHEN 
+                    {$this->db->dbprefix('product_borrowed')}.return_date < DATE(NOW())  AND 
+                    {$this->db->dbprefix('product_borrowed')}.status = 'borrowed' 
+                THEN CONCAT('<span style=\"color:red\">', 'Overdue', '</span>')
+                ELSE {$this->db->dbprefix('product_borrowed')}.status
+                END) as status_return,",
+                 FALSE
+            )
+            ->join('users', 'product_borrowed.userid=users.id', 'left')
+            ->join('products', 'product_borrowed.product_id=products.id', 'left')
+            ->from('product_borrowed');
+
+        echo $this->datatables->generate();
+    }
 }

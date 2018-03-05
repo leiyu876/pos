@@ -707,128 +707,128 @@
                                     </ul>
                                 </li>
                             <?php } ?>
-                            <li style="display:none" class="mm_reports">
+                            <li class="mm_reports">
                                 <a class="dropmenu" href="#">
                                     <i class="fa fa-bar-chart-o"></i>
                                     <span class="text"> <?= lang('reports'); ?> </span>
                                     <span class="chevron closed"></span>
                                 </a>
                                 <ul>
-                                    <li id="reports_index">
-                                        <a href="<?= admin_url('reports') ?>">
-                                            <i class="fa fa-bars"></i><span class="text"> <?= lang('overview_chart'); ?></span>
+                                    <li id="reports_blacklisted_users">
+                                        <a href="<?= admin_url('reports/blacklisted_users') ?>">
+                                            <i class="fa fa-bars"></i><span class="text"> <?= lang('Blacklisted Users'); ?></span>
                                         </a>
                                     </li>
-                                    <li id="reports_warehouse_stock">
-                                        <a href="<?= admin_url('reports/warehouse_stock') ?>">
-                                            <i class="fa fa-building"></i><span class="text"> <?= lang('warehouse_stock'); ?></span>
+                                    <li id="reports_damage_products">
+                                        <a href="<?= admin_url('reports/damage_products') ?>">
+                                            <i class="fa fa-building"></i><span class="text"> <?= lang('Damage Products'); ?></span>
                                         </a>
                                     </li>
-                                    <li id="reports_best_sellers">
+                                    <li style="display:none" id="reports_best_sellers">
                                         <a href="<?= admin_url('reports/best_sellers') ?>">
                                             <i class="fa fa-line-chart"></i><span class="text"> <?= lang('best_sellers'); ?></span>
                                         </a>
                                     </li>
                                     <?php if (POS) { ?>
-                                    <li id="reports_register">
+                                    <li style="display:none" id="reports_register">
                                         <a href="<?= admin_url('reports/register') ?>">
                                             <i class="fa fa-th-large"></i><span class="text"> <?= lang('register_report'); ?></span>
                                         </a>
                                     </li>
                                     <?php } ?>
-                                    <li id="reports_quantity_alerts">
+                                    <li style="display:none" id="reports_quantity_alerts">
                                         <a href="<?= admin_url('reports/quantity_alerts') ?>">
                                             <i class="fa fa-bar-chart-o"></i><span class="text"> <?= lang('product_quantity_alerts'); ?></span>
                                         </a>
                                     </li>
                                     <?php if ($Settings->product_expiry) { ?>
-                                    <li id="reports_expiry_alerts">
+                                    <li style="display:none" id="reports_expiry_alerts">
                                         <a href="<?= admin_url('reports/expiry_alerts') ?>">
                                             <i class="fa fa-bar-chart-o"></i><span class="text"> <?= lang('product_expiry_alerts'); ?></span>
                                         </a>
                                     </li>
                                     <?php } ?>
-                                    <li id="reports_products">
+                                    <li style="display:none" id="reports_products">
                                         <a href="<?= admin_url('reports/products') ?>">
                                             <i class="fa fa-barcode"></i><span class="text"> <?= lang('products_report'); ?></span>
                                         </a>
                                     </li>
-                                    <li id="reports_adjustments">
+                                    <li style="display:none" id="reports_adjustments">
                                         <a href="<?= admin_url('reports/adjustments') ?>">
                                             <i class="fa fa-filter"></i><span class="text"> <?= lang('adjustments_report'); ?></span>
                                         </a>
                                     </li>
-                                    <li id="reports_categories">
+                                    <li style="display:none" id="reports_categories">
                                         <a href="<?= admin_url('reports/categories') ?>">
                                             <i class="fa fa-folder-open"></i><span class="text"> <?= lang('categories_report'); ?></span>
                                         </a>
                                     </li>
-                                    <li id="reports_brands">
+                                    <li style="display:none" id="reports_brands">
                                         <a href="<?= admin_url('reports/brands') ?>">
                                             <i class="fa fa-cubes"></i><span class="text"> <?= lang('brands_report'); ?></span>
                                         </a>
                                     </li>
-                                    <li id="reports_daily_sales">
+                                    <li style="display:none" id="reports_daily_sales">
                                         <a href="<?= admin_url('reports/daily_sales') ?>">
                                             <i class="fa fa-calendar"></i><span class="text"> <?= lang('daily_sales'); ?></span>
                                         </a>
                                     </li>
-                                    <li id="reports_monthly_sales">
+                                    <li style="display:none" id="reports_monthly_sales">
                                         <a href="<?= admin_url('reports/monthly_sales') ?>">
                                             <i class="fa fa-calendar"></i><span class="text"> <?= lang('monthly_sales'); ?></span>
                                         </a>
                                     </li>
-                                    <li id="reports_sales">
+                                    <li style="display:none" id="reports_sales">
                                         <a href="<?= admin_url('reports/sales') ?>">
                                             <i class="fa fa-heart"></i><span class="text"> <?= lang('sales_report'); ?></span>
                                         </a>
                                     </li>
-                                    <li id="reports_payments">
+                                    <li style="display:none" id="reports_payments">
                                         <a href="<?= admin_url('reports/payments') ?>">
                                             <i class="fa fa-money"></i><span class="text"> <?= lang('payments_report'); ?></span>
                                         </a>
                                     </li>
-                                    <li id="reports_tax">
+                                    <li style="display:none" id="reports_tax">
                                         <a href="<?= admin_url('reports/tax') ?>">
                                             <i class="fa fa-area-chart"></i><span class="text"> <?= lang('tax_report'); ?></span>
                                         </a>
                                     </li>
-                                    <li id="reports_profit_loss">
+                                    <li style="display:none" id="reports_profit_loss">
                                         <a href="<?= admin_url('reports/profit_loss') ?>">
                                             <i class="fa fa-money"></i><span class="text"> <?= lang('profit_and_loss'); ?></span>
                                         </a>
                                     </li>
-                                    <li id="reports_daily_purchases">
+                                    <li style="display:none" id="reports_daily_purchases">
                                         <a href="<?= admin_url('reports/daily_purchases') ?>">
                                             <i class="fa fa-calendar"></i><span class="text"> <?= lang('daily_purchases'); ?></span>
                                         </a>
                                     </li>
-                                    <li id="reports_monthly_purchases">
+                                    <li style="display:none" id="reports_monthly_purchases">
                                         <a href="<?= admin_url('reports/monthly_purchases') ?>">
                                             <i class="fa fa-calendar"></i><span class="text"> <?= lang('monthly_purchases'); ?></span>
                                         </a>
                                     </li>
-                                    <li id="reports_purchases">
+                                    <li style="display:none" id="reports_purchases">
                                         <a href="<?= admin_url('reports/purchases') ?>">
                                             <i class="fa fa-star"></i><span class="text"> <?= lang('purchases_report'); ?></span>
                                         </a>
                                     </li>
-                                    <li id="reports_expenses">
+                                    <li style="display:none" id="reports_expenses">
                                         <a href="<?= admin_url('reports/expenses') ?>">
                                             <i class="fa fa-star"></i><span class="text"> <?= lang('expenses_report'); ?></span>
                                         </a>
                                     </li>
-                                    <li id="reports_customer_report">
+                                    <li style="display:none" id="reports_customer_report">
                                         <a href="<?= admin_url('reports/customers') ?>">
                                             <i class="fa fa-users"></i><span class="text"> <?= lang('customers_report'); ?></span>
                                         </a>
                                     </li>
-                                    <li id="reports_supplier_report">
+                                    <li style="display:none" id="reports_supplier_report">
                                         <a href="<?= admin_url('reports/suppliers') ?>">
                                             <i class="fa fa-users"></i><span class="text"> <?= lang('suppliers_report'); ?></span>
                                         </a>
                                     </li>
-                                    <li id="reports_staff_report">
+                                    <li style="display:none" id="reports_staff_report">
                                         <a href="<?= admin_url('reports/users') ?>">
                                             <i class="fa fa-users"></i><span class="text"> <?= lang('staff_report'); ?></span>
                                         </a>
