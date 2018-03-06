@@ -2721,7 +2721,7 @@ class system_settings extends MY_Controller
 
         $this->load->library('datatables');
         $this->datatables
-            ->select("id, image, code, name, slug")
+            ->select("id, image, code, name")
             ->from("brands")
             ->add_column("Actions", "<div class=\"text-center\"><a href='" . admin_url('system_settings/edit_brand/$1') . "' data-toggle='modal' data-target='#myModal' class='tip' title='" . lang("edit_brand") . "'><i class=\"fa fa-edit\"></i></a> <a href='#' class='tip po' title='<b>" . lang("delete_brand") . "</b>' data-content=\"<p>" . lang('r_u_sure') . "</p><a class='btn btn-danger po-delete' href='" . admin_url('system_settings/delete_brand/$1') . "'>" . lang('i_m_sure') . "</a> <button class='btn po-close'>" . lang('no') . "</button>\"  rel='popover'><i class=\"fa fa-trash-o\"></i></a></div>", "id");
 
@@ -2730,7 +2730,7 @@ class system_settings extends MY_Controller
 
     function add_brand()
     {
-
+        $this->form_validation->set_rules('name', lang("brand_code"), 'trim|required|is_unique[brands.code]|alpha_numeric_spaces');
         $this->form_validation->set_rules('name', lang("brand_name"), 'trim|required|is_unique[brands.name]|alpha_numeric_spaces');
         $this->form_validation->set_rules('slug', lang("slug"), 'trim|required|is_unique[brands.slug]|alpha_dash');
 
@@ -2794,7 +2794,7 @@ class system_settings extends MY_Controller
 
     function edit_brand($id = NULL)
     {
-
+        $this->form_validation->set_rules('code', lang("brand_code"), 'trim|required|alpha_numeric_spaces');
         $this->form_validation->set_rules('name', lang("brand_name"), 'trim|required|alpha_numeric_spaces');
         $brand_details = $this->site->getBrandByID($id);
         if ($this->input->post('name') != $brand_details->name) {

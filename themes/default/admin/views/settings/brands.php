@@ -14,7 +14,10 @@
                 });
                 $.ajax({'dataType': 'json', 'type': 'POST', 'url': sSource, 'data': aoData, 'success': fnCallback});
             },
-            "aoColumns": [{"bSortable": false, "mRender": checkbox}, {"bSortable": false, "mRender": img_hl}, null, null, null, {"bSortable": false}]
+            "aoColumns": [
+            {"bSortable": false, "mRender": checkbox}, 
+            {"bSortable": false, "mRender": img_hl}, 
+            null, null, {"bSortable": false}]
         });
     });
 </script>
@@ -40,7 +43,7 @@
                                 <i class="fa fa-plus"></i> <?= lang('import_brands') ?>
                             </a>
                         </li>
-                        <li>
+                        <li style="display:none">
                             <a href="#" id="excel" data-action="export_excel">
                                 <i class="fa fa-file-excel-o"></i> <?= lang('export_to_excel') ?>
                             </a>
@@ -59,7 +62,7 @@
     <div class="box-content">
         <div class="row">
             <div class="col-lg-12">
-                <p class="introtext"><?= lang('list_results'); ?></p>
+                <p style="display:none" class="introtext"><?= lang('list_results'); ?></p>
                 <div class="table-responsive">
                     <table id="BrandTable" class="table table-bordered table-hover table-striped reports-table">
                         <thead>
@@ -72,7 +75,6 @@
                                 </th>
                                 <th><?= lang("code"); ?></th>
                                 <th><?= lang("name"); ?></th>
-                                <th><?= lang("slug"); ?></th>
                                 <th style="width:100px;"><?= lang("actions"); ?></th>
                             </tr>
                         </thead>

@@ -13,7 +13,7 @@
 
             <div class="form-group">
                 <?= lang('code', 'code'); ?>
-                <?= form_input('code', '', 'class="form-control" id="code"'); ?>
+                <?= form_input('code', '', 'class="form-control" id="code" required="required"'); ?>
             </div>
 
             <div class="form-group">
@@ -21,7 +21,7 @@
                 <?= form_input('name', '', 'class="form-control gen_slug" id="name" required="required"'); ?>
             </div>
 
-            <div class="form-group all">
+            <div style="display:none" class="form-group all">
                 <?= lang('slug', 'slug'); ?>
                 <?= form_input('slug', set_value('slug'), 'class="form-control tip" id="slug" required="required"'); ?>
             </div>

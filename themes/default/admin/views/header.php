@@ -684,7 +684,7 @@
                                                 <i class="fa fa-building-o"></i><span class="text"> <?= lang('warehouses'); ?></span>
                                             </a>
                                         </li>
-                                        <li id="system_settings_email_templates">
+                                        <li style="display:none" id="system_settings_email_templates">
                                             <a href="<?= admin_url('system_settings/email_templates') ?>">
                                                 <i class="fa fa-envelope"></i><span class="text"> <?= lang('email_templates'); ?></span>
                                             </a>
