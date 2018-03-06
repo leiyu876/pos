@@ -327,7 +327,7 @@ class Products extends MY_Controller
             $date = DateTime::createFromFormat('d/m/Y', $this->input->post('return_date'));
             
             $data_from = array(
-                'actual_return_date' => date('Y-m-d'),
+                'actual_return_date' => date('Y-m-d H:i:s'),
                 'status' => 'returned',
                 'transfer_to' => $this->input->post('user_id'),
             );
@@ -335,8 +335,8 @@ class Products extends MY_Controller
             $data_to = array(
                 'product_id' => $borrowed_details->product_id,
                 'userid' => $this->input->post('user_id'),
-                'borrowed_date' => date('Y-m-d'),
-                'return_date' => $date->format('Y-m-d'),
+                'borrowed_date' => date('Y-m-d H:i:s'),
+                'return_date' => $date->format('Y-m-d H:i:00'),
                 'status' => 'borrowed',
             );
 
@@ -412,13 +412,13 @@ class Products extends MY_Controller
 
         if ($this->form_validation->run() == true) {
             
-            $date = DateTime::createFromFormat('d/m/Y', $this->input->post('return_date'));
+            $date = DateTime::createFromFormat('d/m/Y H:s', $this->input->post('return_date'));
             
             $data = array(
                 'product_id' => $this->input->post('product_id'),
                 'userid' => $this->input->post('user_id'),
-                'borrowed_date' => date('Y-m-d'),
-                'return_date' => $date->format('Y-m-d'),
+                'borrowed_date' => date('Y-m-d H:i:s'),
+                'return_date' => $date->format('Y-m-d H:s:00'),
                 'status' => 'borrowed',
             );
         } elseif ($this->input->post('save')) {
@@ -1420,19 +1420,19 @@ class Products extends MY_Controller
 
         if ($this->form_validation->run() == true) {
             
-            $date = DateTime::createFromFormat('d/m/Y', $this->input->post('return_date'));
+            $date = DateTime::createFromFormat('d/m/Y H:s', $this->input->post('return_date'));
             
             $data = array(
                 'product_id' => $this->input->post('product_id'),
                 'userid' => $this->input->post('user_id'),
-                'borrowed_date' => date('Y-m-d'),
-                'return_date' => $date->format('Y-m-d'),
+                'borrowed_date' => date('Y-m-d H:i:s'),
+                'return_date' => $date->format('Y-m-d H:s:00'),
                 'status' => $this->input->post('status'),
                 'return_status' => $this->input->post('return_status'),
             );
             
             if($this->input->post('status') == 'returned') {
-                $data['actual_return_date'] = date('Y-m-d');
+                $data['actual_return_date'] = date('Y-m-d H:i:s');
             }
 
             

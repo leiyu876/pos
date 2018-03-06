@@ -46,8 +46,8 @@
             </div>
             <div class="form-group">
                 <?= lang("Expected_Return_Date", "Expected_Return_Date"). ' *'; ?>
-                <?php echo form_input('return_date', (isset($_POST['date']) ? $_POST['date'] : ""), 'class="form-control date" id="return_date" required="required"'); ?>
-            </div>
+                <?php echo form_input('return_date', (isset($_POST['date']) ? $_POST['date'] : ""), 'class="form-control input-tip datetime" id="return_date" required="required"'); ?>
+            </div>            
         </div>      
         <div class="modal-footer">
             <?php echo form_submit('save', lang('Save'), 'class="btn btn-primary"'); ?>

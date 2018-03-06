@@ -43,7 +43,7 @@
             </div>
             <div class="form-group">
                 <?= lang("Expected_Return_Date", "Expected_Return_Date"). ' *'; ?>
-                <?php echo form_input('return_date', $this->sma->hrsd($borrowed->return_date), 'class="form-control date" id="return_date" required="required"'); ?>
+                <?php echo form_input('return_date', $this->sma->hrsd($borrowed->return_date), 'class="form-control input-tip datetime" id="return_date" required="required"'); ?>
             </div>
             <div class="form-group">
                 <?= lang('Status', 'Status'). ' *'; ?>
