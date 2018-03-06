@@ -16,7 +16,7 @@
 <script>
 
     function formatStatus(x) {
-        var r = {"":"", new:"New", second_hand:"Second Hand", damage:'Damage'};
+        var r = {"":"", new:"New", maintenance:"Maintenance", second_hand:"Second Hand", damage:'Damage'};
 
         return r[x];
     }

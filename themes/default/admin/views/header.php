@@ -724,6 +724,11 @@
                                             <i class="fa fa-building"></i><span class="text"> <?= lang('Damage Products'); ?></span>
                                         </a>
                                     </li>
+                                    <li id="reports_maintenance_products">
+                                        <a href="<?= admin_url('reports/maintenance_products') ?>">
+                                            <i class="fa fa-building"></i><span class="text"> <?= lang('Products need Maintenance'); ?></span>
+                                        </a>
+                                    </li>
                                     <li style="display:none" id="reports_best_sellers">
                                         <a href="<?= admin_url('reports/best_sellers') ?>">
                                             <i class="fa fa-line-chart"></i><span class="text"> <?= lang('best_sellers'); ?></span>

@@ -3341,4 +3341,25 @@ class Reports extends MY_Controller
         
         echo json_encode($decoded);
     }
+
+    function maintenance_products() {
+
+        $bc = array(array('link' => base_url(), 'page' => lang('home')), array('link' => admin_url('reports'), 'page' => lang('reports')), array('link' => '#', 'page' => lang('Products need Maintenance')));
+        $meta = array('page_title' => lang('Products need Maintenance'), 'bc' => $bc);
+
+        $this->page_construct('reports/maintenance_products', $meta, $this->data);
+    }
+
+    function getMaintenance_products() {
+
+        $this->load->library('datatables');
+        $this->load->library('ion_auth');
+        
+        $this->datatables
+            ->select("code, name, price", FALSE)
+            ->from('products')
+            ->where('status', 'maintenance');
+
+        echo $this->datatables->generate();
+    }
 }
