@@ -17,7 +17,7 @@
             "aoColumns": [
             {"bSortable": false, "mRender": checkbox}, 
             {"bSortable": false, "mRender": img_hl}, 
-            null, null, {"bSortable": false}]
+            null, null, null, {"bSortable": false}]
         });
     });
 </script>
@@ -75,6 +75,7 @@
                                 </th>
                                 <th><?= lang("code"); ?></th>
                                 <th><?= lang("name"); ?></th>
+                                <th><?= lang("Category / Type"); ?></th>
                                 <th style="width:100px;"><?= lang("actions"); ?></th>
                             </tr>
                         </thead>

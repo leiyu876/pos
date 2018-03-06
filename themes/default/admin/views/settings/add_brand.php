@@ -4,7 +4,7 @@
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="fa fa-2x">&times;</i>
             </button>
-            <h4 class="modal-title" id="myModalLabel"><?php echo lang('add_brand'); ?></h4>
+            <h4 class="modal-title" id="myModalLabel"><?php echo lang('add_brand').' / Make'; ?></h4>
         </div>
         <?php $attrib = array('data-toggle' => 'validator', 'role' => 'form');
         echo admin_form_open_multipart("system_settings/add_brand", $attrib); ?>
@@ -19,6 +19,21 @@
             <div class="form-group">
                 <?= lang('name', 'name'); ?>
                 <?= form_input('name', '', 'class="form-control gen_slug" id="name" required="required"'); ?>
+            </div>
+
+            <div class="form-group">
+                <?= lang("Category".' / Type', "category") ?>
+                <?php
+                $cat = array();
+                if ($categories == false) {
+                    
+                } else {
+                    foreach ($categories as $category) {
+                        $cat[$category->id] = $category->name;
+                    }
+                }
+                echo form_dropdown('category', $cat, (isset($_POST['category']) ? $_POST['category'] : ''), 'class="form-control select" id="category" placeholder="' . lang("select") . " " . lang("category") . ' / Type " required="required" style="width:100%"')
+                ?>
             </div>
 
             <div style="display:none" class="form-group all">

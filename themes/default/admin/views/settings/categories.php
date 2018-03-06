@@ -25,7 +25,7 @@
 <?= admin_form_open('system_settings/category_actions', 'id="action-form"') ?>
 <div class="box">
     <div class="box-header">
-        <h2 class="blue"><i class="fa-fw fa fa-folder-open"></i><?= lang('categories'); ?></h2>
+        <h2 class="blue"><i class="fa-fw fa fa-folder-open"></i><?= lang('categories').' / Type'; ?></h2>
 
         <div class="box-icon">
             <ul class="btn-tasks">
@@ -36,7 +36,7 @@
                     <ul class="dropdown-menu pull-right tasks-menus" role="menu" aria-labelledby="dLabel">
                         <li>
                             <a href="<?php echo admin_url('system_settings/add_category'); ?>" data-toggle="modal" data-target="#myModal">
-                                <i class="fa fa-plus"></i> <?= lang('add_category') ?>
+                                <i class="fa fa-plus"></i> <?= lang('Add New') ?>
                             </a>
                         </li>
                         <li style="display:none">
@@ -52,7 +52,7 @@
                         <li class="divider"></li>
                         <li>
                             <a href="#" id="delete" data-action="delete">
-                                <i class="fa fa-trash-o"></i> <?= lang('delete_categories') ?>
+                                <i class="fa fa-trash-o"></i> <?= lang('delete') ?>
                             </a>
                         </li>
                     </ul>
@@ -74,8 +74,8 @@
                                 <th style="min-width:40px; width: 40px; text-align: center;">
                                     <?= lang("image"); ?>
                                 </th>
-                                <th><?= lang("category_code"); ?></th>
-                                <th><?= lang("category_name"); ?></th>
+                                <th><?= lang("code"); ?></th>
+                                <th><?= lang("name"); ?></th>
                                 <th style="width:100px;"><?= lang("actions"); ?></th>
                             </tr>
                         </thead>

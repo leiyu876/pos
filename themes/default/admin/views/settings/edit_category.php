@@ -4,7 +4,7 @@
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="fa fa-2x">&times;</i>
             </button>
-            <h4 class="modal-title" id="myModalLabel"><?php echo lang('edit_category'); ?></h4>
+            <h4 class="modal-title" id="myModalLabel"><?php echo lang('edit_category').' / Type'; ?></h4>
         </div>
         <?php $attrib = array('data-toggle' => 'validator', 'role' => 'form');
         echo admin_form_open_multipart("system_settings/edit_category/".$category->id, $attrib); ?>
@@ -12,12 +12,12 @@
             <p><?= lang('update_info'); ?></p>
 
             <div class="form-group">
-                <?= lang('category_code', 'code'); ?>
+                <?= lang('code', 'code'); ?>
                 <?= form_input('code', set_value('code', $category->code), 'class="form-control" id="code" required="required"'); ?>
             </div>
 
             <div class="form-group">
-                <?= lang('category_name', 'name'); ?>
+                <?= lang('name', 'name'); ?>
                 <?= form_input('name', set_value('name', $category->name), 'class="form-control gen_slug" id="name" required="required"'); ?>
             </div>
 
@@ -43,7 +43,7 @@
 
         </div>
         <div class="modal-footer">
-            <?php echo form_submit('edit_category', lang('edit_category'), 'class="btn btn-primary"'); ?>
+            <?php echo form_submit('edit_category', lang('edit_category').' / Type', 'class="btn btn-primary"'); ?>
         </div>
     </div>
     <?php echo form_close(); ?>

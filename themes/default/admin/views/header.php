@@ -651,7 +651,7 @@
                                         </li>
                                         <li id="system_settings_categories">
                                             <a href="<?= admin_url('system_settings/categories') ?>">
-                                                <i class="fa fa-folder-open"></i><span class="text"> <?= lang('categories'); ?></span>
+                                                <i class="fa fa-folder-open"></i><span class="text"> <?= lang('categories').' / Types'; ?></span>
                                             </a>
                                         </li>
                                         <li style="display:none" id="system_settings_expense_categories">
@@ -666,7 +666,7 @@
                                         </li>
                                         <li id="system_settings_brands">
                                             <a href="<?= admin_url('system_settings/brands') ?>">
-                                                <i class="fa fa-th-list"></i><span class="text"> <?= lang('brands'); ?></span>
+                                                <i class="fa fa-th-list"></i><span class="text"> <?= lang('brands').' / Make'; ?></span>
                                             </a>
                                         </li>
                                         <li style="display:none" id="system_settings_variants">

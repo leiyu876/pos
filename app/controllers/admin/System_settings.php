@@ -1002,8 +1002,8 @@ class system_settings extends MY_Controller
     {
 
         $this->data['error'] = validation_errors() ? validation_errors() : $this->session->flashdata('error');
-        $bc = array(array('link' => base_url(), 'page' => lang('home')), array('link' => admin_url('system_settings'), 'page' => lang('system_settings')), array('link' => '#', 'page' => lang('categories')));
-        $meta = array('page_title' => lang('categories'), 'bc' => $bc);
+        $bc = array(array('link' => base_url(), 'page' => lang('home')), array('link' => admin_url('system_settings'), 'page' => lang('system_settings')), array('link' => '#', 'page' => lang('categories').' / Type'));
+        $meta = array('page_title' => lang('categories').' / Type', 'bc' => $bc);
         $this->page_construct('settings/categories', $meta, $this->data);
     }
 
@@ -2721,11 +2721,19 @@ class system_settings extends MY_Controller
 
         $this->load->library('datatables');
         $this->datatables
-            ->select("id, image, code, name")
+            ->select("brands.id, brands.image, brands.code, brands.name, 
+                categories.name cat_name")
             ->from("brands")
-            ->add_column("Actions", "<div class=\"text-center\"><a href='" . admin_url('system_settings/edit_brand/$1') . "' data-toggle='modal' data-target='#myModal' class='tip' title='" . lang("edit_brand") . "'><i class=\"fa fa-edit\"></i></a> <a href='#' class='tip po' title='<b>" . lang("delete_brand") . "</b>' data-content=\"<p>" . lang('r_u_sure') . "</p><a class='btn btn-danger po-delete' href='" . admin_url('system_settings/delete_brand/$1') . "'>" . lang('i_m_sure') . "</a> <button class='btn po-close'>" . lang('no') . "</button>\"  rel='popover'><i class=\"fa fa-trash-o\"></i></a></div>", "id");
+            ->join('categories', 'categories.id = brands.category_id', 'left')
+            ->add_column("Actions", "
+                <div class=\"text-center\">
+                    <a href='" . admin_url('system_settings/edit_brand/$1') . "' data-toggle='modal' data-target='#myModal' class='tip' title='" . lang("edit_brand") . "'>
+                        <i class=\"fa fa-edit\"></i>
+                    </a> 
+                    <a href='#' class='tip po' title='<b>" . lang("delete_brand") . "</b>' data-content=\"<p>" . lang('r_u_sure') . "</p>
+                        <a class='btn btn-danger po-delete' href='" . admin_url('system_settings/delete_brand/$1') . "'>" . lang('i_m_sure') . "</a> <button class='btn po-close'>" . lang('no') . "</button>\"  rel='popover'><i class=\"fa fa-trash-o\"></i></a></div>", "brands.id");
 
-        echo $this->datatables->generate();
+        echo $this->datatables->generate(); exit;
     }
 
     function add_brand()
@@ -2739,6 +2747,7 @@ class system_settings extends MY_Controller
             $data = array(
                 'name' => $this->input->post('name'),
                 'code' => $this->input->post('code'),
+                'category_id' => $this->input->post('category'),
                 'slug' => $this->input->post('slug'),
                 );
 
@@ -2785,6 +2794,7 @@ class system_settings extends MY_Controller
             admin_redirect("system_settings/brands");
         } else {
 
+            $this->data['categories'] = $this->site->getAllCategories();
             $this->data['error'] = validation_errors() ? validation_errors() : $this->session->flashdata('error');
             $this->data['modal_js'] = $this->site->modal_js();
             $this->load->view($this->theme . 'settings/add_brand', $this->data);
@@ -2810,6 +2820,7 @@ class system_settings extends MY_Controller
             $data = array(
                 'name' => $this->input->post('name'),
                 'code' => $this->input->post('code'),
+                'category_id' => $this->input->post('category'),
                 'slug' => $this->input->post('slug'),
                 );
 
@@ -2856,6 +2867,7 @@ class system_settings extends MY_Controller
             admin_redirect("system_settings/brands");
         } else {
 
+            $this->data['categories'] = $this->site->getAllCategories();
             $this->data['error'] = validation_errors() ? validation_errors() : $this->session->flashdata('error');
             $this->data['modal_js'] = $this->site->modal_js();
             $this->data['brand'] = $brand_details;
