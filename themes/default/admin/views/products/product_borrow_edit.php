@@ -42,8 +42,8 @@
                 <?= form_dropdown('user_id', $usrid, set_value('user_id', $borrowed->userid), 'class="form-control tip" id="user_id" style="width:100%;" required="required"'); ?>
             </div>
             <div class="form-group">
-                <?= lang("Expected_Return_Date", "Expected_Return_Date"). ' *'; ?>
-                <?php echo form_input('return_date', $this->sma->hrsd($borrowed->return_date), 'class="form-control input-tip datetime" id="return_date" required="required"'); ?>
+                <?= lang("Expected_Return_Date", "return_date"); ?>
+                <?php echo form_input('return_date', $this->sma->hrld($borrowed->return_date), 'class="form-control input-tip datetime" id="return_date" required="required"'); ?>
             </div>
             <div class="form-group">
                 <?= lang('Status', 'Status'). ' *'; ?>

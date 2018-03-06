@@ -34,8 +34,7 @@
                 {"bSortable": true},
                 {"bSortable": true}, 
                 {"bSortable": true},
-                {"bSortable": true},
-                {"bSortable": true},               
+                {"bSortable": true}, 
             ]
         });
     });
@@ -60,7 +59,6 @@
                             <th><?= lang("Borrowed Date") ?></th>
                             <th><?= lang("Return Date") ?></th>
                             <th><?= lang("Actual Return") ?></th>
-                            <th><?= lang("Status") ?></th>
                         </tr>
                         </thead>
                         <tbody>

@@ -1425,7 +1425,6 @@ class Products extends MY_Controller
             $data = array(
                 'product_id' => $this->input->post('product_id'),
                 'userid' => $this->input->post('user_id'),
-                'borrowed_date' => date('Y-m-d H:i:s'),
                 'return_date' => $date->format('Y-m-d H:s:00'),
                 'status' => $this->input->post('status'),
                 'return_status' => $this->input->post('return_status'),

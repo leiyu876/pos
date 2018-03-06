@@ -1,16 +1,5 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
 <script>
-    function capitalizeFirstLetter(string) {
-        return string.charAt(0).toUpperCase() + string.slice(1);
-    }
-
-    function asteriskToRed(string) {
-        laststr =  string.slice(-1);
-        if(laststr == '*') {
-            return string.substring(0, string.length-1) + '<span style="color:red"> *</span>';
-        }
-        return string;
-    }
     var oTable;
     $(document).ready(function () {
 
@@ -33,9 +22,6 @@
                 {"bSortable": true},
                 {"bSortable": true},
                 {"bSortable": true}, 
-                {"bSortable": true},
-                {"bSortable": true},
-                {"bSortable": true},               
             ]
         });
     });
@@ -43,7 +29,7 @@
 <div class="box">
     <div class="box-header">
         <h2 class="blue"><i
-                class="fa-fw fa fa-barcode"></i><?= lang('Blacklisted Users'); ?>
+                class="fa-fw fa fa-barcode"></i><?= lang('Damage Products'); ?>
         </h2>
     </div>
     <div class="box-content">
@@ -53,14 +39,11 @@
                     <table id="PRData" class="table table-bordered table-condensed table-hover table-striped">
                         <thead>
                         <tr class="primary">
-                            <th><?= lang("Iqama") ?></th>
-                            <th><?= lang("Full Name") ?></th>
                             <th><?= lang("Product Code") ?></th>
                             <th><?= lang("Product Name") ?></th>
+                            <th><?= lang("Iqama") ?></th>
+                            <th><?= lang("Full Name") ?></th>
                             <th><?= lang("Borrowed Date") ?></th>
-                            <th><?= lang("Return Date") ?></th>
-                            <th><?= lang("Actual Return") ?></th>
-                            <th><?= lang("Status") ?></th>
                         </tr>
                         </thead>
                         <tbody>

@@ -3240,28 +3240,49 @@ class Reports extends MY_Controller
         $this->load->library('ion_auth');
         
         $this->datatables
-            ->select("
-                {$this->db->dbprefix('users')}.iqama as iqama, 
-                CONCAT({$this->db->dbprefix('users')}.first_name,  ' ', {$this->db->dbprefix('users')}.last_name) as complete_name,
-                {$this->db->dbprefix('products')}.code as code, 
-                {$this->db->dbprefix('products')}.name as product_name,
-                {$this->db->dbprefix('product_borrowed')}.borrowed_date as borrowed_date,
-                {$this->db->dbprefix('product_borrowed')}.return_date as return_date,
-                {$this->db->dbprefix('product_borrowed')}.actual_return_date as actual_return_date,
-                (CASE 
-                WHEN 
-                    {$this->db->dbprefix('product_borrowed')}.return_date < DATE(NOW())  AND 
-                    {$this->db->dbprefix('product_borrowed')}.status = 'borrowed' 
-                THEN CONCAT('<span style=\"color:red\">', 'Overdue', '</span>')
-                ELSE {$this->db->dbprefix('product_borrowed')}.status
-                END) as status_return,",
-                 FALSE
-            )
-            ->join('users', 'product_borrowed.userid=users.id', 'left')
-            ->join('products', 'product_borrowed.product_id=products.id', 'left')
-            ->from('product_borrowed');
+            ->select("id, code, name ", FALSE)
+            ->from('products')
+            ->where('status', 'damage');
 
-        echo $this->datatables->generate();
+        $old = $this->datatables->generate();
+        $decoded = json_decode($old);
+
+        $new_aaData = array();
+        $decoded->sColumns = 'iqama,full_name,product_code,product_name,borrowed_date';
+        
+        if(count($decoded->aaData) > 0) {
+            foreach ($decoded->aaData as $key => $value) {
+                $product_id   = $value[0];
+                $product_code = $value[1];
+                $product_name = $value[2];
+
+                $this->db->select('*')
+                    ->from('product_borrowed', 'first_name')
+                    ->join('users', 'users.id = product_borrowed.userid', 'left')
+                    ->where('return_status', 'damage')
+                    ->order_by('borrowed_date', 'desc')
+                    ->limit(1);
+                $query = $this->db->get();
+
+                if($this->db->count_all_results()) {
+                    $r = $query->result_array()[0];
+                    
+                    $new_aaData[$key] = array(
+                        $r['iqama'],
+                        $r['first_name'].' '.$r['last_name'],
+                        $product_code,
+                        $product_name,
+                        $r['borrowed_date'],
+                        $r['return_date'],
+                        $r['actual_return_date'],    
+                    );
+                }
+            }
+        }
+        
+        $decoded->aaData = $new_aaData;
+        
+        echo json_encode($decoded);
     }
 
     function damage_products() {
@@ -3278,27 +3299,46 @@ class Reports extends MY_Controller
         $this->load->library('ion_auth');
         
         $this->datatables
-            ->select("
-                {$this->db->dbprefix('users')}.iqama as iqama, 
-                CONCAT({$this->db->dbprefix('users')}.first_name,  ' ', {$this->db->dbprefix('users')}.last_name) as complete_name,
-                {$this->db->dbprefix('products')}.code as code, 
-                {$this->db->dbprefix('products')}.name as product_name,
-                {$this->db->dbprefix('product_borrowed')}.borrowed_date as borrowed_date,
-                {$this->db->dbprefix('product_borrowed')}.return_date as return_date,
-                {$this->db->dbprefix('product_borrowed')}.actual_return_date as actual_return_date,
-                (CASE 
-                WHEN 
-                    {$this->db->dbprefix('product_borrowed')}.return_date < DATE(NOW())  AND 
-                    {$this->db->dbprefix('product_borrowed')}.status = 'borrowed' 
-                THEN CONCAT('<span style=\"color:red\">', 'Overdue', '</span>')
-                ELSE {$this->db->dbprefix('product_borrowed')}.status
-                END) as status_return,",
-                 FALSE
-            )
-            ->join('users', 'product_borrowed.userid=users.id', 'left')
-            ->join('products', 'product_borrowed.product_id=products.id', 'left')
-            ->from('product_borrowed');
+            ->select("id, code, name ", FALSE)
+            ->from('products')
+            ->where('status', 'damage');
 
-        echo $this->datatables->generate();
+        $old = $this->datatables->generate();
+        $decoded = json_decode($old);
+
+        $new_aaData = array();
+        $decoded->sColumns = 'product_code,product_name,iqama,full_name,borrowed_date';
+        
+        if(count($decoded->aaData) > 0) {
+            foreach ($decoded->aaData as $key => $value) {
+                $product_id   = $value[0];
+                $product_code = $value[1];
+                $product_name = $value[2];
+
+                $this->db->select('*')
+                    ->from('product_borrowed', 'first_name')
+                    ->join('users', 'users.id = product_borrowed.userid', 'left')
+                    ->where('return_status', 'damage')
+                    ->order_by('borrowed_date', 'desc')
+                    ->limit(1);
+                $query = $this->db->get();
+
+                if($this->db->count_all_results()) {
+                    $r = $query->result_array()[0];
+                    
+                    $new_aaData[$key] = array(
+                        $product_code,
+                        $product_name,
+                        $r['iqama'],
+                        $r['first_name'].' '.$r['last_name'],
+                        $r['borrowed_date'],
+                    );
+                }
+            }
+        }
+        
+        $decoded->aaData = $new_aaData;
+        
+        echo json_encode($decoded);
     }
 }
