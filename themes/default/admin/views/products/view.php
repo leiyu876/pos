@@ -127,7 +127,10 @@
                                         </tr>
                                         <?php if ($Owner || $Admin) {
                                             echo '<tr style="display:none"><td>' . lang("cost") . '</td><td>' . $this->sma->formatMoney($product->cost) . '</td></tr>';
-                                            echo '<tr><td>' . lang("price") . '</td><td>' . $this->sma->formatMoney($product->price) . '</td></tr>';
+                                            echo '<tr><td>' . lang("Date Purchased") . '</td><td>' . $product->date_purchased . '</td></tr>';
+                                            echo '<tr><td>' . lang("Percentage per year") . '</td><td>' . $this->sma->formatInPercentage($product->percentage) . '</td></tr>';
+                                            echo '<tr><td>' . lang("Purchased Price") . '</td><td>' . $this->sma->formatMoney($product->price) . '</td></tr>';
+                                            echo '<tr><td>' . lang("Current Price") . '</td><td>' . $this->sma->formatMoneyWithPercentYearLess($product->price, $product->date_purchased, $product->percentage) . '</td></tr>';
                                             if ($product->promotion) {
                                                 echo '<tr><td>' . lang("promotion") . '</td><td>' . $this->sma->formatMoney($product->promo_price) . ' ('.$this->sma->hrsd($product->start_date).' - '.$this->sma->hrsd($product->end_date).')</td></tr>';
                                             }

@@ -458,7 +458,7 @@ if (!empty($variants)) {
                                                 $cat[$supplier->id] = $supplier->name;
                                             }
                                         }
-                                        echo form_dropdown('supplier', $cat, (isset($_POST['supplier']) ? $_POST['supplier'] : ($product ? $product->supplier1 : '')), 'class="form-control select" id="supplier" placeholder="' . lang("select") . " " . lang("supplier") . '" required="required" style="width:100%"')
+                                        echo form_dropdown('supplier', $cat, (isset($_POST['supplier']) ? $_POST['supplier'] : ($product ? $product->supplier1 : '')), 'class="form-control select" id="supplier_none" placeholder="' . lang("select") . " " . lang("supplier") . '" required="required" style="width:100%"')
                                     ?>
                                 </div>
                             </div>
@@ -474,10 +474,16 @@ if (!empty($variants)) {
                                     <?= form_input('percentage', (isset($_POST['percentage']) ? $_POST['percentage'] : ($product ? $this->sma->formatDecimal($product->percentage) : '')), 'class="form-control tip" id="percentage" required="required"') ?>
                                 </div>
                             </div>
-                            <div class="col-xs-12">
+                            <div class="col-xs-6">
                                 <div class="form-group">
                                     <?= lang('Bill_Number', 'Bill_Number'); ?>
                                     <?= form_input('bill_number', set_value('bill_number', ($product ? $product->billno : '')), 'class="form-control tip" id="bill_number"'); ?>
+                                </div>
+                            </div>
+                            <div class="col-xs-6">
+                                <div class="form-group">
+                                    <?= lang("Date Purchased", "date_purchased"); ?>
+                                    <?= form_input('date_purchased', (isset($_POST['date_purchased']) ? $_POST['date_purchased'] : ($product ? $product->date_purchased : '')), 'class="form-control input-tip datetime" id="date_purchased" required="required"'); ?>
                                 </div>
                             </div>
                         </div>

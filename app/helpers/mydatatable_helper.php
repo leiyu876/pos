@@ -53,3 +53,21 @@ if ( ! function_exists('useridtoname'))
         }
     }   
 }
+
+if ( ! function_exists('formatMoneyWithPercentYearLess'))
+{
+    function formatMoneyWithPercentYearLess($id)
+    {
+        $CI = get_instance();
+
+        $CI->load->admin_model('products_model');
+        
+        $q = $CI->products_model->getProductDetail($id);
+        
+        if ($q == false) {
+            return '';
+        } else {
+            return $CI->sma->formatMoneyWithPercentYearLess($q->price, $q->date_purchased, $q->percentage);
+        }
+    }   
+}

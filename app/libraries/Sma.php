@@ -66,6 +66,26 @@ class Sma
         ($this->Settings->display_symbol == 2 && $number != 0 ? $symbol : '');
     }
 
+    public function formatMoneyWithPercentYearLess($price, $date, $percent) {
+        $percent   = $percent / 100;
+
+        $deduction = $price * $percent;
+        
+        $p = new DateTime($date);
+        $n = new DateTime('now');
+        $diff = $p->diff($n);   
+        
+        $numOfYearsDiff = $diff->y;
+        
+        $deduction_total = $deduction * $numOfYearsDiff;
+
+        return $this->formatMoney($price - $deduction_total);
+    }
+
+    public function formatInPercentage($price) {
+        return $price / 100;
+    }
+
     public function formatQuantity($number, $decimals = null)
     {
         if (!$decimals) {

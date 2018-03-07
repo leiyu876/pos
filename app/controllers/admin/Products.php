@@ -121,6 +121,7 @@ class Products extends MY_Controller
 
             $this->load->helper('mydatatable');
             $this->datatables->edit_column('borrowed_status', '$1', 'check_movement(borrowed_status)');
+            $this->datatables->edit_column('price', '$1', 'formatMoneyWithPercentYearLess(productid)');
         }
         if (!$this->Owner && !$this->Admin) {
             if (!$this->session->userdata('show_cost')) {
@@ -1114,12 +1115,15 @@ class Products extends MY_Controller
 
         if ($this->form_validation->run('products/add') == true) {
 
+            $date_purchased = DateTime::createFromFormat('d/m/Y H:s', $this->input->post('date_purchased'));
+            
             $data = array('code' => $this->input->post('code'),
                 'barcode_symbology' => $this->input->post('barcode_symbology'),
                 'name' => $this->input->post('name'),
                 'type' => $this->input->post('type'),
                 'brand' => $this->input->post('brand'),
                 'billno' => $this->input->post('bill_number'),
+                'date_purchased' => $date_purchased->format('Y-m-d H:s:00'),
                 'status' => $this->input->post('status'),
                 'category_id' => $this->input->post('category'),
                 'subcategory_id' => $this->input->post('subcategory') ? $this->input->post('subcategory') : NULL,
