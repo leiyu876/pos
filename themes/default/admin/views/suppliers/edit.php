@@ -22,7 +22,7 @@
                         <?php echo form_input('company', $supplier->company, 'class="form-control tip" id="company" required="required"'); ?>
                     </div>
                     <div class="form-group person">
-                        <?= lang("name", "name"); ?>
+                        <?= lang("Contact Person", "name"); ?>
                         <?php echo form_input('name', $supplier->name, 'class="form-control tip" id="name" required="required"'); ?>
                     </div>
                     <div style="display:none" class="form-group">

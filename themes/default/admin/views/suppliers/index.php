@@ -25,7 +25,7 @@
             }, null, null, null, null, null, null, {"bSortable": false}]
         }).dtFilter([
             {column_number: 1, filter_default_label: "[<?=lang('company');?>]", filter_type: "text", data: []},
-            {column_number: 2, filter_default_label: "[<?=lang('name');?>]", filter_type: "text", data: []},
+            {column_number: 2, filter_default_label: "[<?=lang('Contact Person');?>]", filter_type: "text", data: []},
             {column_number: 3, filter_default_label: "[<?=lang('email_address');?>]", filter_type: "text", data: []},
             {column_number: 4, filter_default_label: "[<?=lang('phone');?>]", filter_type: "text", data: []},
             {column_number: 5, filter_default_label: "[<?=lang('city');?>]", filter_type: "text", data: []},
@@ -90,7 +90,7 @@
                                 <input class="checkbox checkth" type="checkbox" name="check"/>
                             </th>
                             <th><?= lang("company"); ?></th>
-                            <th><?= lang("name"); ?></th>
+                            <th><?= lang("Contact Person"); ?></th>
                             <th><?= lang("email_address"); ?></th>
                             <th><?= lang("phone"); ?></th>
                             <th><?= lang("city"); ?></th>

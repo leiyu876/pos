@@ -24,7 +24,7 @@
                         <?php echo form_input('company', '', 'class="form-control tip" id="company" data-bv-notempty="true"'); ?>
                     </div>
                     <div class="form-group person">
-                        <?= lang("name", "name"); ?>
+                        <?= lang("Contact Person", "name"); ?>
                         <?php echo form_input('name', '', 'class="form-control tip" id="name" data-bv-notempty="true"'); ?>
                     </div>
                     <div style="display:none" class="form-group">

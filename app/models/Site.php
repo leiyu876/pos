@@ -156,6 +156,18 @@ class Site extends CI_Model
         return FALSE;
     }
 
+    public function getAllSuppliers() {
+        $this->db->where('group_name', 'supplier');
+        $q = $this->db->get("companies");
+        if ($q->num_rows() > 0) {
+            foreach (($q->result()) as $row) {
+                $data[] = $row;
+            }
+            return $data;
+        }
+        return FALSE;
+    }
+
     public function getAllCategories() {
         $this->db->where('parent_id', NULL)->or_where('parent_id', 0)->order_by('name');
         $q = $this->db->get("categories");

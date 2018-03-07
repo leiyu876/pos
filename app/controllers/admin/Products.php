@@ -974,6 +974,7 @@ class Products extends MY_Controller
         } else {
             $this->data['error'] = (validation_errors() ? validation_errors() : $this->session->flashdata('error'));
 
+            $this->data['suppliers'] = $this->site->getAllSuppliers();
             $this->data['categories'] = $this->site->getAllCategories();
             $this->data['tax_rates'] = $this->site->getAllTaxRates();
             $this->data['brands'] = $this->site->getAllBrands();
@@ -1390,6 +1391,7 @@ class Products extends MY_Controller
         } else {
             $this->data['error'] = (validation_errors() ? validation_errors() : $this->session->flashdata('error'));
 
+            $this->data['suppliers'] = $this->site->getAllSuppliers();
             $this->data['categories'] = $this->site->getAllCategories();
             $this->data['tax_rates'] = $this->site->getAllTaxRates();
             $this->data['brands'] = $this->site->getAllBrands();
@@ -1445,9 +1447,9 @@ class Products extends MY_Controller
             $notification_status = 'borrowed_updated';
             if($data['status'] == 'returned') { 
 
-                if($data['return_status'] == 'damage') {
+                if($data['return_status'] != 'good') {
 
-                    $this->db->set('status', 'damage');
+                    $this->db->set('status', $data['return_status']);
                     $this->db->where('id', $data['product_id']);
                     $this->db->update('products');
                 }
