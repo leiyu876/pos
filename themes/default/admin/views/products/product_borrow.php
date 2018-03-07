@@ -45,7 +45,7 @@
                 <?= form_dropdown('user_id', $ursid, set_value('user_id'), 'class="form-control tip" id="user_id" style="width:100%;" required="required"'); ?>
             </div>
             <div class="form-group">
-                <?= lang("Expected_Return_Date", "Expected_Return_Date"). ' *'; ?>
+                <?= lang("Expected_Return_Date", "return_date"); ?>
                 <?php echo form_input('return_date', (isset($_POST['date']) ? $_POST['date'] : ""), 'class="form-control input-tip datetime" id="return_date" required="required"'); ?>
             </div>            
         </div>      

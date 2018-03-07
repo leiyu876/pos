@@ -26,7 +26,8 @@ class Customemail_Model extends CI_Model
             $v = str_replace("{contact_person}", $contact_detail->first_name.' '.$contact_detail->last_name, $v);
             $v = str_replace("{company}", $groups->description, $v);
             $v = str_replace("{action}", $action, $v);
-
+            $v = str_replace("{logo}", '<img src="' . base_url() . 'assets/uploads/logos/' . $this->Settings->logo . '" alt="' . $this->Settings->site_name . '"/>', $v);
+        
             $this->sma->send_email($contact_detail->email, 'Borrowed Product Details', $v);
 
         } elseif($about == 'user') {

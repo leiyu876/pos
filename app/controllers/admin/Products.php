@@ -691,6 +691,8 @@ class Products extends MY_Controller
         if ($this->form_validation->run() == true) {
 
             $tax_rate = $this->input->post('tax_rate') ? $this->site->getTaxRateByID($this->input->post('tax_rate')) : NULL;
+            $date_purchased = DateTime::createFromFormat('d/m/Y H:s', $this->input->post('date_purchased'));
+            
             $data = array(
                 'code' => $this->input->post('code'),
                 'barcode_symbology' => $this->input->post('barcode_symbology'),
@@ -698,6 +700,7 @@ class Products extends MY_Controller
                 'type' => $this->input->post('type'),
                 'brand' => $this->input->post('brand'),
                 'billno' => $this->input->post('bill_number'),
+                'date_purchased' => $date_purchased->format('Y-m-d H:s:00'),
                 'status' => $this->input->post('status'),
                 'category_id' => $this->input->post('category'),
                 'subcategory_id' => $this->input->post('subcategory') ? $this->input->post('subcategory') : NULL,

@@ -113,7 +113,7 @@
                                         </tr>
                                         <tr>
                                             <td><?= lang("category"); ?></td>
-                                            <td><?php echo $category->name; ?></td>
+                                            <td><?php echo $category ? $category->name : ''; ?></td>
                                         </tr>
                                         <?php if ($product->subcategory_id) { ?>
                                             <tr>
@@ -214,9 +214,10 @@
                                             </div>
                                         <?php } ?>
 
-                                        <?php if ((!$Supplier || !$Customer) && !empty($warehouses) && $product->type == 'standard') { ?>
-                                            <h3 class="bold"><?= lang('warehouse_quantity') ?></h3>
-                                            <div class="table-responsive">
+                                        <?php 
+                                            if ((!$Supplier || !$Customer) && !empty($warehouses) && $product->type == 'standard') { ?>
+                                            <h3 style="display:none" class="bold"><?= lang('warehouse_quantity') ?></h3>
+                                            <div style="display:none" class="table-responsive">
                                                 <table
                                                     class="table table-bordered table-striped table-condensed dfTable two-columns">
                                                     <thead>
