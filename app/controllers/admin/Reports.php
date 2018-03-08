@@ -3366,4 +3366,38 @@ class Reports extends MY_Controller
 
         echo $this->datatables->generate();
     }
+
+    function productsByTypeBrand() {
+
+        $this->db
+            ->select('products.code, products.name, products.price, categories.name as category_name, brands.name as brand_name')
+            ->from('products')
+            ->join('categories', 'products.category_id=categories.id', 'left')
+            ->join('brands', 'products.brand=brands.id', 'left');
+
+        if ($this->input->post('search')) {
+            if($this->input->post('category') != '') {
+                $this->db->where('products.category_id', $this->input->post('category'));
+            }
+
+            if($this->input->post('brand') != '') {
+                $this->db->where('products.brand', $this->input->post('brand'));
+            }      
+        }
+
+        $query = $this->db->get();
+
+        $this->data['datatable_list'] = array();
+        if($this->db->count_all_results()) {
+            $this->data['datatable_list'] = $query->result_array();
+        }
+        
+        $bc = array(array('link' => base_url(), 'page' => lang('home')), array('link' => admin_url('reports'), 'page' => lang('reports')), array('link' => '#', 'page' => lang('Products by Type or Brand')));
+        $meta = array('page_title' => lang('Products by Type or Brand'), 'bc' => $bc);
+
+        $this->data['categories'] = $this->site->getAllCategories();
+        $this->data['brands'] = $this->site->getAllBrands();
+
+        $this->page_construct('reports/productsByTypeBrand', $meta, $this->data);
+    }
 }
