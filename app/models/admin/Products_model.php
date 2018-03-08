@@ -621,6 +621,8 @@ class Products_model extends CI_Model
             $this->db->delete('product_variants', array('product_id' => $id));
             $this->db->delete('product_photos', array('product_id' => $id));
             $this->db->delete('product_prices', array('product_id' => $id));
+            $this->db->delete('product_borrowed', array('product_id' => $id));
+            $this->db->delete('custom_notifications', array('product_id' => $id));
             return true;
         }
         return FALSE;
