@@ -83,14 +83,14 @@ if ( ! function_exists('computeReturnDelay'))
         $q = $CI->site->getBorrowedByID($pb_id);
 
         if ($q == false) {
-            return 'sdf';
+            return '';
         } else {
             
             $return_date = $q->return_date;
             $actual_return_date = $q->actual_return_date;
 
             if($actual_return_date == '0000-00-00 00:00:00') {
-                return 'not yet';
+                return '';
             }
 
             $return_date = DateTime::createFromFormat("Y-m-d H:i:s", $return_date);
@@ -99,7 +99,43 @@ if ( ! function_exists('computeReturnDelay'))
             $return_date = $return_date->getTimestamp();     
             $actual_return_date = $actual_return_date->getTimestamp();     
             
-            return timespan($actual_return_date, $return_date) . ' ago';   
+            if($return_date == $actual_return_date || $return_date > $actual_return_date) {
+                return '';
+            }
+
+            return timespan($return_date, $actual_return_date) . ' ago';   
         }
-    }   
+    }
 }
+
+if ( ! function_exists('computeTimeConsumed'))
+{
+    function computeTimeConsumed($pb_id)
+    {
+        $CI = get_instance();
+
+        $CI->load->model('site');
+        
+        $q = $CI->site->getBorrowedByID($pb_id);
+
+        if ($q == false) {
+            return '';
+        } else {
+            
+            $borrowed_date = $q->borrowed_date;
+            $actual_return_date = $q->actual_return_date;
+
+            if($actual_return_date == '0000-00-00 00:00:00') {
+                return '';
+            }
+
+            $borrowed_date = DateTime::createFromFormat("Y-m-d H:i:s", $borrowed_date);
+            $actual_return_date = DateTime::createFromFormat("Y-m-d H:i:s", $actual_return_date);
+
+            $borrowed_date = $borrowed_date->getTimestamp();     
+            $actual_return_date = $actual_return_date->getTimestamp();     
+            
+            return timespan($borrowed_date, $actual_return_date) . ' ago';   
+        }
+    }
+}   

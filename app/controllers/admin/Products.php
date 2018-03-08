@@ -208,6 +208,7 @@ class Products extends MY_Controller
                 THEN CONCAT('<span style=\"color:red\">', 'Overdue', '</span>')
                 ELSE {$this->db->dbprefix('product_borrowed')}.status
                 END) as status_return,
+                '' as time_consumed,
                 '' as delay,",
                  FALSE
             )
@@ -217,7 +218,8 @@ class Products extends MY_Controller
 
         $this->load->helper('mydatatable');
         $this->datatables->edit_column('delay', '$1', 'computeReturnDelay(pb_id)');
-
+        $this->datatables->edit_column('time_consumed', '$1', 'computeTimeConsumed(pb_id)');
+        
         if(! $this->Owner && ! $this->Admin) {
             $this->datatables->where('product_borrowed.userid', $this->ion_auth->get_user_id());
             $actions = "";
