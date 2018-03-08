@@ -71,3 +71,35 @@ if ( ! function_exists('formatMoneyWithPercentYearLess'))
         }
     }   
 }
+
+if ( ! function_exists('computeReturnDelay'))
+{
+    function computeReturnDelay($pb_id)
+    {
+        $CI = get_instance();
+
+        $CI->load->model('site');
+        
+        $q = $CI->site->getBorrowedByID($pb_id);
+
+        if ($q == false) {
+            return 'sdf';
+        } else {
+            
+            $return_date = $q->return_date;
+            $actual_return_date = $q->actual_return_date;
+
+            if($actual_return_date == '0000-00-00 00:00:00') {
+                return 'not yet';
+            }
+
+            $return_date = DateTime::createFromFormat("Y-m-d H:i:s", $return_date);
+            $actual_return_date = DateTime::createFromFormat("Y-m-d H:i:s", $actual_return_date);
+
+            $return_date = $return_date->getTimestamp();     
+            $actual_return_date = $actual_return_date->getTimestamp();     
+            
+            return timespan($actual_return_date, $return_date) . ' ago';   
+        }
+    }   
+}

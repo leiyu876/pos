@@ -41,6 +41,7 @@
                 {"bSortable": true}, 
                 {"bSortable": true},
                 {"bSortable": true},
+                {"bSortable": true},
                 {"bSortable": true},               
                 {"bSortable": true, "mRender": capitalizeFirstLetter},
                 {"bSortable": false}, 
@@ -109,6 +110,7 @@
                             <th><?= lang("Return Date") ?></th>
                             <th><?= lang("Actual Return") ?></th>
                             <th><?= lang("Status") ?></th>
+                            <th><?= lang("Delay") ?></th>
                             <th><?= lang("Actions") ?></th>
                         </tr>
                         </thead>

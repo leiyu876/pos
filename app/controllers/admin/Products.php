@@ -207,12 +207,16 @@ class Products extends MY_Controller
                     {$this->db->dbprefix('product_borrowed')}.status = 'borrowed' 
                 THEN CONCAT('<span style=\"color:red\">', 'Overdue', '</span>')
                 ELSE {$this->db->dbprefix('product_borrowed')}.status
-                END) as status_return,",
+                END) as status_return,
+                '' as delay,",
                  FALSE
             )
             ->join('users', 'product_borrowed.userid=users.id', 'left')
             ->join('products', 'product_borrowed.product_id=products.id', 'left')
             ->from('product_borrowed');
+
+        $this->load->helper('mydatatable');
+        $this->datatables->edit_column('delay', '$1', 'computeReturnDelay(pb_id)');
 
         if(! $this->Owner && ! $this->Admin) {
             $this->datatables->where('product_borrowed.userid', $this->ion_auth->get_user_id());
