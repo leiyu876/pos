@@ -729,8 +729,8 @@
                                             <i class="fa fa-building"></i><span class="text"> <?= lang('Products need Maintenance'); ?></span>
                                         </a>
                                     </li>
-                                    <li id="reports_productsByTypeBrand">
-                                        <a href="<?= admin_url('reports/productsByTypeBrand') ?>">
+                                    <li id="reports_products_typebrand">
+                                        <a href="<?= admin_url('reports/products_typebrand') ?>">
                                             <i class="fa fa-building"></i><span class="text"> <?= lang('Products by Type or Brand'); ?></span>
                                         </a>
                                     </li>

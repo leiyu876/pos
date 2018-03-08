@@ -3367,10 +3367,10 @@ class Reports extends MY_Controller
         echo $this->datatables->generate();
     }
 
-    function productsByTypeBrand() {
+    function products_typebrand() {
 
         $this->db
-            ->select('products.code, products.name, products.price, categories.name as category_name, brands.name as brand_name')
+            ->select('products.id, products.code, products.name, products.price, categories.name as category_name, brands.name as brand_name')
             ->from('products')
             ->join('categories', 'products.category_id=categories.id', 'left')
             ->join('brands', 'products.brand=brands.id', 'left');

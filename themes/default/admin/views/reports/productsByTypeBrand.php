@@ -16,7 +16,7 @@
     </div>
     <div class="box-content">
         <div class="row">
-            <?= admin_form_open_multipart("reports/productsByTypeBrand");?>
+            <?= admin_form_open_multipart("reports/products_typebrand");?>
                 <div class="col-lg-12">
                     <div class="col-md-4">
                         <div class="form-group">
@@ -81,13 +81,14 @@
                         </tr>
                         </thead>
                         <tbody>
-                            <?
-                                foreach ($datatable_list as $key => $value) {
+                            <?php
+                                $this->load->helper('mydatatable');
+                                foreach ($datatable_list as $key => $value) {                                    
                                     echo '
                                     <tr>
                                         <td>'.$value['code'].'</td>
                                         <td>'.$value['name'].'</td>
-                                        <td>'.$value['price'].'</td>
+                                        <td>'.formatMoneyWithPercentYearLess($value['id']).'</td>
                                         <td>'.$value['category_name'].'</td>
                                         <td>'.$value['brand_name'].'</td>
                                     </tr>';
