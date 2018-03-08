@@ -3356,9 +3356,13 @@ class Reports extends MY_Controller
         $this->load->library('ion_auth');
         
         $this->datatables
-            ->select("code, name, price", FALSE)
+            ->select("id, code, name, price", FALSE)
             ->from('products')
             ->where('status', 'maintenance');
+
+        $this->load->helper('mydatatable');
+        $this->datatables->edit_column('price', '$1', 'formatMoneyWithPercentYearLess(id)');
+        $this->datatables->unset_column('id');
 
         echo $this->datatables->generate();
     }
