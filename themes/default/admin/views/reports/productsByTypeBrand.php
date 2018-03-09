@@ -3,6 +3,12 @@
     var oTable;
     $(document).ready(function () {
 
+        $('#pdf1').click(function (event) {
+            event.preventDefault();
+            window.location.href = "<?= admin_url('reports/products_typebrand/true')?>";
+            return false;
+        });
+
         oTable = $('#PRData').dataTable({
             
         });
@@ -50,9 +56,14 @@
                             ?>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-2">
                         <div class="form-group">
                             <?= form_submit('search', lang("Search Products"), 'class="btn btn-primary btn-lg" style="margin-top:18px"'); ?>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <button type="button" class="btn btn-default btn-lg" style="margin-top:18px" id="pdf1"><?=lang("download_pdf")?></button>
                         </div>
                     </div>
                 </div>

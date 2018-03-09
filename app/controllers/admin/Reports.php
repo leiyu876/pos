@@ -3306,7 +3306,7 @@ class Reports extends MY_Controller
         $this->page_construct('reports/damage_products', $meta, $this->data);
     }
 
-    function getDamage_products() {
+    function getDamage_products($pdf = false) {
 
         $this->load->library('datatables');
         $this->load->library('ion_auth');
@@ -3346,16 +3346,27 @@ class Reports extends MY_Controller
                 if(count($res)) {
                     $r = $res[0];
                     
-                    $new_aaData[$key][3] = $r['iqama'];
-                    $new_aaData[$key][4] = $r['first_name'].' '.$r['last_name'];
-                    $new_aaData[$key][5] = $r['borrowed_date'];
+                    $new_aaData[$key][2] = $r['iqama'];
+                    $new_aaData[$key][3] = $r['first_name'].' '.$r['last_name'];
+                    $new_aaData[$key][4] = $r['borrowed_date'];
                 }
             }
         }
         
         $decoded->aaData = $new_aaData;
         
-        echo json_encode($decoded);
+        if(!$pdf) {
+            echo json_encode($decoded);
+        } else {
+
+            $data['lists'] = $new_aaData;
+
+            $html = $this->load->view($this->theme . 'reports/damage_products_pdf', $data, true);
+
+            $name = date("Ymd")."_damage_products.pdf";
+
+            $this->sma->generate_pdf($html, $name, null, null, null, null, null, 'L');
+        }
     }
 
     function maintenance_products() {
@@ -3366,7 +3377,7 @@ class Reports extends MY_Controller
         $this->page_construct('reports/maintenance_products', $meta, $this->data);
     }
 
-    function getMaintenance_products() {
+    function getMaintenance_products($pdf = false) {
 
         $this->load->library('datatables');
         $this->load->library('ion_auth');
@@ -3380,10 +3391,25 @@ class Reports extends MY_Controller
         $this->datatables->edit_column('price', '$1', 'formatMoneyWithPercentYearLess(id)');
         $this->datatables->unset_column('id');
 
-        echo $this->datatables->generate();
+        $old = $this->datatables->generate();
+
+        $decoded = json_decode($old);
+
+        if(!$pdf) {
+            echo $old;
+        } else {
+
+            $data['lists'] = $decoded->aaData;
+
+            $html = $this->load->view($this->theme . 'reports/maintenance_products_pdf', $data, true);
+
+            $name = date("Ymd")."_maintenance_products.pdf";
+
+            $this->sma->generate_pdf($html, $name, null, null, null, null, null, 'L');
+        }
     }
 
-    function products_typebrand() {
+    function products_typebrand($pdf = false) {
 
         $this->db
             ->select('products.id, products.code, products.name, products.price, categories.name as category_name, brands.name as brand_name')
@@ -3414,6 +3440,16 @@ class Reports extends MY_Controller
         $this->data['categories'] = $this->site->getAllCategories();
         $this->data['brands'] = $this->site->getAllBrands();
 
-        $this->page_construct('reports/productsByTypeBrand', $meta, $this->data);
+        if(!$pdf) {
+            $this->page_construct('reports/productsByTypeBrand', $meta, $this->data);
+        } else {
+            $data['lists'] = $this->data['datatable_list'];
+
+            $html = $this->load->view($this->theme . 'reports/productsByTypeBrand_pdf', $data, true);
+
+            $name = date("Ymd")."products_by_type_or_brand_pdf.pdf";
+
+            $this->sma->generate_pdf($html, $name, null, null, null, null, null, 'L');
+        }
     }
 }
