@@ -79,7 +79,9 @@ class Sma
         
         $deduction_total = $deduction * $numOfYearsDiff;
 
-        return $this->formatMoney($price - $deduction_total);
+        $res = $price - $deduction_total;
+
+        return $this->formatMoney($res < 0 ? 0 : $res);
     }
 
     public function formatInPercentage($price) {

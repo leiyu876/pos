@@ -3264,8 +3264,10 @@ class Reports extends MY_Controller
                     ->limit(1);
                 $query = $this->db->get();
 
-                if($this->db->count_all_results()) {
-                    $r = $query->result_array()[0];
+                $res = $query->result_array();
+
+                if(count($res)) {
+                    $r = $res[0];
                     
                     $new_aaData[$key] = array(
                         $r['iqama'],
@@ -3311,9 +3313,14 @@ class Reports extends MY_Controller
         
         if(count($decoded->aaData) > 0) {
             foreach ($decoded->aaData as $key => $value) {
-                $product_id   = $value[0];
-                $product_code = $value[1];
-                $product_name = $value[2];
+                
+                $new_aaData[$key] = array(
+                     $value[1],
+                     $value[2],
+                     '',
+                     '',
+                     '',
+                );
 
                 $this->db->select('*')
                     ->from('product_borrowed', 'first_name')
@@ -3323,16 +3330,14 @@ class Reports extends MY_Controller
                     ->limit(1);
                 $query = $this->db->get();
 
-                if($this->db->count_all_results()) {
-                    $r = $query->result_array()[0];
+                $res = $query->result_array();
+
+                if(count($res)) {
+                    $r = $res[0];
                     
-                    $new_aaData[$key] = array(
-                        $product_code,
-                        $product_name,
-                        $r['iqama'],
-                        $r['first_name'].' '.$r['last_name'],
-                        $r['borrowed_date'],
-                    );
+                    $new_aaData[$key][3] = $r['iqama'];
+                    $new_aaData[$key][4] = $r['first_name'].' '.$r['last_name'];
+                    $new_aaData[$key][5] = $r['borrowed_date'];
                 }
             }
         }
