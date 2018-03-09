@@ -483,7 +483,7 @@ if (!empty($variants)) {
                             <div class="col-xs-6">
                                 <div class="form-group">
                                     <?= lang("Date Purchased", "date_purchased"); ?>
-                                    <?= form_input('date_purchased', (isset($_POST['date_purchased']) ? $_POST['date_purchased'] : ($product ? $product->date_purchased : '')), 'class="form-control input-tip datetime" id="date_purchased" required="required"'); ?>
+                                    <?= form_input('date_purchased', (isset($_POST['date_purchased']) ? $_POST['date_purchased'] : ($product ? $this->sma->hrld($product->date_purchased) : '')), 'class="form-control input-tip datetime" id="date_purchased" required="required"'); ?>
                                 </div>
                             </div>
                         </div>

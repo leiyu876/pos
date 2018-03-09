@@ -419,13 +419,11 @@ class Products extends MY_Controller
 
         if ($this->form_validation->run() == true) {
             
-            $date = DateTime::createFromFormat('d/m/Y H:s', $this->input->post('return_date'));
-            
             $data = array(
                 'product_id' => $this->input->post('product_id'),
                 'userid' => $this->input->post('user_id'),
                 'borrowed_date' => date('Y-m-d H:i:s'),
-                'return_date' => $date->format('Y-m-d H:s:00'),
+                'return_date' => $this->sma->fld($this->input->post('return_date').':00'),
                 'status' => 'borrowed',
             );
         } elseif ($this->input->post('save')) {
@@ -698,7 +696,6 @@ class Products extends MY_Controller
         if ($this->form_validation->run() == true) {
 
             $tax_rate = $this->input->post('tax_rate') ? $this->site->getTaxRateByID($this->input->post('tax_rate')) : NULL;
-            $date_purchased = DateTime::createFromFormat('d/m/Y H:s', $this->input->post('date_purchased'));
             
             $data = array(
                 'code' => $this->input->post('code'),
@@ -707,7 +704,7 @@ class Products extends MY_Controller
                 'type' => $this->input->post('type'),
                 'brand' => $this->input->post('brand'),
                 'billno' => $this->input->post('bill_number'),
-                'date_purchased' => $date_purchased->format('Y-m-d H:s:00'),
+                'date_purchased' => $this->sma->fld($this->input->post('date_purchased').':00'),
                 'status' => $this->input->post('status'),
                 'category_id' => $this->input->post('category'),
                 'subcategory_id' => $this->input->post('subcategory') ? $this->input->post('subcategory') : NULL,
@@ -1120,8 +1117,6 @@ class Products extends MY_Controller
         $this->form_validation->set_rules('userfile', lang("product_gallery_images"), 'xss_clean');
 
         if ($this->form_validation->run('products/add') == true) {
-
-            $date_purchased = DateTime::createFromFormat('d/m/Y H:s', $this->input->post('date_purchased'));
             
             $data = array('code' => $this->input->post('code'),
                 'barcode_symbology' => $this->input->post('barcode_symbology'),
@@ -1129,7 +1124,7 @@ class Products extends MY_Controller
                 'type' => $this->input->post('type'),
                 'brand' => $this->input->post('brand'),
                 'billno' => $this->input->post('bill_number'),
-                'date_purchased' => $date_purchased->format('Y-m-d H:s:00'),
+                'date_purchased' => $this->sma->fld($this->input->post('date_purchased').':00'),
                 'status' => $this->input->post('status'),
                 'category_id' => $this->input->post('category'),
                 'subcategory_id' => $this->input->post('subcategory') ? $this->input->post('subcategory') : NULL,
@@ -1435,12 +1430,10 @@ class Products extends MY_Controller
 
         if ($this->form_validation->run() == true) {
             
-            $date = DateTime::createFromFormat('d/m/Y H:s', $this->input->post('return_date'));
-            
             $data = array(
                 'product_id' => $this->input->post('product_id'),
                 'userid' => $this->input->post('user_id'),
-                'return_date' => $date->format('Y-m-d H:s:00'),
+                'return_date' => $this->sma->fld($this->input->post('return_date').':00'),
                 'status' => $this->input->post('status'),
                 'return_status' => $this->input->post('return_status'),
             );
