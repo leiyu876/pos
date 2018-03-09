@@ -3234,7 +3234,7 @@ class Reports extends MY_Controller
         $this->page_construct('reports/blacklisted_users', $meta, $this->data);
     }
 
-    function getBlacklisted_users() {
+    function getBlacklisted_users($pdf = false) {
 
         $this->load->library('datatables');
         $this->load->library('ion_auth');
@@ -3284,7 +3284,18 @@ class Reports extends MY_Controller
         
         $decoded->aaData = $new_aaData;
         
-        echo json_encode($decoded);
+        if(!$pdf) {
+            echo json_encode($decoded);
+        } else {
+
+            $data['lists'] = $new_aaData;
+
+            $html = $this->load->view($this->theme . 'reports/blacklisted_users_pdf', $data, true);
+
+            $name = date("Ymd")."_blacklisted_users.pdf";
+
+            $this->sma->generate_pdf($html, $name, null, null, null, null, null, 'L');
+        }      
     }
 
     function damage_products() {
