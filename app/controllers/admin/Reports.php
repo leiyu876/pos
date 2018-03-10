@@ -1188,8 +1188,9 @@ class Reports extends MY_Controller
         
         $this->datatables
             ->select("
+                {$this->db->dbprefix('product_borrowed')}.pb_id as pb_id,
                 {$this->db->dbprefix('product_borrowed')}.borrowed_date as borrowed_date,
-                {$this->db->dbprefix('product_borrowed')}.userid as userid, 
+                {$this->db->dbprefix('users')}.iqama as iqama, 
                 (CASE 
                 WHEN 
                     {$this->db->dbprefix('product_borrowed')}.return_date < DATE(NOW())  AND 
@@ -1199,7 +1200,7 @@ class Reports extends MY_Controller
                 END) as complete_name,
                 {$this->db->dbprefix('product_borrowed')}.return_date as return_date,
                 {$this->db->dbprefix('product_borrowed')}.actual_return_date as actual_return_date, 
-                CONCAT(DATEDIFF({$this->db->dbprefix('product_borrowed')}.actual_return_date, {$this->db->dbprefix('product_borrowed')}.return_date), ' days') as delay, 
+                '' as delay, 
                 {$this->db->dbprefix('product_borrowed')}.return_status as return_status,
                 (CASE 
                 WHEN 
@@ -1214,6 +1215,10 @@ class Reports extends MY_Controller
             ->join('products', 'product_borrowed.product_id=products.id', 'left')
             ->where('products.id', $productid)
             ->from('product_borrowed');
+
+        $this->load->helper('mydatatable');
+        $this->datatables->edit_column('delay', '$1', 'computeReturnDelay(pb_id)');
+        $this->datatables->unset_column("pb_id");
 
         echo $this->datatables->generate();
 

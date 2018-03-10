@@ -647,6 +647,7 @@
         <script type="text/javascript">
             $(document).ready(function () {
                 oTable = $('#historyData').dataTable({
+                    "aaSorting": [[0, "desc"]],
                     "iDisplayLength": <?= $Settings->rows_per_page ?>,
                     'bProcessing': true, 'bServerSide': true,
                     'sAjaxSource': '<?= admin_url('reports/getHistoryReport/?v=1&product='.$product->id) ?>',
@@ -672,7 +673,7 @@
                                 <thead>
                                     <tr>
                                         <th><?= lang("Borrowed Date"); ?></th>
-                                        <th><?= lang("User ID"); ?></th>
+                                        <th><?= lang("Iqama ID"); ?></th>
                                         <th><?= lang("Name"); ?></th>
                                         <th><?= lang("Return Date"); ?></th>
                                         <th><?= lang("Actual Return"); ?></th>
