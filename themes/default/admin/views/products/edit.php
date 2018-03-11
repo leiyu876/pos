@@ -128,12 +128,13 @@ if (!empty($variants)) {
                                 $cat[$category->id] = $category->name;
                             }
                         }
-                        echo form_dropdown('category', $cat, (isset($_POST['category']) ? $_POST['category'] : ($product ? $product->category_id : '')), 'class="form-control select" id="category" placeholder="' . lang("select") . " " . lang("category") . '" required="required" style="width:100%"')
+                        echo form_dropdown('category', $cat, (isset($_POST['category']) ? $_POST['category'] : ($product ? $product->category_id : '')), 'class="form-control select" id="category_my" placeholder="' . lang("select") . " " . lang("category") . '" required="required" style="width:100%" onChange="changecat(this.value);"')
                         ?>
                     </div>
                     <div class="form-group all">
                         <?= lang("brand", "brand") ?>
                         <?php
+                        /*
                         $br = array();
                         if ($brands == false) {
                             
@@ -143,6 +144,8 @@ if (!empty($variants)) {
                             }
                         }
                         echo form_dropdown('brand', $br, (isset($_POST['brand']) ? $_POST['brand'] : ($product ? $product->brand : '')), 'class="form-control select" id="brand" placeholder="' . lang("select") . " " . lang("brand") . '" style="width:100%"')
+                        */
+                        echo form_dropdown('brand', array(), (isset($_POST['brand']) ? $_POST['brand'] : ($product ? $product->brand : '')), 'class="form-control select" id="brand" placeholder="' . lang("select") . " " . lang("brand") . '" style="width:100%"')
                         ?>
                     </div>
                     <div class="form-group all">
@@ -577,6 +580,38 @@ if (!empty($variants)) {
 </div>
 
 <script type="text/javascript">
+
+    // on category change then brands  must be change
+    var brandsByCategory = JSON.parse('<?= $categories_brands ?>');
+        
+    function changecat(value) {
+
+        var selected = "<?= (isset($_POST['brand']) ? $_POST['brand'] : ($product ? $product->brand : '')) ?>";
+
+        if (value.length == 0) {
+            document.getElementById("brand").innerHTML = "<option></option>";
+        } else {
+            var catOptions = "";
+            for (categoryId in brandsByCategory[value]) {
+                var sel = "";
+                if(selected == categoryId) {
+                    
+                    sel = "selected='selected'";
+                }
+
+                catOptions += "<option value="+categoryId+" "+sel+">" + brandsByCategory[value][categoryId] + "</option>";
+            }
+            document.getElementById("brand").innerHTML = catOptions;
+        }
+    }
+
+    var e = document.getElementById("category_my");
+    var strUser = e.options[e.selectedIndex].value;
+    if(strUser != null) {
+        changecat(strUser);
+    }
+    // end
+
     $(document).ready(function () {
         $('form[data-toggle="validator"]').bootstrapValidator({ excluded: [':disabled'] });
         var audio_success = new Audio('<?= $assets ?>sounds/sound2.mp3');
@@ -876,7 +911,8 @@ if (!empty($variants)) {
         $("#product_image").parent('.form-group').addClass("text-warning");
         $("#images").parent('.form-group').addClass("text-warning");
         $.ajax({
-            type: "get", async: false,
+            type: "get", 
+            /*async: false, // leo delete this because its deprecated */
             url: "<?= admin_url('products/getSubCategories') ?>/" + <?= $product->category_id ?>,
             dataType: "json",
             success: function (scdata) {

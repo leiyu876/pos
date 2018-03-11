@@ -325,7 +325,7 @@ class Products extends MY_Controller
     function TransferToOtherUser($id = NULL)
     {
         $this->form_validation->set_rules('user_id', lang("user"), 'required');
-        $this->form_validation->set_rules('return_date', lang("Return_Date"), 'required');        
+        $this->form_validation->set_rules('return_date', lang("Return_Date"), 'required|valid_date');        
 
         $borrowed_details = $this->site->getBorrowedByID($id);
 
@@ -415,7 +415,7 @@ class Products extends MY_Controller
         
         $this->form_validation->set_rules('product_id', lang("product"), 'required');
         $this->form_validation->set_rules('user_id', lang("user"), 'required');
-        $this->form_validation->set_rules('return_date', lang("Return_Date"), 'required');        
+        $this->form_validation->set_rules('return_date', lang("Return_Date"), 'required|valid_date');        
 
         if ($this->form_validation->run() == true) {
             
@@ -686,10 +686,12 @@ class Products extends MY_Controller
             $this->form_validation->set_rules('code', lang("product_code"), 'min_length[13]|max_length[13]');
         }
         $this->form_validation->set_rules('code', lang("product_code"), 'is_unique[products.code]|alpha_dash');
-        $this->form_validation->set_rules('slug', lang("slug"), 'required|is_unique[products.slug]|alpha_dash');
+        //$this->form_validation->set_rules('slug', lang("slug"), 'required|is_unique[products.slug]|alpha_dash');
         $this->form_validation->set_rules('weight', lang("weight"), 'numeric');
         $this->form_validation->set_rules('percentage', lang("Percentage"), 'numeric');
+        $this->form_validation->set_rules('price', lang("Price"), 'numeric');
         $this->form_validation->set_rules('bill_number', lang("bill_number"), 'numeric');
+        $this->form_validation->set_rules('date_purchased', lang("date_purchased"), 'required|valid_date');
         $this->form_validation->set_rules('product_image', lang("product_image"), 'xss_clean');
         $this->form_validation->set_rules('digital_file', lang("digital_file"), 'xss_clean');
         $this->form_validation->set_rules('userfile', lang("product_gallery_images"), 'xss_clean');
@@ -983,8 +985,9 @@ class Products extends MY_Controller
 
             $this->data['suppliers'] = $this->site->getAllSuppliers();
             $this->data['categories'] = $this->site->getAllCategories();
+            $this->data['categories_brands'] = json_encode($this->site->getAllCategoriesBrands());
             $this->data['tax_rates'] = $this->site->getAllTaxRates();
-            $this->data['brands'] = $this->site->getAllBrands();
+            $this->data['brands'] = $this->site->getAllBrands();   
             $this->data['status_list'] = $this->products_model->getStatusList();
             $this->data['base_units'] = $this->site->getAllBaseUnits();
             $this->data['warehouses'] = $warehouses;
@@ -1108,10 +1111,11 @@ class Products extends MY_Controller
         }
         $this->form_validation->set_rules('slug', lang("slug"), 'required|alpha_dash');
         if ($this->input->post('slug') !== $product->slug) {
-            $this->form_validation->set_rules('slug', lang("slug"), 'required|is_unique[products.slug]|alpha_dash');
+            //$this->form_validation->set_rules('slug', lang("slug"), 'required|is_unique[products.slug]|alpha_dash');
         }
         $this->form_validation->set_rules('weight', lang("weight"), 'numeric');
         $this->form_validation->set_rules('bill_number', lang("bill_number"), 'numeric');
+        $this->form_validation->set_rules('date_purchased', lang("date_purchased"), 'required|valid_date');
         $this->form_validation->set_rules('product_image', lang("product_image"), 'xss_clean');
         $this->form_validation->set_rules('digital_file', lang("digital_file"), 'xss_clean');
         $this->form_validation->set_rules('userfile', lang("product_gallery_images"), 'xss_clean');
@@ -1401,6 +1405,7 @@ class Products extends MY_Controller
 
             $this->data['suppliers'] = $this->site->getAllSuppliers();
             $this->data['categories'] = $this->site->getAllCategories();
+            $this->data['categories_brands'] = json_encode($this->site->getAllCategoriesBrands());
             $this->data['tax_rates'] = $this->site->getAllTaxRates();
             $this->data['brands'] = $this->site->getAllBrands();
             $this->data['base_units'] = $this->site->getAllBaseUnits();
@@ -1423,7 +1428,7 @@ class Products extends MY_Controller
     {
         $this->form_validation->set_rules('product_id', lang("product"), 'required');
         $this->form_validation->set_rules('user_id', lang("user"), 'required');
-        $this->form_validation->set_rules('return_date', lang("Return_Date"), 'required');   
+        $this->form_validation->set_rules('return_date', lang("Return_Date"), 'required|valid_date');   
         $this->form_validation->set_rules('return_status', lang("Return_Status"), 'required');     
 
         $borrowed_details = $this->site->getBorrowedByID($id);

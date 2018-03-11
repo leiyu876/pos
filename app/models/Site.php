@@ -180,6 +180,25 @@ class Site extends CI_Model
         return FALSE;
     }
 
+    public function getAllCategoriesBrands() {
+        
+        $this->db->where('parent_id', NULL)->or_where('parent_id', 0)->order_by('name');
+        $q = $this->db->get("categories");
+        if ($q->num_rows() > 0) {
+            foreach (($q->result()) as $row) {
+                $brands = $this->getBrandsByCategory($row->id);
+                if(!$brands) continue;
+                $d = array();
+                foreach ($brands as $brand) {
+                    $d[$brand->id] = $brand->name;
+                }
+                $data[$row->id] = $d;
+            }    
+            return $data;
+        }
+        return FALSE;
+    }
+
     public function getSubCategories($parent_id) {
         $this->db->where('parent_id', $parent_id)->order_by('name');
         $q = $this->db->get("categories");
@@ -1121,6 +1140,14 @@ class Site extends CI_Model
         $q = $this->db->get_where('brands', array('id' => $id), 1);
         if ($q->num_rows() > 0) {
             return $q->row();
+        }
+        return FALSE;
+    }
+
+    public function getBrandsByCategory($id) {
+        $q = $this->db->get_where('brands', array('category_id' => $id));
+        if ($q->num_rows() > 0) {
+            return $q->result();
         }
         return FALSE;
     }

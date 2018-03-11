@@ -9,6 +9,23 @@ if (!empty($variants)) {
 }
 ?>
 <script type="text/javascript">
+
+    // on category change then brands  must be change
+    var brandsByCategory = JSON.parse('<?= $categories_brands ?>');
+    
+    function changecat(value) {
+        if (value.length == 0) {
+            document.getElementById("brand").innerHTML = "<option></option>";
+        } else {
+            var catOptions = "";
+            for (categoryId in brandsByCategory[value]) {
+                
+                catOptions += "<option value="+categoryId+">" + brandsByCategory[value][categoryId] + "</option>";
+            }
+            document.getElementById("brand").innerHTML = catOptions;
+        }
+    }
+    // end
     $(document).ready(function () {
         $('.gen_slug').change(function(e) {
             getSlug($(this).val(), 'products');
@@ -130,7 +147,7 @@ if (!empty($variants)) {
                     <div class="form-group all">
                         <?= lang("category", "category") ?>
                         <?php
-                        $cat = array();
+                        $cat[''] = "";
                         if ($categories == false) {
                             
                         } else {
@@ -138,12 +155,14 @@ if (!empty($variants)) {
                                 $cat[$category->id] = $category->name;
                             }
                         }
-                        echo form_dropdown('category', $cat, (isset($_POST['category']) ? $_POST['category'] : ($product ? $product->category_id : '')), 'class="form-control select" id="category" placeholder="' . lang("select") . " " . lang("category") . '" required="required" style="width:100%"')
+                        echo form_dropdown('category', $cat, (isset($_POST['category']) ? $_POST['category'] : ($product ? $product->category_id : '')), 'class="form-control select" id="category_my" placeholder="' . lang("select") . " " . lang("category") . '" required="required" style="width:100%" onChange="changecat(this.value);"');
+                        $cat = array();
                         ?>
                     </div>
                     <div class="form-group all">
                         <?= lang("brand", "brand") ?>
                         <?php
+                        /*
                         $br[''] = "";
                         if ($brands == false) {
                             
@@ -153,6 +172,8 @@ if (!empty($variants)) {
                             }
                         }
                         echo form_dropdown('brand', $br, (isset($_POST['brand']) ? $_POST['brand'] : ($product ? $product->brand : '')), 'class="form-control select" id="brand" placeholder="' . lang("select") . " " . lang("brand") . '" style="width:100%"');
+                        */
+                        echo form_dropdown('brand', array(), (isset($_POST['brand']) ? $_POST['brand'] : ($product ? $product->brand : '')), 'class="form-control select" id="brand" placeholder="' . lang("select") . " " . lang("brand") . '"  style="width:100%"');
                         ?>
                     </div>
                     <div class="form-group all">
