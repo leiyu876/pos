@@ -3423,11 +3423,11 @@ class Reports extends MY_Controller
             ->join('brands', 'products.brand=brands.id', 'left');
 
         if ($this->input->post('search')) {
-            if($this->input->post('category') != '') {
+            if($this->input->post('category') != '' && $this->input->post('category') != '0') {
                 $this->db->where('products.category_id', $this->input->post('category'));
             }
 
-            if($this->input->post('brand') != '') {
+            if($this->input->post('brand') != '' && $this->input->post('brand') != '0') {
                 $this->db->where('products.brand', $this->input->post('brand'));
             }      
         }
@@ -3443,7 +3443,17 @@ class Reports extends MY_Controller
         $meta = array('page_title' => lang('Products by Type or Brand'), 'bc' => $bc);
 
         $this->data['categories'] = $this->site->getAllCategories();
-        $this->data['brands'] = $this->site->getAllBrands();
+
+        $cb_with_all = array();
+        $categories_brands[0] = array('All');
+        foreach ($this->site->getAllCategoriesBrands() as $key => $value) {
+            $categories_brands[0] = $categories_brands[0] + $value;
+            $cb_with_all[$key] = array('All') + $value;
+        }
+        
+        $categories_brands_all = $categories_brands + $cb_with_all;
+        
+        $this->data['categories_brands'] = json_encode($categories_brands_all);
 
         if(!$pdf) {
             $this->page_construct('reports/productsByTypeBrand', $meta, $this->data);
