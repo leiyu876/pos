@@ -31,7 +31,7 @@
                     <table id="tableid">
                         <thead>
                             <tr>
-                                <th><?= lang("Iqama") ?></th>
+                                <th><?= lang("ID / IQAMA NO.") ?></th>
                                 <th><?= lang("Full Name") ?></th>
                                 <th><?= lang("Product Code") ?></th>
                                 <th><?= lang("Product Name") ?></th>

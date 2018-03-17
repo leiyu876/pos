@@ -103,7 +103,7 @@
                         <thead>
                         <tr class="primary">
                             <th><?= lang("Record_ID") ?></th>
-                            <th><?= lang("User ID") ?></th>
+                            <th><?= lang("ID / IQAMA NO.") ?></th>
                             <th><?= lang("User Name") ?></th>
                             <th><?= lang("Product Code") ?></th>
                             <th><?= lang("Product Name") ?></th>

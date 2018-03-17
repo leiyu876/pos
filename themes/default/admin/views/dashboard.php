@@ -53,6 +53,21 @@ function row_status($x)
             </div>
             <div class="box-content">
                 <div class="col-lg-1 col-md-2 col-xs-6">
+                    <a class="bblue white quick-button small" href="<?= admin_url('products/borrowed') ?>">
+                        <i class="fa fa-plus"></i>
+
+                        <p><?= lang('Borrowed') ?></p>
+                    </a>
+                </div>
+
+                <div class="col-lg-1 col-md-2 col-xs-6">
+                    <a class="bblue white quick-button small" href="<?= admin_url('auth/users') ?>">
+                        <i class="fa fa-group"></i>
+                        <p><?= lang('users') ?></p>
+                    </a>
+                </div>
+                
+                <div class="col-lg-1 col-md-2 col-xs-6">
                     <a class="bblue white quick-button small" href="<?= admin_url('products') ?>">
                         <i class="fa fa-barcode"></i>
 
@@ -117,13 +132,13 @@ function row_status($x)
                 </div>
 
                 <?php if ($Owner) { ?>
-                    <div class="col-lg-1 col-md-2 col-xs-6">
+                    <div style="display:none" class="col-lg-1 col-md-2 col-xs-6">
                         <a class="bblue white quick-button small" href="<?= admin_url('auth/users') ?>">
                             <i class="fa fa-group"></i>
                             <p><?= lang('users') ?></p>
                         </a>
                     </div>
-                    <div class="col-lg-1 col-md-2 col-xs-6">
+                    <div style="display:none" class="col-lg-1 col-md-2 col-xs-6">
                         <a class="bblue white quick-button small" href="<?= admin_url('system_settings') ?>">
                             <i class="fa fa-cogs"></i>
 

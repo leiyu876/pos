@@ -73,7 +73,7 @@
                     <table id="PRData" class="table table-bordered table-condensed table-hover table-striped">
                         <thead>
                         <tr class="primary">
-                            <th><?= lang("Iqama") ?></th>
+                            <th><?= lang("ID / IQAMA NO.") ?></th>
                             <th><?= lang("Full Name") ?></th>
                             <th><?= lang("Product Code") ?></th>
                             <th><?= lang("Product Name") ?></th>

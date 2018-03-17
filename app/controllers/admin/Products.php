@@ -188,7 +188,7 @@ class Products extends MY_Controller
         $this->datatables
             ->select("
                 {$this->db->dbprefix('product_borrowed')}.pb_id as pb_id, 
-                {$this->db->dbprefix('product_borrowed')}.userid as userid, 
+                {$this->db->dbprefix('users')}.iqama as iqama, 
                 (CASE 
                 WHEN 
                     {$this->db->dbprefix('product_borrowed')}.return_date < DATE(NOW())  AND 

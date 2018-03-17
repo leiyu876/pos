@@ -34,7 +34,7 @@
                 } else {
                     foreach ($users as $user) {
                         
-                        $opts[$user->id] = $user->first_name.' '.$user->last_name.' ('.$user->id.')';
+                        $opts[$user->id] = $user->first_name.' '.$user->last_name.' ('.$user->iqama.')';
                     }
                 }
                 ?>
@@ -50,7 +50,7 @@
                     foreach ($users as $user) {
                         if($user->id == $borrowed->userid) continue;
                         if($user->group_id == '1' || $user->group_id == '2') continue;
-                        $opts[$user->id] = $user->first_name.' '.$user->last_name.' ('.$user->id.')';
+                        $opts[$user->id] = $user->first_name.' '.$user->last_name.' ('.$user->iqama.')';
                     }
                 }
                 ?>
