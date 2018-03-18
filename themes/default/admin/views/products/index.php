@@ -184,8 +184,8 @@
                             <th style="min-width:40px; width: 40px; text-align: center;"><?php echo $this->lang->line("image"); ?></th>
                             <th><?= lang("code") ?></th>
                             <th><?= lang("name") ?></th>
-                            <th><?= lang('In / Out') ?></th>
-                            <th><?= lang("Bill_Number") ?></th>
+                            <th><?= lang('in_out') ?></th>
+                            <th><?= lang("bill_number") ?></th>
                             <th><?= lang("status") ?></th>
                             <?php
                             if ($Owner || $Admin) {
@@ -200,7 +200,7 @@
                                 }
                             }
                             ?>
-                            <th><?= lang("Percentage") ?></th>
+                            <th><?= lang("percentage_per_year") ?></th>
                             <th><?= lang("rack") ?></th>
                             
                             <th style="min-width:65px; text-align:center;"><?= lang("actions") ?></th>

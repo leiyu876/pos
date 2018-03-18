@@ -159,8 +159,8 @@ class Products extends MY_Controller
             $this->data['warehouse'] = $this->session->userdata('warehouse_id') ? $this->site->getWarehouseByID($this->session->userdata('warehouse_id')) : NULL;
         }
         $this->data['supplier'] = $this->input->get('supplier') ? $this->site->getCompanyByID($this->input->get('supplier')) : NULL;
-        $bc = array(array('link' => base_url(), 'page' => lang('home')), array('link' => admin_url('products'), 'page' => lang('products')), array('link' => '#', 'page' => lang('Borrowed_Products')));
-        $meta = array('page_title' => lang('products'), 'bc' => $bc);
+        $bc = array(array('link' => base_url(), 'page' => lang('home')), array('link' => admin_url('products'), 'page' => lang('products')), array('link' => '#', 'page' => lang('borrowed_products')));
+        $meta = array('page_title' => lang('borrowed_products'), 'bc' => $bc);
 
         $this->page_construct('products/borrowed', $meta, $this->data);
     }

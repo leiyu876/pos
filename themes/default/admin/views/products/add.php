@@ -469,19 +469,19 @@ if (!empty($variants)) {
                             </div>
                             <div class="col-xs-6">
                                 <div class="form-group">
-                                    <?= lang("Percentage deuction per year", "percentage") ?>
+                                    <?= lang("percentage_per_year", "percentage") ?>
                                     <?= form_input('percentage', (isset($_POST['percentage']) ? $_POST['percentage'] : ($product ? $this->sma->formatDecimal($product->percentage) : '')), 'class="form-control tip" id="percentage" required="required"') ?>
                                 </div>
                             </div>
                             <div class="col-xs-6">
                                 <div class="form-group">
-                                    <?= lang('Bill_Number', 'Bill_Number'); ?>
+                                    <?= lang('bill_number', 'Bill_Number'); ?>
                                     <?= form_input('bill_number', set_value('bill_number'), 'class="form-control tip" id="bill_number"'); ?>
                                 </div>
                             </div>
                             <div class="col-xs-6">
                                 <div class="form-group">
-                                    <?= lang("Date Purchased", "date_purchased"); ?>
+                                    <?= lang("purchased_date", "date_purchased"); ?>
                                     <?php echo form_input('date_purchased', (isset($_POST['date_purchased']) ? $_POST['date_purchased'] : ""), 'class="form-control input-tip datetime" id="date_purchased" required="required"'); ?>
                                 </div>
                             </div>
