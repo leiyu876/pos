@@ -615,3 +615,6 @@ $lang['time_consumed']                 = "Time Consumed";
 $lang['borrow_product']                 = "Borrow Product";
 $lang['returned_products']                     = "Returned Products";
 $lang['unreturned_products']                     = "Unreturned Products";
+$lang['search_user']                 = "Search User";
+$lang['expected_return_date']                 = "Expected Return Date";
+$lang['transfer_user_to_user']                 = "Transfer to other user";

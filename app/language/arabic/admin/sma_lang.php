@@ -495,3 +495,6 @@ $lang['time_consumed']                 = "الوقت مستهلك";
 $lang['borrow_product']                 = "اقتراض المنتج";
 $lang['returned_products']                     = "المنتجات المرتجعة";
 $lang['unreturned_products']                     = "منتجات غير منسوخة";
+$lang['search_user']                 = "مستخدم البحث";
+$lang['expected_return_date']                 = "تاريخ العودة المتوقع";
+$lang['transfer_user_to_user']                 = "نقل إلى مستخدم آخر";

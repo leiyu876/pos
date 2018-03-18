@@ -177,7 +177,7 @@ class Products extends MY_Controller
                     . lang('i_m_sure') . "</a> 
                     <button class='btn po-close'>" . lang('no') . "</button>\"  rel='popover'><i class=\"fa fa-trash-o\"></i>
                 </a>
-                <a class=\"tip\" title='" . lang("Transfer_to_other_user") . "' href='" . admin_url('products/TransferToOtherUser/$1') . "' data-toggle='modal' data-target='#myModal'>
+                <a class=\"tip\" title='" . lang("transfer_user_to_user") . "' href='" . admin_url('products/TransferToOtherUser/$1') . "' data-toggle='modal' data-target='#myModal'>
                     <i class=\"fa fa-exchange\"></i>
                 </a> 
             </div>";
@@ -232,8 +232,8 @@ class Products extends MY_Controller
 
     public function return_products()
     {
-        $bc = array(array('link' => base_url(), 'page' => lang('home')), array('link' => admin_url('products'), 'page' => lang('products')), array('link' => '#', 'page' => lang('Return_Products')));
-        $meta = array('page_title' => lang('products'), 'bc' => $bc);
+        $bc = array(array('link' => base_url(), 'page' => lang('home')), array('link' => admin_url('products'), 'page' => lang('products')), array('link' => '#', 'page' => lang('returned_products')));
+        $meta = array('page_title' => lang('returned_products'), 'bc' => $bc);
 
         $this->page_construct('products/return', $meta, $this->data);
     }
@@ -278,8 +278,8 @@ class Products extends MY_Controller
 
     function unreturn()
     {
-        $bc = array(array('link' => base_url(), 'page' => lang('home')), array('link' => admin_url('products'), 'page' => lang('products')), array('link' => '#', 'page' => lang('Unreturn_Products')));
-        $meta = array('page_title' => lang('products'), 'bc' => $bc);
+        $bc = array(array('link' => base_url(), 'page' => lang('home')), array('link' => admin_url('products'), 'page' => lang('products')), array('link' => '#', 'page' => lang('unreturned_products')));
+        $meta = array('page_title' => lang('unreturned_products'), 'bc' => $bc);
 
         $this->page_construct('products/unreturn', $meta, $this->data);
     }

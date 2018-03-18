@@ -50,7 +50,7 @@
 <div class="box">
     <div class="box-header">
         <h2 class="blue"><i
-                class="fa-fw fa fa-barcode"></i><?= lang('products') . ' ( Return )'; ?>
+                class="fa-fw fa fa-barcode"></i><?= lang('unreturned_products'); ?>
         </h2>
         <? if ($Owner || $Admin) { ?>
             <div class="box-icon">
@@ -62,19 +62,13 @@
                         <ul class="dropdown-menu pull-right tasks-menus" role="menu" aria-labelledby="dLabel">
                             <li>
                                 <a href="<?php echo admin_url('products/product_borrow'); ?>" data-toggle="modal" data-target="#myModal">
-                                    <i class="fa fa-plus"></i> <?= lang('Borrow_Product') ?>
+                                    <i class="fa fa-plus"></i> <?= lang('borrow_product') ?>
                                 </a>
 
                             </li>
                             <li>
-                                <a href="<?php echo admin_url('products/return'); ?>">
-                                    <i class="fa fa-arrow-left"></i> <?= lang('Return Products') ?>
-                                </a>
-
-                            </li>
-                            <li>
-                                <a href="<?php echo admin_url('products/unreturn'); ?>">
-                                    <i class="fa fa-arrow-right"></i> <?= lang('Unreturn Products') ?>
+                                <a href="<?php echo admin_url('products/return_products'); ?>">
+                                    <i class="fa fa-arrow-left"></i> <?= lang('returned_products') ?>
                                 </a>
 
                             </li>
@@ -91,15 +85,15 @@
                     <table id="PRData" class="table table-bordered table-condensed table-hover table-striped">
                         <thead>
                         <tr class="primary">
-                            <th><?= lang("Record_ID") ?></th>
-                            <th><?= lang("User ID") ?></th>
-                            <th><?= lang("User Name") ?></th>
-                            <th><?= lang("Product Code") ?></th>
-                            <th><?= lang("Product Name") ?></th>
-                            <th><?= lang("Borrowed Date") ?></th>
-                            <th><?= lang("Return Date") ?></th>
-                            <th><?= lang("Actual Return") ?></th>
-                            <th><?= lang("Status") ?></th>
+                            <th><?= lang("record_id") ?></th>
+                            <th><?= lang("id_iqama") ?></th>
+                            <th><?= lang("full_name") ?></th>
+                            <th><?= lang("product_code") ?></th>
+                            <th><?= lang("product_name") ?></th>
+                            <th><?= lang("borrowed_date") ?></th>
+                            <th><?= lang("return_date") ?></th>
+                            <th><?= lang("actual_return_date") ?></th>
+                            <th><?= lang("status") ?></th>
                         </tr>
                         </thead>
                         <tbody>

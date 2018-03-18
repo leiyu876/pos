@@ -81,7 +81,7 @@
                             <th style="min-width:30px; width: 30px; text-align: center;">
                                 <input class="checkbox checkth" type="checkbox" name="check"/>
                             </th>
-                            <th class="col-xs-2"><?php echo lang('ID / IQAMA NO.'); ?></th>
+                            <th class="col-xs-2"><?php echo lang('id_iqama'); ?></th>
                             <th class="col-xs-2"><?php echo lang('first_name'); ?></th>
                             <th class="col-xs-2"><?php echo lang('last_name'); ?></th>
                             <th class="col-xs-2"><?php echo lang('email_address'); ?></th>

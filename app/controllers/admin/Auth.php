@@ -59,7 +59,7 @@ class Auth extends MY_Controller
             ->add_column("Actions", 
             "<div class=\"text-center\">
                 <a href='" . admin_url('auth/profile/$1') . "' class='tip' title='" . lang("edit_user") . "'><i class=\"fa fa-edit\"></i></a>
-                <a href='" . admin_url('auth/borrowed_history/$1') . "' class='tip' title='" . lang("Borrowed History") . "'><i class=\"fa fa-barcode\"></i></a>
+                <a href='" . admin_url('auth/borrowed_history/$1') . "' class='tip' title='" . lang("borrowed_history") . "'><i class=\"fa fa-barcode\"></i></a>
             </div>", "id");
 
         if (!$this->Owner) {
@@ -71,8 +71,8 @@ class Auth extends MY_Controller
     function borrowed_history()
     {
         $this->data['supplier'] = $this->input->get('supplier') ? $this->site->getCompanyByID($this->input->get('supplier')) : NULL;
-        $bc = array(array('link' => base_url(), 'page' => lang('home')), array('link' => admin_url('users'), 'page' => lang('users')), array('link' => '#', 'page' => lang('Borrowed History')));
-        $meta = array('page_title' => lang('products'), 'bc' => $bc);
+        $bc = array(array('link' => base_url(), 'page' => lang('home')), array('link' => admin_url('users'), 'page' => lang('users')), array('link' => '#', 'page' => lang('borrowed_history')));
+        $meta = array('page_title' => lang('borrowed_history'), 'bc' => $bc);
 
         $this->page_construct('auth/borrowed_history', $meta, $this->data);
     }

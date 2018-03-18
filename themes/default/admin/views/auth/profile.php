@@ -43,7 +43,7 @@
                                     <div class="col-md-12">
                                         <div class="col-md-5">
                                             <div class="form-group">
-                                                <?php echo lang('ID / IQAMA NO.', 'iqama'); ?>
+                                                <?php echo lang('id_iqama', 'iqama'); ?>
                                                 <div class="controls">
                                                     <?php echo form_input('iqama', $user->iqama, 'class="form-control" id="iqama" required="required"'); ?>
                                                 </div>
@@ -96,7 +96,7 @@
                                             </div>
                                             <?php } ?>
 
-                                            <?php if ($Owner && $id != $this->session->userdata('user_id')) { ?>
+                                            <?php if ($Owner && $id == $this->session->userdata('user_id')) { ?>
                                                 <div style="display: none" class="form-group">
                                                     <?php echo lang('username', 'username'); ?>
                                                     <input type="text" name="username" class="form-control"
@@ -109,7 +109,7 @@
                                                     <input type="email" name="email" class="form-control" id="email"
                                                            value="<?= $user->email ?>" required="required"/>
                                                 </div>
-                                                <div style="display: none" class="row">
+                                                <div class="row">
                                                     <div class="panel panel-warning">
                                                         <div
                                                             class="panel-heading"><?= lang('if_you_need_to_rest_password_for_user') ?></div>
