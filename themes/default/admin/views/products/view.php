@@ -4,7 +4,7 @@
         <li class=""><a href="#details" class="tab-grey"><?= lang('product_details') ?></a></li>
         <li style="display:none" class=""><a href="#chart" class="tab-grey"><?= lang('chart') ?></a></li>
         <li style="display:none" class=""><a href="#sales" class="tab-grey"><?= lang('sales') ?></a></li>
-        <li class=""><a href="#history" class="tab-grey"><?= lang('Borrowed History') ?></a></li>
+        <li class=""><a href="#history" class="tab-grey"><?= lang('borrowed_history') ?></a></li>
         <li style="display:none" class=""><a href="#quotes" class="tab-grey"><?= lang('quotes') ?></a></li>
         <?php if($product->type == 'standard') { ?>
         <li style="display:none" class=""><a href="#purchases" class="tab-grey"><?= lang('purchases') ?></a></li>
@@ -127,10 +127,10 @@
                                         </tr>
                                         <?php if ($Owner || $Admin) {
                                             echo '<tr style="display:none"><td>' . lang("cost") . '</td><td>' . $this->sma->formatMoney($product->cost) . '</td></tr>';
-                                            echo '<tr><td>' . lang("Date Purchased") . '</td><td>' . $product->date_purchased . '</td></tr>';
-                                            echo '<tr><td>' . lang("Percentage per year") . '</td><td>' . $this->sma->formatInPercentage($product->percentage) . '</td></tr>';
-                                            echo '<tr><td>' . lang("Purchased Price") . '</td><td>' . $this->sma->formatMoney($product->price) . '</td></tr>';
-                                            echo '<tr><td>' . lang("Current Price") . '</td><td>' . $this->sma->formatMoneyWithPercentYearLess($product->price, $product->date_purchased, $product->percentage) . '</td></tr>';
+                                            echo '<tr><td>' . lang("date") . lang("purchased") . '</td><td>' . $product->date_purchased . '</td></tr>';
+                                            echo '<tr><td>' . lang("percentage_per_year") . '</td><td>' . $this->sma->formatInPercentage($product->percentage) . '</td></tr>';
+                                            echo '<tr><td>' . lang("purchased_price") . '</td><td>' . $this->sma->formatMoney($product->price) . '</td></tr>';
+                                            echo '<tr><td>' . lang("current_price") . '</td><td>' . $this->sma->formatMoneyWithPercentYearLess($product->price, $product->date_purchased, $product->percentage) . '</td></tr>';
                                             if ($product->promotion) {
                                                 echo '<tr><td>' . lang("promotion") . '</td><td>' . $this->sma->formatMoney($product->promo_price) . ' ('.$this->sma->hrsd($product->start_date).' - '.$this->sma->hrsd($product->end_date).')</td></tr>';
                                             }
@@ -663,7 +663,7 @@
         </script>
         <div class="box">
             <div class="box-header">
-                <h2 class="blue"><i class="fa-fw fa fa-heart nb"></i><?= $product->name . ' ' . lang('History'); ?></h2>
+                <h2 class="blue"><i class="fa-fw fa fa-heart nb"></i><?= $product->name . ' ' . lang('history'); ?></h2>
             </div>
             <div class="box-content">
                 <div class="row">
@@ -672,14 +672,14 @@
                             <table id="historyData" class="table table-bordered table-hover table-striped table-condensed">
                                 <thead>
                                     <tr>
-                                        <th><?= lang("Borrowed Date"); ?></th>
-                                        <th><?= lang("Iqama ID"); ?></th>
-                                        <th><?= lang("Name"); ?></th>
-                                        <th><?= lang("Return Date"); ?></th>
-                                        <th><?= lang("Actual Return"); ?></th>
-                                        <th><?= lang("Delay"); ?></th>
-                                        <th><?= lang("Product Status"); ?></th>
-                                        <th><?= lang("Status"); ?></th>
+                                        <th><?= lang("borrowed_date"); ?></th>
+                                        <th><?= lang("id_iqama"); ?></th>
+                                        <th><?= lang("full_name"); ?></th>
+                                        <th><?= lang("return_date"); ?></th>
+                                        <th><?= lang("actual_return_date"); ?></th>
+                                        <th><?= lang("delay"); ?></th>
+                                        <th><?= lang("product").' '.lang("status"); ?></th>
+                                        <th><?= lang("status"); ?></th>
                                     </tr>
                                 </thead>
                                 <tbody>
