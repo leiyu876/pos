@@ -336,7 +336,7 @@
                                     <li id="products_borrowed">
                                         <a class="submenu" href="<?= admin_url('products/borrowed'); ?>">
                                             <i class="fa fa-barcode"></i>
-                                            <span class="text"> <?= lang('Borrowed_Products'); ?></span>
+                                            <span class="text"> <?= lang('borrowed_products'); ?></span>
                                         </a>
                                     </li>
                                     <li id="products_add">
@@ -716,22 +716,22 @@
                                 <ul>
                                     <li id="reports_blacklisted_users">
                                         <a href="<?= admin_url('reports/blacklisted_users') ?>">
-                                            <i class="fa fa-bars"></i><span class="text"> <?= lang('Blacklisted Users'); ?></span>
+                                            <i class="fa fa-bars"></i><span class="text"> <?= lang('blacklisted_users'); ?></span>
                                         </a>
                                     </li>
                                     <li id="reports_damage_products">
                                         <a href="<?= admin_url('reports/damage_products') ?>">
-                                            <i class="fa fa-building"></i><span class="text"> <?= lang('Damage Products'); ?></span>
+                                            <i class="fa fa-building"></i><span class="text"> <?= lang('damage_products'); ?></span>
                                         </a>
                                     </li>
                                     <li id="reports_maintenance_products">
                                         <a href="<?= admin_url('reports/maintenance_products') ?>">
-                                            <i class="fa fa-building"></i><span class="text"> <?= lang('Products need Maintenance'); ?></span>
+                                            <i class="fa fa-building"></i><span class="text"> <?= lang('maintenance_products'); ?></span>
                                         </a>
                                     </li>
                                     <li id="reports_products_typebrand">
                                         <a href="<?= admin_url('reports/products_typebrand') ?>">
-                                            <i class="fa fa-building"></i><span class="text"> <?= lang('Products by Type or Brand'); ?></span>
+                                            <i class="fa fa-building"></i><span class="text"> <?= lang('typebrand_products'); ?></span>
                                         </a>
                                     </li>
                                     <li style="display:none" id="reports_best_sellers">

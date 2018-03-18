@@ -45,7 +45,7 @@
 <div class="box">
     <div class="box-header">
         <h2 class="blue"><i
-                class="fa-fw fa fa-barcode"></i><?= lang('Blacklisted Users'); ?>
+                class="fa-fw fa fa-barcode"></i><?= lang('blacklisted_users'); ?>
         </h2>
         <? if ($Owner || $Admin) { ?>
             <div class="box-icon">
@@ -73,13 +73,13 @@
                     <table id="PRData" class="table table-bordered table-condensed table-hover table-striped">
                         <thead>
                         <tr class="primary">
-                            <th><?= lang("ID / IQAMA NO.") ?></th>
-                            <th><?= lang("Full Name") ?></th>
-                            <th><?= lang("Product Code") ?></th>
-                            <th><?= lang("Product Name") ?></th>
-                            <th><?= lang("Borrowed Date") ?></th>
-                            <th><?= lang("Return Date") ?></th>
-                            <th><?= lang("Actual Return") ?></th>
+                            <th><?= lang("id_iqama") ?></th>
+                            <th><?= lang("full_name") ?></th>
+                            <th><?= lang("product_code") ?></th>
+                            <th><?= lang("product_name") ?></th>
+                            <th><?= lang("borrowed_date") ?></th>
+                            <th><?= lang("return_date") ?></th>
+                            <th><?= lang("actual_return_date") ?></th>
                         </tr>
                         </thead>
                         <tbody>

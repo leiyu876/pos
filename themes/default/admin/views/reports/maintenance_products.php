@@ -39,7 +39,7 @@
 <div class="box">
     <div class="box-header">
         <h2 class="blue"><i
-                class="fa-fw fa fa-barcode"></i><?= lang('Damage Products'); ?>
+                class="fa-fw fa fa-barcode"></i><?= lang('maintenance_products'); ?>
         </h2>
         <? if ($Owner || $Admin) { ?>
             <div class="box-icon">
@@ -67,9 +67,9 @@
                     <table id="PRData" class="table table-bordered table-condensed table-hover table-striped">
                         <thead>
                         <tr class="primary">
-                            <th><?= lang("Code") ?></th>
-                            <th><?= lang("Name") ?></th>
-                            <th><?= lang("Price") ?></th>
+                            <th><?= lang("product_code") ?></th>
+                            <th><?= lang("product_name") ?></th>
+                            <th><?= lang("product_price") ?></th>
                         </tr>
                         </thead>
                         <tbody>

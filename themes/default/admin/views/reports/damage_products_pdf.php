@@ -31,11 +31,11 @@
                     <table id="tableid">
                         <thead>
                             <tr>
-                                <th><?= lang("Product Code") ?></th>
-                                <th><?= lang("Product Name") ?></th>
-                                <th><?= lang("ID / IQAMA NO.") ?></th>
-                                <th><?= lang("Full Name") ?></th>
-                                <th><?= lang("Borrowed Date") ?></th>
+                                <th><?= lang("product_code") ?></th>
+                                <th><?= lang("product_name") ?></th>
+                                <th><?= lang("id_iqama") ?></th>
+                                <th><?= lang("full_name") ?></th>
+                                <th><?= lang("borrowed_date") ?></th>
                             </tr>
                         </thead>
                         <tbody>

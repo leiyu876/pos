@@ -3233,8 +3233,8 @@ class Reports extends MY_Controller
 
     function blacklisted_users() {
 
-        $bc = array(array('link' => base_url(), 'page' => lang('home')), array('link' => admin_url('reports'), 'page' => lang('reports')), array('link' => '#', 'page' => lang('Blacklisted Users')));
-        $meta = array('page_title' => lang('Blacklisted Users'), 'bc' => $bc);
+        $bc = array(array('link' => base_url(), 'page' => lang('home')), array('link' => admin_url('reports'), 'page' => lang('reports')), array('link' => '#', 'page' => lang('blacklisted_users')));
+        $meta = array('page_title' => lang('blacklisted_users'), 'bc' => $bc);
 
         $this->page_construct('reports/blacklisted_users', $meta, $this->data);
     }
@@ -3305,8 +3305,8 @@ class Reports extends MY_Controller
 
     function damage_products() {
 
-        $bc = array(array('link' => base_url(), 'page' => lang('home')), array('link' => admin_url('reports'), 'page' => lang('reports')), array('link' => '#', 'page' => lang('Damage Products')));
-        $meta = array('page_title' => lang('Damage Products'), 'bc' => $bc);
+        $bc = array(array('link' => base_url(), 'page' => lang('home')), array('link' => admin_url('reports'), 'page' => lang('reports')), array('link' => '#', 'page' => lang('damage_products')));
+        $meta = array('page_title' => lang('damage_products'), 'bc' => $bc);
 
         $this->page_construct('reports/damage_products', $meta, $this->data);
     }
@@ -3376,8 +3376,8 @@ class Reports extends MY_Controller
 
     function maintenance_products() {
 
-        $bc = array(array('link' => base_url(), 'page' => lang('home')), array('link' => admin_url('reports'), 'page' => lang('reports')), array('link' => '#', 'page' => lang('Products need Maintenance')));
-        $meta = array('page_title' => lang('Products need Maintenance'), 'bc' => $bc);
+        $bc = array(array('link' => base_url(), 'page' => lang('home')), array('link' => admin_url('reports'), 'page' => lang('reports')), array('link' => '#', 'page' => lang('maintenance_products')));
+        $meta = array('page_title' => lang('maintenance_products'), 'bc' => $bc);
 
         $this->page_construct('reports/maintenance_products', $meta, $this->data);
     }
@@ -3439,8 +3439,8 @@ class Reports extends MY_Controller
             $this->data['datatable_list'] = $query->result_array();
         }
         
-        $bc = array(array('link' => base_url(), 'page' => lang('home')), array('link' => admin_url('reports'), 'page' => lang('reports')), array('link' => '#', 'page' => lang('Products by Type or Brand')));
-        $meta = array('page_title' => lang('Products by Type or Brand'), 'bc' => $bc);
+        $bc = array(array('link' => base_url(), 'page' => lang('home')), array('link' => admin_url('reports'), 'page' => lang('reports')), array('link' => '#', 'page' => lang('typebrand_products')));
+        $meta = array('page_title' => lang('typebrand_products'), 'bc' => $bc);
 
         $this->data['categories'] = $this->site->getAllCategories();
 

@@ -2,7 +2,7 @@
 <div class="box">
     <div class="box-header">
         <h2 class="blue"><i
-                class="fa-fw fa fa-barcode"></i><?= lang('Filter'); ?>
+                class="fa-fw fa fa-barcode"></i><?= lang('filter'); ?>
         </h2>
     </div>
     <div class="box-content">
@@ -11,7 +11,7 @@
                 <div class="col-lg-12">
                     <div class="col-md-4">
                         <div class="form-group">
-                            <?= lang("category", "category") ?>
+                            <?= lang("category_type", "category") ?>
                             <?php
                             $cat[0] = "All";
                             if ($categories == false) {
@@ -27,7 +27,7 @@
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <?= lang("brand", "brand") ?>
+                            <?= lang("brand_model", "brand") ?>
                             <?php
                             /*
                             $br[''] = "All";
@@ -46,7 +46,7 @@
                     </div>
                     <div class="col-md-2">
                         <div class="form-group">
-                            <?= form_submit('search', lang("Search Products"), 'class="btn btn-primary btn-lg" style="margin-top:18px"'); ?>
+                            <?= form_submit('search', lang("search_products"), 'class="btn btn-primary btn-lg" style="margin-top:18px"'); ?>
                         </div>
                     </div>
                     <div class="col-md-2">
@@ -106,7 +106,7 @@
 <div class="box">
     <div class="box-header">
         <h2 class="blue"><i
-                class="fa-fw fa fa-barcode"></i><?= lang('Products by Type or Brand'); ?>
+                class="fa-fw fa fa-barcode"></i><?= lang('typebrand_products'); ?>
         </h2>
     </div>
     <div class="box-content">
@@ -116,11 +116,11 @@
                     <table id="PRData" class="table table-bordered table-condensed table-hover table-striped">
                         <thead>
                         <tr class="primary">
-                            <th><?= lang("Code") ?></th>
-                            <th><?= lang("Name") ?></th>
-                            <th><?= lang("Price") ?></th>
-                            <th><?= lang("Category / Type") ?></th>
-                            <th><?= lang("Brand / Model") ?></th>
+                            <th><?= lang("product_code") ?></th>
+                            <th><?= lang("product_name") ?></th>
+                            <th><?= lang("product_price") ?></th>
+                            <th><?= lang("category_type") ?></th>
+                            <th><?= lang("brand_model") ?></th>
                         </tr>
                         </thead>
                         <tbody>

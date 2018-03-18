@@ -31,9 +31,9 @@
                     <table id="tableid">
                         <thead>
                             <tr>
-                                <th><?= lang("Code") ?></th>
-                                <th><?= lang("Name") ?></th>
-                                <th><?= lang("Price") ?></th>
+                                <th><?= lang("product_code") ?></th>
+                                <th><?= lang("product_name") ?></th>
+                                <th><?= lang("product_price") ?></th>
                             </tr>
                         </thead>
                         <tbody>

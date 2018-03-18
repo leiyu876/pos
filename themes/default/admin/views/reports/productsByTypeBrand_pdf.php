@@ -31,11 +31,11 @@
                     <table id="tableid">
                         <thead>
                             <tr>
-                                <th><?= lang("Code") ?></th>
-                                <th><?= lang("Name") ?></th>
-                                <th><?= lang("Price") ?></th>
-                                <th><?= lang("Category / Type") ?></th>
-                                <th><?= lang("Brand / Model") ?></th>
+                                <th><?= lang("product_code") ?></th>
+                                <th><?= lang("product_name") ?></th>
+                                <th><?= lang("product_price") ?></th>
+                                <th><?= lang("category_type") ?></th>
+                                <th><?= lang("brand_model") ?></th>
                             </tr>
                         </thead>
                         <tbody>

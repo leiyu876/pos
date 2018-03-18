@@ -56,7 +56,7 @@ function row_status($x)
                     <a class="bblue white quick-button small" href="<?= admin_url('products/borrowed') ?>">
                         <i class="fa fa-exchange"></i>
 
-                        <p><?= lang('Borrowed') ?></p>
+                        <p><?= lang('borrowed') ?></p>
                     </a>
                 </div>
 
