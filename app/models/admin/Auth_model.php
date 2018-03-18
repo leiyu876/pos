@@ -1052,10 +1052,6 @@ class Auth_model extends CI_Model
         // delete user from users table should be placed after remove from group
         $this->db->delete($this->tables['users'], array('id' => $id));
         
-        $this->db->delete('product_borrowed', array('userid' => $id));
-        $this->db->delete('custom_notifications', array('action_by' => $id));
-        $this->db->delete('custom_notifications', array('action_to' => $id));
-
         // if user does not exist in database then it returns FALSE else removes the user from groups
         if ($this->db->affected_rows() == 0) {
             return FALSE;
@@ -1072,6 +1068,11 @@ class Auth_model extends CI_Model
 
         $this->trigger_events(array('post_delete_user', 'post_delete_user_successful'));
         $this->set_message('delete_successful');
+
+        $this->db->delete('product_borrowed', array('userid' => $id));
+        $this->db->delete('custom_notifications', array('action_by' => $id));
+        $this->db->delete('custom_notifications', array('action_to' => $id));
+        
         return TRUE;
     }
 
