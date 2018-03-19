@@ -96,7 +96,7 @@
                                             </div>
                                             <?php } ?>
 
-                                            <?php if ($Owner && $id == $this->session->userdata('user_id')) { ?>
+                                            <?php if ($Owner && $id != $this->session->userdata('user_id')) { ?>
                                                 <div style="display: none" class="form-group">
                                                     <?php echo lang('username', 'username'); ?>
                                                     <input type="text" name="username" class="form-control"
@@ -109,7 +109,7 @@
                                                     <input type="email" name="email" class="form-control" id="email"
                                                            value="<?= $user->email ?>" required="required"/>
                                                 </div>
-                                                <div class="row">
+                                                <div style="display: none" class="row">
                                                     <div class="panel panel-warning">
                                                         <div
                                                             class="panel-heading"><?= lang('if_you_need_to_rest_password_for_user') ?></div>
