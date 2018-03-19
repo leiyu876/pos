@@ -15,7 +15,7 @@
                     <div class="col-md-12">
                         <div class="col-md-5">
                             <div class="form-group">
-                                <?php echo lang('ID / IQAMA NO.', 'iqama'); ?>
+                                <?php echo lang('id_iqama', 'iqama'); ?>
                                 <div class="controls">
                                     <?php echo form_input('iqama', '', 'class="form-control" id="iqama" required="required"'); ?>
                                 </div>
