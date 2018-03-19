@@ -39,7 +39,7 @@
 <div class="box">
     <div class="box-header">
         <h2 class="blue"><i
-                class="fa-fw fa fa-barcode"></i><?= lang('maintenance_products'); ?>
+                class="fa-fw fa fa-barcode"></i><?= $page_title; ?>
         </h2>
         <? if ($Owner || $Admin) { ?>
             <div class="box-icon">

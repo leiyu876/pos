@@ -106,7 +106,7 @@
 <div class="box">
     <div class="box-header">
         <h2 class="blue"><i
-                class="fa-fw fa fa-barcode"></i><?= lang('typebrand_products'); ?>
+                class="fa-fw fa fa-barcode"></i><?= $page_title; ?>
         </h2>
     </div>
     <div class="box-content">
