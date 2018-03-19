@@ -23,8 +23,10 @@ class Notifications extends MY_Controller
 
     function index()
     {
-        $bc = array(array('link' => base_url(), 'page' => lang('home')), array('link' => admin_url('products'), 'page' => lang('products')), array('link' => '#', 'page' => lang('Borrowed_Products')));
-        $meta = array('page_title' => lang('products'), 'bc' => $bc);
+        $this->data['page_title'] = lang('notifications');
+
+        $bc = array(array('link' => base_url(), 'page' => lang('home')), array('link' => admin_url('products'), 'page' => lang('products')), array('link' => '#', 'page' => $this->data['page_title']));
+        $meta = array('page_title' => $this->data['page_title'], 'bc' => $bc);
 
         $this->page_construct('notifications/index', $meta, $this->data);
     }
