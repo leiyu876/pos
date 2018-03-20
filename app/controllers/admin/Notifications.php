@@ -25,8 +25,9 @@ class Notifications extends MY_Controller
     {
         $this->load->library('pagination');
         
-        $this->db->select('product_id', 'action', 'action_by', 'action_to');
-        $this->db->join('products', 'products.id = custom_notifications.product_id');
+        $this->db->select('*');
+        $this->db->join('products', 'products.id = custom_notifications.product_id', 'left');
+        $this->db->join('users', 'users.id = custom_notifications.action_to', 'left');
         $query = $this->db->get('custom_notifications', '2', $this->uri->segment(3));
         
 

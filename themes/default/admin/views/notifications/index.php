@@ -21,10 +21,10 @@
                         <tbody>
                             <? foreach ($notifictions as $key => $value) { ?>
                                 <tr>
-                                    <td><?= $value->name ?></td>
+                                    <td><?= $value->name.' ('. $value->code.')'?></td>
                                     <td><?= $value->action ?></td>
-                                    <td><?= $value->action_by ?></td>
-                                    <td><?= $value->action_to ?></td>
+                                    <td><?= $value->first_name.' '.$value->last_name.' ('. $value->iqama.')' ?></td>
+                                    <td><?= $value->action_date ?></td>
                                 </tr>
                             <?} ?>
                         </tbody>
