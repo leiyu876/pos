@@ -23,6 +23,49 @@ class Notifications extends MY_Controller
 
     function index()
     {
+        $this->load->library('pagination');
+        
+        $this->db->select('product_id', 'action', 'action_by', 'action_to');
+        $this->db->join('products', 'products.id = custom_notifications.product_id');
+        $query = $this->db->get('custom_notifications', '2', $this->uri->segment(3));
+        
+
+
+        $this->data['notifictions'] = $query->result();
+
+        $query2 = $this->db->get('custom_notifications');
+
+        $config['base_url'] = base_url().'admin/notifications/index/';
+        
+        $config['total_rows'] = $query2->num_rows();
+        $config['per_page'] = 2;
+        $config['full_tag_open'] = '<ul class="pagination">';
+        $config['full_tag_close'] = '</ul">';
+        $config['first_tag_open'] = '<li>';
+        $config['last_tag_open'] = '<li>';
+        $config['next_tag_open'] = '<li>';
+        $config['prev_tag_open'] = '<li>';
+        $config['num_tag_open'] = '<li>';
+        $config['num_tag_close'] = '</li>';
+        $config['first_tag_close'] = '</li>';
+        $config['last_tag_close'] = '</li>';
+        $config['next_tag_close'] = '</li>';
+        $config['prev_tag_close'] = '</li>';
+        $config['cur_tag_open'] = '<li class="active"><span><b>';
+        $config['cur_tag_close'] = '</b></span></li>';
+
+        $this->pagination->initialize($config);
+
+        $this->data['page_title'] = lang('notifications');
+
+        $bc = array(array('link' => base_url(), 'page' => lang('home')), array('link' => admin_url('products'), 'page' => lang('products')), array('link' => '#', 'page' => $this->data['page_title']));
+        $meta = array('page_title' => $this->data['page_title'], 'bc' => $bc);
+
+        $this->page_construct('notifications/index', $meta, $this->data);
+    }
+
+    function index_old_leo()
+    {
         $this->data['page_title'] = lang('notifications');
 
         $bc = array(array('link' => base_url(), 'page' => lang('home')), array('link' => admin_url('products'), 'page' => lang('products')), array('link' => '#', 'page' => $this->data['page_title']));
