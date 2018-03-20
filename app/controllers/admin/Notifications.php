@@ -24,11 +24,12 @@ class Notifications extends MY_Controller
     function index()
     {
         $this->load->library('pagination');
-        
+        $per_page = 10;
+
         $this->db->select('*');
         $this->db->join('products', 'products.id = custom_notifications.product_id', 'left');
         $this->db->join('users', 'users.id = custom_notifications.action_to', 'left');
-        $query = $this->db->get('custom_notifications', '2', $this->uri->segment(3));
+        $query = $this->db->get('custom_notifications', $per_page, $this->uri->segment(4));
         
 
 
@@ -39,8 +40,8 @@ class Notifications extends MY_Controller
         $config['base_url'] = base_url().'admin/notifications/index/';
         
         $config['total_rows'] = $query2->num_rows();
-        $config['per_page'] = 2;
-        $config['full_tag_open'] = '<ul class="pagination">';
+        $config['per_page'] = $per_page;
+        $config['full_tag_open'] = '<ul class="pagination pull-right" style="margin-top:0px;">';
         $config['full_tag_close'] = '</ul">';
         $config['first_tag_open'] = '<li>';
         $config['last_tag_open'] = '<li>';

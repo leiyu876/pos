@@ -29,8 +29,8 @@
                             <?} ?>
                         </tbody>
                     </table>
-                    <?= $this->pagination->create_links(); ?>
                 </div>
+                <?= $this->pagination->create_links(); ?>
             </div>
         </div>
     </div>
