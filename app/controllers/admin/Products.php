@@ -167,11 +167,28 @@ class Products extends MY_Controller
 
     function getBorrowedProducts($warehouse_id = NULL)
     {  
+        /*
+        // if you want to add shortcut icon for returning product, idea only
         $actions = "
             <div class=\"text-center\">
                 <a class=\"tip\" title='" . lang("return") . "' href='" . admin_url('products/TransferToOtherUser/$1') . "' data-toggle='modal' data-target='#myModal'>
                         <i class=\"fa fa-arrow-left\"></i>
                 </a> 
+                <a href='" . admin_url('products/edit_borrowed/$1') . "' data-toggle='modal' data-target='#myModal' class='tip' title='" . lang("edit") . "'>
+                    <i class=\"fa fa-edit\"></i>
+                </a> 
+                <a href='#' class='tip po' title='<b>" . lang("delete") . "</b>' data-content=\"<p>" . lang('r_u_sure') . "</p>
+                    <a class='btn btn-danger po-delete' href='" . admin_url('products/delete_borrowed/$1') . "'>" 
+                    . lang('i_m_sure') . "</a> 
+                    <button class='btn po-close'>" . lang('no') . "</button>\"  rel='popover'><i class=\"fa fa-trash-o\"></i>
+                </a>    
+                <a class=\"tip\" title='" . lang("transfer_user_to_user") . "' href='" . admin_url('products/TransferToOtherUser/$1') . "' data-toggle='modal' data-target='#myModal'>
+                    <i class=\"fa fa-arrow-right\"></i>
+                </a>             
+            </div>";
+        */
+        $actions = "
+            <div class=\"text-center\">
                 <a href='" . admin_url('products/edit_borrowed/$1') . "' data-toggle='modal' data-target='#myModal' class='tip' title='" . lang("edit") . "'>
                     <i class=\"fa fa-edit\"></i>
                 </a> 
