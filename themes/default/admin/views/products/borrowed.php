@@ -45,11 +45,15 @@
                 {"bSortable": true},        
                 {"bSortable": true},        
                 {"bSortable": true, "mRender": capitalizeFirstLetter},
-                {"bSortable": false}, 
+                {"bSortable": false, "sWidth": "0"}, 
             ]
         });
     });
 </script>
+<style>
+        table#PRData tr td:first-child { display: none; }
+        table#PRData tr th:first-child { display: none; }
+</style>
 <?php if ($Owner || $GP['bulk_actions']) {
     echo admin_form_open('products/product_actions'.($warehouse_id ? '/'.$warehouse_id : ''), 'id="action-form"');
 } ?>
